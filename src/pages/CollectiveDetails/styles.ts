@@ -42,79 +42,17 @@ export const HomeTabWrapper = styled.div`
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    flex: 64;
+    flex: 1;
   }
   .rightPart {
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    flex: 52;
-    max-width: 520px;
+    width: 440px;
   }
 
   .dropdownlist {
     width: 140px;
-  }
-
-  .filtering {
-    background: #ffffff;
-    border: 1px solid #e4e7ec;
-    border-radius: 8px;
-    padding: 12px 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    grid-gap: 24px;
-
-    .saveBtn {
-      cursor: pointer;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 8px;
-      width: 40px;
-      height: 40px;
-      border: 2px solid #e4e7ec;
-      filter: drop-shadow(0px 1px 2px rgba(16, 24, 40, 0.05));
-      border-radius: 200px;
-
-      &:hover {
-        border: 2px solid #677172;
-        filter: drop-shadow(0px 1px 2px rgba(16, 24, 40, 0.05));
-        border-radius: 200px;
-        color: #101828;
-        background: linear-gradient(
-          90.04deg,
-          #677172 0%,
-          #6e8082 28.16%,
-          #b9b5b5 53.98%,
-          #78726b 79.6%,
-          #5f5e64 104.68%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-      }
-
-      &.active {
-        background: #101828;
-        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-        border-radius: 200px;
-        border-color: #101828;
-        color: #ffffff;
-        &:hover {
-          color: #101828 !important;
-          background: #fff !important;
-          -webkit-background-clip: inherit;
-          -webkit-text-fill-color: inherit;
-          background-clip: inherit;
-          text-fill-color: inherit;
-        }
-      }
-    }
   }
 
   .ellipse80 {
@@ -232,15 +170,14 @@ export const ForumTabWrapper = styled.div`
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    flex: 70;
+    flex: 1;
   }
 
   .rightSection {
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    flex: 46;
-    max-width: 460px;
+    width: 440px;
   }
 
   .dropdownlist {
@@ -283,66 +220,6 @@ export const ForumTabWrapper = styled.div`
         border: 2px solid #8099f8 !important;
         transition: border 0.2s;
         background-color: transparent !important;
-      }
-    }
-  }
-
-  .filtering {
-    background: #ffffff;
-    border: 2px solid #d0d5dd;
-    border-radius: 10px;
-    padding: 12px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    .saveBtn {
-      cursor: pointer;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 8px;
-      width: 40px;
-      height: 40px;
-      border: 2px solid #e4e7ec;
-      filter: drop-shadow(0px 1px 2px rgba(16, 24, 40, 0.05));
-      border-radius: 200px;
-
-      &:hover {
-        border: 2px solid #677172;
-        filter: drop-shadow(0px 1px 2px rgba(16, 24, 40, 0.05));
-        border-radius: 200px;
-        color: #101828;
-        background: linear-gradient(
-          90.04deg,
-          #677172 0%,
-          #6e8082 28.16%,
-          #b9b5b5 53.98%,
-          #78726b 79.6%,
-          #5f5e64 104.68%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-      }
-
-      &.active {
-        background: #101828;
-        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-        border-radius: 200px;
-        border-color: #101828;
-        color: #ffffff;
-        &:hover {
-          color: #101828 !important;
-          background: #fff !important;
-          -webkit-background-clip: inherit;
-          -webkit-text-fill-color: inherit;
-          background-clip: inherit;
-          text-fill-color: inherit;
-        }
       }
     }
   }
@@ -559,60 +436,9 @@ export const EventsTabWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px 0;
-  // grid-gap: 16px;
-
-  .filtering {
-    background: #ffffff;
-    border: 1px solid #e4e7ec;
-    border-radius: 8px;
-    padding: 10px 16px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    grid-gap: 80px;
-  }
-
-  .postActions {
-    display: flex;
-    flex-directon: row;
-    align-items: center;
-    grid-gap: 20px;
-    .postBtn {
-      border-radius: 100%;
-      width: 72px;
-      height: 72px;
-      border: 2px solid #e4e7ec;
-      padding: 0;
-      box-shadow: none !important;
-      &:hover {
-        border: 2px solid #8099f8 !important;
-        transition: border 0.2s;
-        background-color: transparent !important;
-      }
-    }
-
-    .imageBtn {
-      border-radius: 16px;
-      width: 72px;
-      height: 72px;
-      border: 2px solid #e4e7ec;
-      padding: 0;
-      box-shadow: none !important;
-      &:hover {
-        border: 2px solid #8099f8 !important;
-        transition: border 0.2s;
-        background-color: transparent !important;
-      }
-    }
-  }
+  grid-gap: 16px;
 
   .mainPart {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 16px;
-    padding: 24px 0;
-    gap: 36px;
-
     .sideContent {
       display: flex;
       flex-direction: column;
@@ -626,214 +452,6 @@ export const EventsTabWrapper = styled.div`
         font-size: 24px;
         line-height: 32px;
         color: #101828;
-      }
-    }
-  }
-`;
-
-export const SocialTabWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  grid-gap: 16px;
-
-  .sideContent {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 16px;
-    flex: 1;
-
-    .subTitle {
-      font-family: "Montserrat", serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 32px;
-      color: #101828;
-    }
-  }
-
-  .updatesList {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 16px;
-    padding: 16px;
-    border: 1px solid #e4e7ec;
-    border-radius: 10px;
-
-    .updateItem {
-      display: flex;
-      flex-direction: row;
-      grid-gap: 8px;
-      .icon {
-        width: 40px;
-        height: 40px;
-      }
-      .updateContent {
-        display: flex;
-        flex-direction: column;
-        grid-gap: 8px;
-        flex: 1;
-        .max {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 20px;
-          color: #344054;
-        }
-        .creator {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 8px;
-          line-height: 8px;
-          text-align: center;
-          color: #ffffff;
-          background: #2d31a6;
-          border-radius: 16px;
-          padding: 2px 4px;
-        }
-        .updateText {
-          font-family: "Inter", serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 24px;
-          color: #101828;
-          background: #f2f4f7;
-          border-radius: 0px 8px 8px 8px;
-          padding: 10px 14px;
-        }
-        .updateTime {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 18px;
-          color: #667085;
-        }
-        .updateFavorite {
-          padding: 2px 9px;
-          background: #f9fafb;
-          border-radius: 16px;
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 20px;
-          text-align: center;
-          color: #344054;
-        }
-      }
-    }
-  }
-
-  .eventList {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 32px;
-    padding: 16px;
-    border: 1px solid #e4e7ec;
-    border-radius: 10px;
-    .eventItem {
-      background: #f2f4f7;
-      border: 1px solid #d0d5dd;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: row;
-      grid-gap: 8px;
-      padding: 16px 24px;
-      .eventContent {
-        flex: 2;
-        display: flex;
-        flex-direction: column;
-        grid-gap: 4px;
-
-        .eventTittle {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 20px;
-          color: #101828;
-        }
-        .eventTime {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 18px;
-          color: #475467;
-        }
-        .eventText {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 18px;
-          color: #98a2b3;
-        }
-      }
-      .eventActions {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        grid-gap: 4px;
-      }
-    }
-  }
-
-  .feedList {
-    display: flex;
-    flex-direction: column;
-    grid-gap: 16px;
-    padding: 16px;
-    border: 1px solid #e4e7ec;
-    border-radius: 10px;
-    .feedItem {
-      display: flex;
-      flex-direction: row;
-      grid-gap: 8px;
-      .feedContent {
-        display: flex;
-        flex-direction: column;
-        grid-gap: 8px;
-        flex: 1;
-        .feedIcon {
-          width: 40px;
-          height: 40px;
-        }
-        .feedText {
-          padding: 10px 14px;
-          font-family: "Inter", serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 24px;
-          color: #101828;
-          background-color: #f2f4f7;
-        }
-        .feedTime {
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 18px;
-          color: #667085;
-        }
-        .feedFavorite {
-          cursor: pointer;
-          padding: 2px 9px;
-          background: #f9fafb;
-          border-radius: 16px;
-          font-family: "Montserrat", serif;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 20px;
-          text-align: center;
-          color: #344054;
-        }
       }
     }
   }

@@ -1,14 +1,8 @@
 import API from "api/api";
 import useActiveWeb3React from "hooks/useActiveWeb3React";
+import { filter } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
-import {
-  updateCollective,
-  updateForums,
-  updateGalleries,
-  updateSortOption,
-} from "state/collective";
 import CollectiveHeader from "./CollectiveHeader";
 import CollectiveSidebar from "./CollectiveSidebar";
 import { CollectiveLayoutWrapper } from "./styles";
@@ -23,48 +17,18 @@ export default function CollectiveLayout() {
   const [galleries, setGalleries] = useState<any[]>([]);
   const [isMixed, setIsMixed] = useState(false);
   const [sortOption, setSortOption] = useState("trending");
-  const dispatch = useDispatch();
+  const [filter, updateFilter] = useState({
+    onlySaved: false,
+    onlyMyPosts: false
+  })
 
   useEffect(() => {
     API.getCollectiveByName(cname, account).then((res) => {
       if (res.data.success) {
         setCollectiveInfo(res.data.collective);
-        dispatch(updateCollective(res.data.collective));
       }
     });
   }, [cname, account]);
-
-  const onUpdateGallery = (idx: number, gallery: any) => {
-    const newGalleries = [...galleries];
-    newGalleries[idx] = gallery;
-    setGalleries(newGalleries);
-
-    const newMixedData = [...mixedData];
-    setMixedData(
-      newMixedData.map((item) => {
-        if (item.gallery_id === gallery.gallery_id) {
-          return gallery;
-        }
-        return item;
-      })
-    );
-  };
-
-  const onUpdateForum = (idx: number, forum: any) => {
-    const newForums = [...forums];
-    newForums[idx] = forum;
-    setForums(newForums);
-
-    const newMixedData = [...mixedData];
-    setMixedData(
-      newMixedData.map((item) => {
-        if (item.forum_id === forum.forum_id) {
-          return forum;
-        }
-        return item;
-      })
-    );
-  };
 
   const addNewForum = (newForum) => {
     const newForums = [...forums];
@@ -169,17 +133,14 @@ export default function CollectiveLayout() {
         sortOption
       ).then((res) => {
         setForums(res.data.forums);
-        dispatch(updateForums(res.data.forums));
       });
 
       API.getGalleries(collectiveInfo.collective_id, account, sortOption).then(
         (res) => {
           const galleries = res.data.galleries || [];
           setGalleries(galleries);
-          dispatch(updateGalleries(galleries));
         }
       );
-      dispatch(updateSortOption(sortOption));
     }
   }, [account, sortOption, collectiveInfo]);
   return (
@@ -206,6 +167,10 @@ export default function CollectiveLayout() {
                 setGalleries,
                 setMixedData,
                 collectiveInfo,
+                sort: sortOption,
+                updateSort: setSortOption,
+                filter,
+                updateFilter
               }}
             />
           </div>

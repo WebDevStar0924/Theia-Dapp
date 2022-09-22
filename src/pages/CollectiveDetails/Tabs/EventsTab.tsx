@@ -1,34 +1,27 @@
-import { Button } from "components/Button";
-import { EventCard } from "components/EventCard";
-import { TabList } from "components/TabList";
-import { FiCalendar, FiEdit3, FiImage } from "react-icons/fi";
-import { CalendarIcon, FireIcon, TopIcon } from "../../../components/Svg";
-import { EventsTabWrapper } from "../styles";
-import { CollectiveInfo } from "../types";
 import { EventCarousel } from "components/Carousel";
-import {
-  useEventCreateModal,
-} from "widgets/EventModal/useShareEventModal";
+import { EventCard } from "components/EventCard";
+import { FilterBar } from "components/FilterBar";
+import { CollectiveContextProps } from "pages/CollectiveLayout/types";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import { useEventCreateModal } from "widgets/EventModal/useShareEventModal";
+import { EventsTabWrapper } from "../styles";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface iProps {
-  collectiveInfo: CollectiveInfo;
-  sortOption: string;
-}
-
-export default function EventsTab(props: iProps) {
-  const { sortOption, collectiveInfo } = props;
-  const { onPresentEventCreateModal } = useEventCreateModal();
-  const { cname } = useParams();
-
+export default function EventsTab() {
+  const { sort, updateSort, filter, updateFilter } =
+    useOutletContext<CollectiveContextProps>();
+  const [events, updateEventList] = useState<any[]>([1, 2, 3]);
   const navigate = useNavigate();
+
+  // const { onPresentEventDetailModal } = useEventCreateModal();
   const responsive = {
     xlarge: {
       breakpoint: {
         max: 3000,
         min: 1920,
       },
-      items: 4,
+      items: 3,
       partialVisibilityGutter: 50,
     },
     large: {
@@ -67,77 +60,21 @@ export default function EventsTab(props: iProps) {
 
   return (
     <EventsTabWrapper>
-      <div style={{ display: "flex" }}>
-        <div className="filtering">
-          <div className="postActions">
-            <Button
-              className="postBtn"
-              onClick={() => {
-                onPresentEventCreateModal({});
-                // handleCreateForum(collectiveInfo.collective_id, account, () =>
-                //   onPresentForumModal({
-                //     active: "POST",
-                //     collectiveID: collectiveInfo.collective_id,
-                //     callback: addNewForum,
-                //   })
-                // );
-              }}
-            >
-              <FiEdit3 size={24} color="#101828" />
-            </Button>
-            <Button
-              className="imageBtn"
-              onClick={() => {
-                // handleCreateForum(collectiveInfo.collective_id, account, () =>
-                //   onPresentShareArtModal()
-                // );
-              }}
-            >
-              <FiImage size={24} color="#101828" />
-            </Button>
-            <Button className="postBtn" onClick={() => { }}>
-              <FiCalendar size={24} color="#101828" />
-            </Button>
-          </div>
-
-          <TabList
-            items={[
-              {
-                text: "TRENDING",
-                value: "trending",
-                icon:
-                  sortOption === "trending" ? (
-                    <FireIcon width={"24px"} />
-                  ) : null,
-              },
-              {
-                text: "NEW",
-                value: "new",
-                onClick: () => { },
-                icon:
-                  sortOption === "new" ? <CalendarIcon width={"24px"} /> : null,
-              },
-              {
-                text: "TOP",
-                value: "top",
-                icon: sortOption === "top" ? <TopIcon width={"24px"} /> : null,
-              },
-            ]}
-            activeTab={sortOption}
-            setActiveTab={(val) => { }}
-          />
-        </div>
-      </div>
+      <FilterBar
+        sort={sort}
+        updateSort={updateSort}
+        filter={filter}
+        updateFilter={updateFilter}
+      />
 
       <div className="mainPart">
         <div className={"sideContent"}>
           <div className={"subTitle"}>Upcoming Events</div>
           <EventCarousel
-            items={[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <EventCard
-                onClick={() => {
-                  navigate(`details/${item}`)
-                }}
+            items={events.map((item, index) => (
+              <EventCard onClick={() => {
+                navigate(`details/${item}`)
+              }}
 
                 key={index}
               />
@@ -145,15 +82,13 @@ export default function EventsTab(props: iProps) {
             responsive={responsive}
           />
         </div>
-
         <div className={"sideContent"}>
           <div className={"subTitle"}>Featured Events</div>
           <EventCarousel
-            items={[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <EventCard
-                onClick={() => {
-                  navigate(`details/${item}`)
-                }}
+            items={events.map((item, index) => (
+              <EventCard onClick={() => {
+                navigate(`details/${item}`)
+              }}
 
                 key={index}
               />
@@ -165,11 +100,10 @@ export default function EventsTab(props: iProps) {
         <div className={"sideContent"}>
           <div className={"subTitle"}>Community Events</div>
           <EventCarousel
-            items={[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <EventCard
-                onClick={() => {
-                  navigate(`details/${item}`)
-                }}
+            items={events.map((item, index) => (
+              <EventCard onClick={() => {
+                navigate(`details/${item}`)
+              }}
 
                 key={index}
               />
@@ -181,11 +115,10 @@ export default function EventsTab(props: iProps) {
         <div className={"sideContent"}>
           <div className={"subTitle"}>Past Events</div>
           <EventCarousel
-            items={[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <EventCard
-                onClick={() => {
-                  navigate(`details/${item}`)
-                }}
+            items={events.map((item, index) => (
+              <EventCard onClick={() => {
+                navigate(`details/${item}`)
+              }}
 
                 key={index}
               />

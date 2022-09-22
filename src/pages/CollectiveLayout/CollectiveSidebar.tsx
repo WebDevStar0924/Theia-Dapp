@@ -4,12 +4,12 @@ import useActiveWeb3React from "hooks/useActiveWeb3React";
 import { useMembership } from "hooks/useMembership";
 import { useEffect, useState } from "react";
 import { FiCalendar, FiEdit3, FiHome, FiImage, HiPlus } from "react-icons/all";
-import { useNavigate, useParams } from "react-router-dom";
-import { Flex } from "theme-ui";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useForumModal from "widgets/CreateForumModal/useForumModal";
 import { useShareArtModal } from "widgets/GalleryModal/useShareArtModal";
 import defaultProjectIcon from "../../assets/image/defaultProjectIcon.png";
-import useEventCardModal from "../../widgets/EventCardModal/useEventCardModal";
+// import useEventCardModal from "../../widgets/EventCardModal/useEventCardModal";
+import { useEventCreateModal } from "widgets/EventModal/useShareEventModal";
 
 import { CollectiveSidebarWrapper } from "./styles";
 
@@ -21,14 +21,16 @@ interface iProps {
 }
 export default function CollectiveSidebar(props: iProps) {
   const { cname, ctab } = useParams();
+  const location = useLocation();
   const { collectiveInfo, galleries, addNewForum, addNewGallery } = props;
   const [activeTabItem, setActiveTabItem] = useState("home");
   const [isShowEventBtns, showEventBtns] = useState(false);
   const onMemberShipCheck = useMembership();
   const { account } = useActiveWeb3React();
-  const { onPresentEventCardModal } = useEventCardModal();
+  // const { onPresentEventCardModal } = useEventCardModal();
 
   const { onPresentForumModal } = useForumModal();
+  const { onPresentEventCreateModal } = useEventCreateModal();
   const { onPresentShareArtModal } = useShareArtModal(
     galleries,
     addNewGallery,
@@ -36,8 +38,22 @@ export default function CollectiveSidebar(props: iProps) {
   );
   const navigate = useNavigate();
   useEffect(() => {
-    setActiveTabItem(ctab ?? "home");
-  }, [ctab]);
+    switch (location.pathname) {
+      case `/collective/${cname}`:
+      case `/collective/${cname}/home`:
+        setActiveTabItem("home");
+        break;
+      case `/collective/${cname}/forum`:
+        setActiveTabItem("forum");
+        break;
+      case `/collective/${cname}/gallery`:
+        setActiveTabItem("gallery");
+        break;
+      case `/collective/${cname}/events`:
+        setActiveTabItem("events");
+        break;
+    }
+  }, [location]);
   return (
     <CollectiveSidebarWrapper>
       <img
@@ -84,7 +100,7 @@ export default function CollectiveSidebar(props: iProps) {
             </div>
             <div className="eventBtn"
               onClick={() =>
-                onPresentEventCardModal()}
+                onPresentEventCreateModal({})}
             >
               <FiCalendar size={24} color="#101828" />
               <span>Event</span>

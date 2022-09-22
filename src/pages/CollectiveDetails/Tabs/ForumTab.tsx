@@ -1,50 +1,27 @@
-import classnames from "classnames";
 import { Card } from "components/Card";
 import { ExpandableView } from "components/ExpandableView";
+import { FilterBar } from "components/FilterBar";
 import { ForumCard } from "components/ForumCard";
-import { CalendarIcon, FireIcon, TopIcon } from "components/Svg";
-import { TabList } from "components/TabList";
-import { useState } from "react";
-import { FiBookmark } from "react-icons/all";
-import { useNavigate } from "react-router-dom";
-import { Flex } from "theme-ui";
+import { CollectiveContextProps } from "pages/CollectiveLayout/types";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { ForumTabWrapper } from "../styles";
 
-interface iProps {
-  collectiveInfo: any;
-  forums: any[];
-  handleUpdateForums: (newData: any[]) => void;
-  sortOption: string;
-  updateSort: (option: string) => void;
-  selectedForumId?: number;
-  collectiveId: string;
-  galleries: any[];
-  handleUpdateGalleries: (galleries: any[]) => void;
-}
-
-export default function ForumTab(props: iProps) {
+export default function ForumTab() {
+  const navigate = useNavigate();
   const {
     forums,
-    handleUpdateForums,
+    setForums,
     collectiveInfo,
-    sortOption,
+    sort,
     updateSort,
-    galleries,
-    handleUpdateGalleries,
-  } = props;
-  const navigate = useNavigate();
-
-  const [onlyMyPosts, showOnlyMyPosts] = useState(false);
-  const [onlySaved, showOnlySaved] = useState(false);
+    filter,
+    updateFilter,
+  } = useOutletContext<CollectiveContextProps>();
 
   const onUpdateForum = (idx: number, forum: any) => {
     const newForums = [...forums];
     newForums[idx] = forum;
-    handleUpdateForums(newForums);
-  };
-
-  const onAddGalleries = (shared) => {
-    handleUpdateGalleries([...shared, ...galleries]);
+    setForums(newForums);
   };
 
   const guidelines = [
@@ -90,52 +67,12 @@ export default function ForumTab(props: iProps) {
   return (
     <ForumTabWrapper>
       <div className="leftSection">
-        <div className="filtering">
-          <TabList
-            items={[
-              {
-                text: "TRENDING",
-                value: "trending",
-                icon:
-                  sortOption === "trending" ? (
-                    <FireIcon width={"24px"} />
-                  ) : null,
-              },
-              {
-                text: "NEW",
-                value: "new",
-                icon:
-                  sortOption === "new" ? <CalendarIcon width={"24px"} /> : null,
-              },
-              {
-                text: "TOP",
-                value: "top",
-                icon: sortOption === "top" ? <TopIcon width={"24px"} /> : null,
-              },
-            ]}
-            activeTab={sortOption}
-            setActiveTab={(val) => updateSort(val)}
-          />
-
-          <Flex style={{ gridGap: "10px" }}>
-            <div
-              className={classnames("saveBtn", {
-                active: onlySaved,
-              })}
-              onClick={() => showOnlySaved(!onlySaved)}
-            >
-              <FiBookmark size={24} />
-            </div>
-            <div
-              className={classnames("saveBtn", {
-                active: onlyMyPosts,
-              })}
-              onClick={() => showOnlyMyPosts(!onlyMyPosts)}
-            >
-              <span>✨</span>
-            </div>
-          </Flex>
-        </div>
+        <FilterBar
+          sort={sort}
+          updateSort={updateSort}
+          filter={filter}
+          updateFilter={updateFilter}
+        />
         {forums &&
           forums.map((item, idx) => (
             <div id={`forum_${item.forum_id}`}>
@@ -148,7 +85,7 @@ export default function ForumTab(props: iProps) {
                   );
                 }}
                 onUpdateForum={(forum) => onUpdateForum(idx, forum)}
-                sort={sortOption}
+                sort={sort}
               />
             </div>
           ))}

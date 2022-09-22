@@ -19,7 +19,7 @@ export default function CustomCarousel(props: iProps) {
       dotListClass=""
       draggable
       focusOnSelect={false}
-      infinite
+      infinite={false}
       itemClass=""
       keyBoardControl
       minimumTouchDrag={80}

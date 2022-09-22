@@ -1,7 +1,8 @@
 import API from "api/api";
 import { useMembership } from "hooks/useMembership";
+import { CollectiveContextProps } from "pages/CollectiveLayout/types";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { checkVideoUrl, getImageLinkFromMetadata } from "utils";
 import defaultProjectIcon from "../../../assets/image/defaultProjectIcon.png";
 import { FavouriteIcon, SpinnerIcon } from "../../../components/Svg";
@@ -89,8 +90,8 @@ function ArtItem(props: ArtItemProps) {
   );
 }
 
-export default function GalleryTab(props: iProps) {
-  const { collectiveInfo, galleries, handleUpdateGalleries } = props;
+export default function GalleryTab() {
+  const {galleries, setGalleries, collectiveInfo} = useOutletContext<CollectiveContextProps>()
   const { account, chainId } = useActiveWeb3React();
   const onMemberShipCheck = useMembership();
 
@@ -100,14 +101,14 @@ export default function GalleryTab(props: iProps) {
 
   const onShare = (shared: any[]) => {
     setSharedNfts([...sharedNfts, ...shared]);
-    handleUpdateGalleries([...sharedNfts, ...shared]);
+    setGalleries([...sharedNfts, ...shared]);
   };
   const onRemove = (removed: any[]) => {
     const shared = sharedNfts.filter(
       (nft) => !removed.find((item) => item.id.tokenId === nft.id.tokenId)
     );
     setSharedNfts(shared);
-    handleUpdateGalleries(shared);
+    setGalleries(shared);
   };
 
   const { onPresentShareArtModal } = useShareArtModal(

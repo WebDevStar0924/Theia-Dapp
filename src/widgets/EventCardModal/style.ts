@@ -1,5 +1,17 @@
 import styled from "styled-components";
-
+export const EventCardWrapper = styled.div`
+  width: 768px;
+  height: 658px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 16px;
+  padding: 1px;
+  }
+  .socialButton {
+    &: hover{
+      cursor: pointer;  
+    }`
+  ;
 export const EventCardModalBodyWrapper = styled.div`
   padding: 0px 40px 32px 40px;
   .modalTitle{ 
@@ -83,7 +95,7 @@ export const EventCardModalBodyWrapper = styled.div`
     line-height: 24px;
     color: #101828;
   }
-  .addToCalendarButton{
+  .attendButton{
     cursor: pointer;
     display: flex;
     flex-direction: row;

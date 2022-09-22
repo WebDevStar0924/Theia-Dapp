@@ -3,9 +3,14 @@ import "aos/dist/aos.css";
 import { Layout } from "layout/Layout";
 import { AcceptMobileView } from "pages/AcceptMobile";
 import { CollectiveDetails } from "pages/CollectiveDetails";
+import EventsTab from "pages/CollectiveDetails/Tabs/EventsTab";
+import ForumTab from "pages/CollectiveDetails/Tabs/ForumTab";
+import GalleryTab from "pages/CollectiveDetails/Tabs/GalleryTab";
+import HomeTab from "pages/CollectiveDetails/Tabs/HomeTab";
 import { CollectiveLayout } from "pages/CollectiveLayout";
 import { Explore } from "pages/Explore";
 import { ForumDetails } from "pages/ForumDetails";
+import Home from "pages/Home";
 import Mint from "pages/mint";
 import NotFound from "pages/notFound";
 import PrivacyPolicy from "pages/privacyPolicy";
@@ -53,13 +58,17 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Navigate to="/collective/THEIA" />} />
-          <Route path="/home" element={<Navigate to="/collective/THEIA" />} />
+          {/* <Route path="/home" element={<Navigate to="/collective/THEIA" />} /> */}
+          <Route path="/home" element={<Home />} />
           <Route path="/mint" element={<Mint />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/acceptMobile" element={<AcceptMobileView />} />
           <Route path={"/collective"} element={<CollectiveLayout />}>
-            <Route path=":cname" element={<CollectiveDetails />} />
-            <Route path=":cname/:ctab" element={<CollectiveDetails />} />
+            <Route path=":cname" element={<HomeTab />} />
+            <Route path=":cname/home" element={<HomeTab />} />
+            <Route path=":cname/forum" element={<ForumTab />} />
+            <Route path=":cname/gallery" element={<GalleryTab />} />
+            <Route path=":cname/events" element={<EventsTab />} />
             <Route
               path=":cname/:ctab/:post_id"
               element={<CollectiveDetails />}

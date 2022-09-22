@@ -1,5 +1,4 @@
 import API from "api/api";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
 import { CollectiveContextProps } from "pages/CollectiveLayout/types";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,13 +7,10 @@ import {
   useLocation,
   useNavigate,
   useOutletContext,
-  useParams,
+  useParams
 } from "react-router-dom";
 import {
-  updateCollective,
-  updateForums,
-  updateGalleries,
-  updateMembers,
+  updateMembers
 } from "state/collective";
 import { useArtDetailModal } from "widgets/GalleryModal/useShareArtModal";
 import { CollectiveDetailsContainer } from "./styles";
@@ -22,7 +18,6 @@ import EventsTab from "./Tabs/EventsTab";
 import ForumTab from "./Tabs/ForumTab";
 import GalleryTab from "./Tabs/GalleryTab";
 import HomeTab from "./Tabs/HomeTab";
-import SocialTab from "./Tabs/SocialTab";
 
 interface LocationState {
   forum_id: string;
@@ -87,43 +82,14 @@ export default function CollectiveDetails() {
           <div className={"detailsContent"}>
             {(ctab === "home" || ctab === undefined) && (
               <HomeTab
-                collectiveInfo={collectiveInfo}
-                forums={forums || []}
-                galleries={galleries}
-                handleUpdateForums={(forums) => {
-                  setForums(forums);
-                }}
-                handleUpdateGalleries={(galleries) => {
-                  setGalleries(galleries);
-                }}
-                sortOption={sortOption}
-                updateSort={(val) => setSortOption(val)}
-                members={members}
               />
             )}
             {ctab === "forum" && (
               <ForumTab
-                collectiveInfo={collectiveInfo}
-                forums={forums}
-                handleUpdateForums={(forums) => {
-                  setForums(forums);
-                }}
-                sortOption={sortOption}
-                updateSort={(val) => setSortOption(val)}
-                collectiveId={collectiveInfo.collective_id}
-                galleries={galleries}
-                handleUpdateGalleries={(galleries) => {
-                  setGalleries(galleries);
-                }}
               />
-            )}
-            {ctab === "updates" && (
-              <SocialTab collectiveInfo={collectiveInfo} />
             )}
             {ctab === "events" && event_id === undefined && (
               <EventsTab
-                sortOption={sortOption}
-                collectiveInfo={collectiveInfo}
               />
             )}
             {ctab === "events" && event_id !== undefined && (
@@ -132,11 +98,6 @@ export default function CollectiveDetails() {
             )}
             {ctab === "gallery" && (
               <GalleryTab
-                collectiveInfo={collectiveInfo}
-                galleries={galleries}
-                handleUpdateGalleries={(galleries) => {
-                  setGalleries(galleries);
-                }}
               />
             )}
           </div>

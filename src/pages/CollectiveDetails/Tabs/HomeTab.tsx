@@ -1,43 +1,29 @@
 import classnames from "classnames";
 import { Card } from "components/Card";
 import { ExpandableView } from "components/ExpandableView";
+import { FilterBar } from "components/FilterBar";
 import { Flex } from "components/Flex";
 import { ForumCard } from "components/ForumCard";
 import { GalleryCard } from "components/GalleryCard";
 import { ImageCard } from "components/ImageCard/ImageCard";
-import { CalendarIcon, FireIcon, TopIcon } from "components/Svg";
-import { TabList } from "components/TabList";
 import { CollectiveContextProps } from "pages/CollectiveLayout/types";
 import { useRef, useState } from "react";
-import { FiBookmark } from "react-icons/all";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import {
   ResponsiveContainer,
-  StackedCarousel,
+  StackedCarousel
 } from "react-stacked-center-carousel";
 import { formatBlockchainAddress } from "utils";
 import stackedBg from "../../../assets/image/stackedBg.png";
 import { galleryImages } from "../data";
 import { HomeTabWrapper, StackedCarouselWrapper } from "../styles";
-
-interface AboutProps {
-  collectiveInfo: any;
-  forums: any[];
-  galleries: any[];
-  handleUpdateForums: (newData: any[]) => void;
-  handleUpdateGalleries: (newData: any[]) => void;
-  sortOption: string;
-  updateSort: (option: string) => void;
-  members: any[];
-}
-
-export default function HomeTab(props: AboutProps) {
-  const { sortOption, updateSort, members } = props;
+import EventCardModal from "../../../widgets/EventCardModal"
+export default function HomeTab() {
+  // const { sortOption, updateSort, members } = props;
+  const members: any[] = []
   const [activeSlideNum, setActiveSlideNum] = useState(0);
-  const [onlyMyPosts, showOnlyMyPosts] = useState(false);
-  const [onlySaved, showOnlySaved] = useState(false);
   const ref = useRef<any>(null);
   const navigate = useNavigate();
 
@@ -49,6 +35,10 @@ export default function HomeTab(props: AboutProps) {
     setForums,
     setMixedData,
     setGalleries,
+    sort,
+    updateSort,
+    filter,
+    updateFilter
   } = useOutletContext<CollectiveContextProps>();
 
   const onUpdateGallery = (idx: number, gallery: any) => {
@@ -86,51 +76,13 @@ export default function HomeTab(props: AboutProps) {
   return (
     <HomeTabWrapper>
       <div className="leftPart">
-        <div className="filtering">
-          <TabList
-            items={[
-              {
-                text: "TRENDING",
-                value: "trending",
-                icon:
-                  sortOption === "trending" ? (
-                    <FireIcon width={"24px"} />
-                  ) : null,
-              },
-              {
-                text: "NEW",
-                value: "new",
-                icon:
-                  sortOption === "new" ? <CalendarIcon width={"24px"} /> : null,
-              },
-              {
-                text: "TOP",
-                value: "top",
-                icon: sortOption === "top" ? <TopIcon width={"24px"} /> : null,
-              },
-            ]}
-            activeTab={sortOption}
-            setActiveTab={(val) => updateSort(val)}
-          />
-          <Flex style={{gridGap: '10px'}}>
-            <div
-              className={classnames("saveBtn", {
-                active: onlySaved,
-              })}
-              onClick={() => showOnlySaved(!onlySaved)}
-            >
-              <FiBookmark size={24} />
-            </div>
-            <div
-              className={classnames("saveBtn", {
-                active: onlyMyPosts,
-              })}
-              onClick={() => showOnlyMyPosts(!onlyMyPosts)}
-            >
-              <span>✨</span>
-            </div>
-          </Flex>
-        </div>
+        <FilterBar
+          sort={sort}
+          updateSort={updateSort}
+          filter={filter}
+          updateFilter={updateFilter}
+        />
+        <EventCardModal></EventCardModal>
         {mixedData.map((item, idx) => (
           <div
             key={`mixdata_${idx}`}
@@ -150,7 +102,7 @@ export default function HomeTab(props: AboutProps) {
                   );
                 }}
                 onUpdateForum={(forum) => onUpdateForum(forum.fIdx, forum)}
-                sort={sortOption}
+                sort={sort}
               />
             )}
             {item.cardType === "gallery" && (
