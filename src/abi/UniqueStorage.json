@@ -1,0 +1,22 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "UniqueStorage",
+  "sourceName": "contracts/UniqueStorage.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "storagePos",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b5060405160953803806095833981016040819052602a916031565b6000556049565b600060208284031215604257600080fd5b5051919050565b603f8060566000396000f3fe6080604052600080fdfea2646970667358221220f7fb43fb66187ede99fc786ad16e17a887c771b0be9445cfae1ab77baa16c49564736f6c63430008040033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220f7fb43fb66187ede99fc786ad16e17a887c771b0be9445cfae1ab77baa16c49564736f6c63430008040033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

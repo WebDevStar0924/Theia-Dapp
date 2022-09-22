@@ -1,0 +1,18 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "InitDiamond",
+  "sourceName": "contracts/InitDiamond.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "init",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50606580601d6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063e1c7392a14602d575b600080fd5b00fea264697066735822122016ab095a7b36808c976a33303a3a5148f10e521828f857646a2bac6d739341de64736f6c63430008040033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063e1c7392a14602d575b600080fd5b00fea264697066735822122016ab095a7b36808c976a33303a3a5148f10e521828f857646a2bac6d739341de64736f6c63430008040033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

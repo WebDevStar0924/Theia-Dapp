@@ -1,0 +1,107 @@
+name: Google Cloud Run Deploy
+# https://github.com/google-github-actions/setup-gcloud
+on:
+  pull_request:
+    branches:
+      - release-*
+      - develop
+
+env:
+  PROJECT_ID: ${{ secrets.GCR_PROJECT }}
+  RUN_REGION: us-central1
+  SERVICE_NAME: ${{ github.event.pull_request.base.ref }}-${{ github.event.number }}
+
+jobs:
+  build:
+    name: Build React App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Service Name
+        shell: bash
+        run: |
+          echo "GH_REPO: $SERVICE_NAME"
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js (NPM)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.13.0'
+
+      - name: Use cached node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodeModules-
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build Development
+        run: yarn build
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: build
+          path: build
+
+  deploy-gcr:
+    name: Deploy to GCR
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: .docker/build
+
+      - name: Setup GCloud Auth
+        id: auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          credentials_json: ${{ secrets.GCR_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.1
+
+      # Build and push image to Google Container Registry
+      - name: Build & Push
+        run: |-
+          gcloud builds submit \
+            --quiet \
+            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+        working-directory: .docker
+
+      # Deploy image to Cloud Run
+      - name: Deploy GCR
+        run: |-
+          gcloud run deploy "$SERVICE_NAME" \
+            --quiet \
+            --region "$RUN_REGION" \
+            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --platform "managed" \
+            --allow-unauthenticated
+      - name: Preview Url
+        id: preview-url
+        run: |-
+          url=$(gcloud run services describe "$SERVICE_NAME" --region "$RUN_REGION" --format='value(status.url)')
+          echo "::set-output name=url::$url"
+      - name: Post PR comment with preview deployment URL
+        uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            Successfully deployed preview at ${{steps.preview-url.outputs.url}}
+          allow-repeats: false
+
