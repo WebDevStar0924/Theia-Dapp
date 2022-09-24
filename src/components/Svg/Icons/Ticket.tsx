@@ -1,13 +1,13 @@
-import React from "react";
-import Svg from "../Svg";
-import { SvgProps } from "../types";
+import React from 'react'
+import Svg from '../Svg'
+import { SvgProps } from '../types'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg viewBox="0 0 245.6 247.7" {...props}>
       <style type="text/css">
         {
-          "\r\n\t.st0{fill:#FFAD23;}\r\n\t.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#633001;}\r\n\t.st2{fill:#FCDC49;}\r\n\t.st3{fill:#633001;}\r\n"
+          '\r\n\t.st0{fill:#FFAD23;}\r\n\t.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#633001;}\r\n\t.st2{fill:#FCDC49;}\r\n\t.st3{fill:#633001;}\r\n'
         }
       </style>
       <g>
@@ -57,7 +57,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

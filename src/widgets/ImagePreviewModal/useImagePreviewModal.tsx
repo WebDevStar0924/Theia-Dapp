@@ -1,9 +1,9 @@
-import { useModal } from "../Modal";
-import ImagePreviewModal from "./ImagePreviewModal";
+import { useModal } from '../Modal'
+import ImagePreviewModal from './ImagePreviewModal'
 
 const useImagePreviewModal = () => {
-  const [onPresentImagePreviewModal] = useModal(<ImagePreviewModal />, true);
-  return { onPresentImagePreviewModal };
-};
+  const [onPresentImagePreviewModal] = useModal(<ImagePreviewModal />, true)
+  return { onPresentImagePreviewModal }
+}
 
-export default useImagePreviewModal;
+export default useImagePreviewModal

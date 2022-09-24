@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   activeChainID: 1,
   activeCurrency: {
-    name: "USDT",
-    symbol: "USDT",
+    name: 'USDT',
+    symbol: 'USDT',
   },
-};
+}
 
 const chainSlice = createSlice({
-  name: "chain",
+  name: 'chain',
   initialState,
   reducers: {
     setActiveChainID: (state, actions) => ({
@@ -22,8 +22,8 @@ const chainSlice = createSlice({
       activeCurrency: actions.payload,
     }),
   },
-});
+})
 
-export const { setActiveChainID, setActiveCurrency } = chainSlice.actions;
+export const { setActiveChainID, setActiveCurrency } = chainSlice.actions
 
-export default chainSlice.reducer;
+export default chainSlice.reducer

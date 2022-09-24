@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ConnectModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
   .title {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -15,7 +15,7 @@ export const ConnectModalWrapper = styled.div`
   }
 
   .description {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -33,7 +33,7 @@ export const ConnectModalWrapper = styled.div`
   }
 
   .newCrypto {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -43,7 +43,7 @@ export const ConnectModalWrapper = styled.div`
     margin-top: 32px;
   }
   .learnWallet {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -52,7 +52,7 @@ export const ConnectModalWrapper = styled.div`
     color: #444ce7;
     margin-top: 16px;
   }
-`;
+`
 
 export const WallerCardWrapper = styled.div`
   cursor: pointer;
@@ -68,4 +68,4 @@ export const WallerCardWrapper = styled.div`
   &:hover {
     background: #f2f4f7;
   }
-`;
+`

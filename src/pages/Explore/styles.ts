@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ExploreWrapper = styled.div`
   .exploreHeader {
     display: flex;
     flex-direction: row;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -14,7 +14,7 @@ export const ExploreWrapper = styled.div`
 
     color: #101828;
     .collectivesFont {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
@@ -36,7 +36,7 @@ export const ExploreWrapper = styled.div`
     }
 
     .artFont {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
@@ -52,7 +52,7 @@ export const ExploreWrapper = styled.div`
     }
 
     .musicFont {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
@@ -68,7 +68,7 @@ export const ExploreWrapper = styled.div`
     }
 
     .gamingFont {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
@@ -89,7 +89,7 @@ export const ExploreWrapper = styled.div`
     }
 
     .filmFont {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
@@ -117,7 +117,7 @@ export const ExploreWrapper = styled.div`
       border: 1px solid #ffffff;
       box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
       border-radius: 200px;
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -135,11 +135,11 @@ export const ExploreWrapper = styled.div`
       }
     }
   }
-`;
+`
 
 export const ListContainer = styled.div`
   max-height: 500px;
   max-width: 500px;
   overflow: auto;
   background-color: #fafafa;
-`;
+`

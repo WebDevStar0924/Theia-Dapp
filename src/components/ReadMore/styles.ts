@@ -1,15 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ReadMoreWrapper = styled.div`
   font-size: 16px;
   font-weight: 500;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   display: flex;
   word-break: break-word;
   padding: 0 16px;
   margin-top: 16px;
   div {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -26,4 +26,4 @@ export const ReadMoreWrapper = styled.div`
       to(rgba(0, 0, 0, 0))
     );
   }
-`;
+`

@@ -1,1 +1,1 @@
-export { default as CollectiveMagic } from "./CollectiveMagic";
+export { default as CollectiveMagic } from './CollectiveMagic'

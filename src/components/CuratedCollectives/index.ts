@@ -1,1 +1,1 @@
-export { default as CuratedCollectives } from "./CuratedCollectives";
+export { default as CuratedCollectives } from './CuratedCollectives'

@@ -1,10 +1,10 @@
-import { NewCollectivesWrapper } from "./styles";
-import { CollectiveCard } from "../CollectiveCard";
-import { Carousel } from "../Carousel";
-import { Switch } from "../Switch";
-import { useEffect, useState } from "react";
-import API from "api/api";
-import { useNavigate } from "react-router-dom";
+import { NewCollectivesWrapper } from './styles'
+import { CollectiveCard } from '../CollectiveCard'
+import { Carousel } from '../Carousel'
+import { Switch } from '../Switch'
+import { useEffect, useState } from 'react'
+import API from 'api/api'
+import { useNavigate } from 'react-router-dom'
 
 export default function NewCollectives() {
   const responsive = {
@@ -48,32 +48,30 @@ export default function NewCollectives() {
       items: 2,
       partialVisibilityGutter: 30,
     },
-  };
+  }
   const switchItems = [
     {
-      value: "recently_added",
-      label: "Recently Added",
+      value: 'recently_added',
+      label: 'Recently Added',
     },
     {
-      value: "recently_verified",
-      label: "Recently Verified",
+      value: 'recently_verified',
+      label: 'Recently Verified',
     },
-  ];
-  const [activeSwitchItem, setActiveSwitchItem] = useState(
-    switchItems[0].value
-  );
-  const [newCollectives, setNewCollectives] = useState<any>([]);
-  const navigate = useNavigate();
+  ]
+  const [activeSwitchItem, setActiveSwitchItem] = useState(switchItems[0].value)
+  const [newCollectives, setNewCollectives] = useState<any>([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     API.getPopularCollectives().then((res) => {
-      setNewCollectives(res.data.collectives);
-    });
-  }, []);
+      setNewCollectives(res.data.collectives)
+    })
+  }, [])
   return (
     <NewCollectivesWrapper>
-      <div className={"listHeader"}>
-        <div className={"listName"}>New Collectives</div>
+      <div className={'listHeader'}>
+        <div className={'listName'}>New Collectives</div>
         <Switch
           items={switchItems}
           activeValue={activeSwitchItem}
@@ -94,5 +92,5 @@ export default function NewCollectives() {
           ))}
       />
     </NewCollectivesWrapper>
-  );
+  )
 }

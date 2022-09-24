@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const LayoutWrapper = styled.div<{ bgColor: string }>`
   display: flex;
@@ -22,4 +22,4 @@ export const LayoutWrapper = styled.div<{ bgColor: string }>`
       flex: 1;
     }
   }
-`;
+`

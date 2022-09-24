@@ -1,1 +1,1 @@
-export { default as AllCollectives } from "./AllCollectives";
+export { default as AllCollectives } from './AllCollectives'

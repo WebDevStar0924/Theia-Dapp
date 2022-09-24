@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CollectiveLayoutWrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const CollectiveLayoutWrapper = styled.div`
     flex: 1;
     grid-gap: 24px;
   }
-`;
+`
 
 export const CollectiveHeaderWrapper = styled.div`
   background: #ffffff;
@@ -93,7 +93,7 @@ export const CollectiveHeaderWrapper = styled.div`
       .detailMoreBtn2 {
         margin-left: 24px;
         margin-right: 24px;
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 14px;
@@ -127,7 +127,7 @@ export const CollectiveHeaderWrapper = styled.div`
       }
     }
   }
-`;
+`
 
 export const CollectiveSidebarWrapper = styled.div`
   height: fit-content;
@@ -211,4 +211,4 @@ export const CollectiveSidebarWrapper = styled.div`
       }
     }
   }
-`;
+`

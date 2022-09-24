@@ -1,17 +1,17 @@
-import { useDispatch } from "react-redux";
-import { useMemo } from "react";
-import { Toast, toastTypes } from "../widgets/Toast";
-import { kebabCase } from "lodash";
+import { useDispatch } from 'react-redux'
+import { useMemo } from 'react'
+import { Toast, toastTypes } from '../widgets/Toast'
+import { kebabCase } from 'lodash'
 import {
   clear as clearToast,
   push as pushToast,
   remove as removeToast,
-} from "../state/toasts";
+} from '../state/toasts'
 
 export const useToast = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   return useMemo(() => {
-    const push = (toast: Toast) => dispatch(pushToast(toast));
+    const push = (toast: Toast) => dispatch(pushToast(toast))
 
     return {
       toastError: (title: string, description) => {
@@ -20,7 +20,7 @@ export const useToast = () => {
           type: toastTypes.DANGER,
           title,
           description,
-        });
+        })
       },
       toastInfo: (title: string, description) => {
         return push({
@@ -28,7 +28,7 @@ export const useToast = () => {
           type: toastTypes.INFO,
           title,
           description,
-        });
+        })
       },
       toastSuccess: (title: string, description) => {
         return push({
@@ -36,7 +36,7 @@ export const useToast = () => {
           type: toastTypes.SUCCESS,
           title,
           description,
-        });
+        })
       },
       toastWarning: (title: string, description) => {
         return push({
@@ -44,11 +44,11 @@ export const useToast = () => {
           type: toastTypes.WARNING,
           title,
           description,
-        });
+        })
       },
       push,
       remove: (id: string) => dispatch(removeToast(id)),
       clear: () => dispatch(clearToast()),
-    };
-  }, [dispatch]);
-};
+    }
+  }, [dispatch])
+}

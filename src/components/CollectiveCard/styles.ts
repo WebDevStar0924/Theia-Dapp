@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CollectiveCardWrapper = styled.div`
   display: inline-block;
@@ -49,7 +49,7 @@ export const CollectiveCardWrapper = styled.div`
     top: 200px;
 
     .collectiveName {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -67,7 +67,7 @@ export const CollectiveCardWrapper = styled.div`
       text-transform: uppercase;
 
       .collectiveType {
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -77,7 +77,7 @@ export const CollectiveCardWrapper = styled.div`
         position: relative;
 
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
@@ -148,7 +148,7 @@ export const CollectiveCardWrapper = styled.div`
       }
 
       .collectiveMembers {
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -163,4 +163,4 @@ export const CollectiveCardWrapper = styled.div`
       }
     }
   }
-`;
+`

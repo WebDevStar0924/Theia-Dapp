@@ -1,321 +1,207 @@
-import { LinkPreview } from "@dhaiwat10/react-link-preview";
-import API from "api/api";
-import { default as classNames, default as classnames } from "classnames";
-import AddImage from "components/AddImage/AddImage";
-import { Card } from "components/Card";
-import { CommentButton } from "components/CommentButton";
-import { CommentCard } from "components/CommentCard";
-import { CrownButton } from "components/CrownButton";
-import { ExpandableView } from "components/ExpandableView";
-import { Flex } from "components/Flex";
+import { LinkPreview } from '@dhaiwat10/react-link-preview'
+import API from 'api/api'
+import { default as classnames } from 'classnames'
+import { Card } from 'components/Card'
+import { CommentButton } from 'components/CommentButton'
+import { CommentCard } from 'components/CommentCard'
+import { CrownButton } from 'components/CrownButton'
+import { ExpandableView } from 'components/ExpandableView'
+import { Flex } from 'components/Flex'
 import {
   Backbutton,
   Card as FCard,
   ForumCardWrapper,
   ForumCommentWrapper,
-} from "components/ForumCard/styles";
-import { HeartButton } from "components/HeartButton";
-import { ImageCard } from "components/ImageCard/ImageCard";
-import { MotionButton } from "components/MotionButton/styles";
-import { ReadMore } from "components/ReadMore";
-import { ShareButton } from "components/ShareButton";
-import { Back, CollectiveIcon, SendIcon } from "components/Svg";
-import { TabList } from "components/TabList";
-import { TextView } from "components/TextView";
-import { VoteBar } from "components/VoteBar";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
-import useAuth from "hooks/useAuth";
-import { useMembership } from "hooks/useMembership";
-import { useToast } from "hooks/useToast";
-import moment from "moment";
-import { galleryImages } from "pages/CollectiveDetails/data";
+} from 'components/ForumCard/styles'
+import { HeartButton } from 'components/HeartButton'
+import { ImageCard } from 'components/ImageCard/ImageCard'
+import { ReadMore } from 'components/ReadMore'
+import { ShareButton } from 'components/ShareButton'
+import { TextView } from 'components/TextView'
+import { VoteBar } from 'components/VoteBar'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import useAuth from 'hooks/useAuth'
+import { useMembership } from 'hooks/useMembership'
+import { useToast } from 'hooks/useToast'
+import moment from 'moment'
+import { galleryImages } from 'pages/CollectiveDetails/data'
 import {
   CollectiveDetailsContainer,
   HomeTabWrapper,
   StackedCarouselWrapper,
-} from "pages/CollectiveDetails/styles";
-import { useEffect, useRef, useState } from "react";
-import { BsArrowLeft, BsArrowRight, FiHeart } from "react-icons/all";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+} from 'pages/CollectiveDetails/styles'
+import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
+import { useEffect, useRef, useState } from 'react'
+import { BsArrowLeft, BsArrowRight, MdArrowBack } from 'react-icons/all'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { useSelector } from 'react-redux'
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import {
   ResponsiveContainer,
   StackedCarousel,
-} from "react-stacked-center-carousel";
-import { updateCollective, updateForums } from "state/collective";
-import { State } from "state/types";
-import { Button } from "theme-ui";
-import { formatBlockchainAddress, getDiffTime } from "utils";
-import { useImagePreviewModal } from "widgets/ImagePreviewModal";
-import { useWalletModal } from "widgets/WalletModal";
-import defaultProjectBanner from "../../assets/image/defaultProjectBanner.png";
-import defaultProjectIcon from "../../assets/image/defaultProjectIcon.png";
-import stackedBg from "../../assets/image/stackedBg.png";
+} from 'react-stacked-center-carousel'
+import { State } from 'state/types'
+import { Button } from 'theme-ui'
+import { formatBlockchainAddress, getDiffTime } from 'utils'
+import { useImagePreviewModal } from 'widgets/ImagePreviewModal'
+import { useWalletModal } from 'widgets/WalletModal'
+import stackedBg from '../../assets/image/stackedBg.png'
 
 export default function ForumDetails() {
-  const [collectiveInfo, setCollectiveInfo] = useState<any>(null);
-  const { cname, prev_tab, post_id: forum_id } = useParams();
+  const { cname, prev_tab, post_id: forum_id } = useParams()
 
-  const navigate = useNavigate();
-  const { account } = useActiveWeb3React();
-  const { login, logout } = useAuth();
-  const [commentData, setCommentData] = useState<any[]>([]);
-  const profileData = useSelector((state: State) => state.profile.data);
-  const [commentText, setCommentText] = useState("");
-  const [show, setShow] = useState(false);
-  const divRef = useRef<HTMLDivElement>(null);
-  const readMoreRef = useRef<any>();
-  const onMemberShipCheck = useMembership();
-  const [forumData, setForumData] = useState<any>(null);
-  const dispatch = useDispatch();
-  const [activeTabItem, setActiveTabItem] = useState(prev_tab ?? "home");
-  const [members, setMembers] = useState<any[]>([]);
-  const [activeSlideNum, setActiveSlideNum] = useState(0);
-  const ref = useRef<any>(null);
-  const [pollVotes, updatePollVotes] = useState(forumData?.poll_votes ?? []);
-  const [activePollOption, setActivePollOption] = useState<any>(null);
-  const { toastSuccess } = useToast();
+  const { collectiveInfo } = useOutletContext<CollectiveContextProps>()
+
+  const navigate = useNavigate()
+  const { account } = useActiveWeb3React()
+  const { login, logout } = useAuth()
+  const [commentData, setCommentData] = useState<any[]>([])
+  const profileData = useSelector((state: State) => state.profile.data)
+  const [commentText, setCommentText] = useState('')
+  const [show, setShow] = useState(false)
+  const divRef = useRef<HTMLDivElement>(null)
+  const readMoreRef = useRef<any>()
+  const onMemberShipCheck = useMembership()
+  const [forumData, setForumData] = useState<any>(null)
+  const [members, setMembers] = useState<any[]>([])
+  const [activeSlideNum, setActiveSlideNum] = useState(0)
+  const ref = useRef<any>(null)
+  const [pollVotes, updatePollVotes] = useState(forumData?.poll_votes ?? [])
+  const [activePollOption, setActivePollOption] = useState<any>(null)
+  const { toastSuccess } = useToast()
   const { onPresentConnectModal } = useWalletModal(
     login,
     logout,
-    account || undefined
-  );
+    account || undefined,
+  )
 
-  const { onPresentImagePreviewModal } = useImagePreviewModal();
-  const { forums: s_forums, sort: s_sort } = useSelector(
-    (state: State) => state.collective
-  );
-  useEffect(() => {
-    API.getCollectiveByName(cname, account).then((res) => {
-      if (res.data.success) {
-        setCollectiveInfo(res.data.collective);
-        dispatch(updateCollective(res.data.collective));
-      }
-    });
-  }, [cname, account]);
+  const { onPresentImagePreviewModal } = useImagePreviewModal()
 
   useEffect(() => {
     if (collectiveInfo) {
       API.getMembers(collectiveInfo.collective_id).then((res) => {
         if (res.data.success) {
-          setMembers(res.data.members);
+          setMembers(res.data.members)
         }
-      });
+      })
     }
-  }, [collectiveInfo]);
+  }, [collectiveInfo])
 
   useEffect(() => {
     if (account) {
       API.getForumById(forum_id, account).then((res) => {
-        setForumData(res.data.forum);
-        updatePollVotes(res.data.forum.poll_votes ?? []);
-      });
-      API.getComments(forum_id, "forum", account, s_sort ?? "home").then(
-        (res) => {
-          setCommentData(res.data.comments);
-        }
-      );
+        setForumData(res.data.forum)
+        updatePollVotes(res.data.forum.poll_votes ?? [])
+      })
+      API.getComments(forum_id, 'forum', account, 'trending').then((res) => {
+        setCommentData(res.data.comments)
+      })
     }
-  }, [account]);
+  }, [account])
 
   const handleVote = (action) => {
     if (account) {
-      API.updateVote(forum_id, "forum", action, account).then((res: any) => {
+      API.updateVote(forum_id, 'forum', action, account).then((res: any) => {
         if (res.data.success) {
           setForumData({
             ...forumData,
             votes:
-              action === "up"
+              action === 'up'
                 ? Number(forumData.votes) + 1
                 : Number(forumData.votes) - 1,
             votes_count:
-              action === "up"
+              action === 'up'
                 ? Number(forumData.votes_count) + 1
                 : Number(forumData.votes_count) - 1,
-          });
-          if (s_forums.length > 0) {
-            const newForums = [...s_forums].map((item) => {
-              if (item.forum_id === forumData.forum_id) {
-                return {
-                  ...item,
-                  votes:
-                    action === "up"
-                      ? Number(forumData.votes) + 1
-                      : Number(forumData.votes) - 1,
-                  votes_count:
-                    action === "up"
-                      ? Number(forumData.votes_count) + 1
-                      : Number(forumData.votes_count) - 1,
-                };
-              }
-              return item;
-            });
-            dispatch(updateForums(newForums));
-          }
+          })
         }
-      });
+      })
     } else {
-      onPresentConnectModal();
+      onPresentConnectModal()
     }
-  };
+  }
 
   const onVotePoll = () => {
     API.voteForumPoll(activePollOption, account, forumData.forum_id).then(
-      (res) => {
-        const newPollVotes = pollVotes ? [...pollVotes] : [];
+      () => {
+        const newPollVotes = pollVotes ? [...pollVotes] : []
         newPollVotes.push({
           forum_poll_id: activePollOption,
           user_address: account,
           forum_id: forumData.forum_id,
-        });
-        updatePollVotes(newPollVotes);
-      }
-    );
-  };
+        })
+        updatePollVotes(newPollVotes)
+      },
+    )
+  }
   const handleLike = (action) => {
     if (account) {
-      API.updateFavorite(forum_id, "forum", action, account).then(
+      API.updateFavorite(forum_id, 'forum', action, account).then(
         (res: any) => {
           if (res.data.success) {
             setForumData({
               ...forumData,
               favorites:
-                action === "up"
+                action === 'up'
                   ? Number(forumData.favorites) + 1
                   : Number(forumData.favorites) - 1,
-              favorite_count: action === "up" ? 1 : 0,
-            });
-            if (s_forums.length > 0) {
-              const newForums = [...s_forums].map((item) => {
-                if (item.forum_id === forumData.forum_id) {
-                  return {
-                    ...item,
-                    favorites:
-                      action === "up"
-                        ? Number(forumData.favorites) + 1
-                        : Number(forumData.favorites) - 1,
-                    favorite_count: action === "up" ? 1 : 0,
-                  };
-                }
-                return item;
-              });
-              dispatch(updateForums(newForums));
-            }
+              favorite_count: action === 'up' ? 1 : 0,
+            })
           }
-        }
-      );
+        },
+      )
     } else {
-      onPresentConnectModal();
+      onPresentConnectModal()
     }
-  };
+  }
 
   const handleCrown = (action) => {
     if (account) {
-      API.updateCrown(forum_id, "forum", action, account).then((res: any) => {
+      API.updateCrown(forum_id, 'forum', action, account).then((res: any) => {
         if (res.data.success) {
           setForumData({
             ...forumData,
             crown:
-              action === "up"
+              action === 'up'
                 ? Number(forumData.crown) + 1
                 : Number(forumData.crown) - 1,
-            crown_count: action === "up" ? 1 : 0,
-          });
-          if (s_forums.length > 0) {
-            const newForums = [...s_forums].map((item) => {
-              if (item.forum_id === forumData.forum_id) {
-                return {
-                  ...item,
-                  crown:
-                    action === "up"
-                      ? Number(forumData.crown) + 1
-                      : Number(forumData.crown) - 1,
-                  crown_count: action === "up" ? 1 : 0,
-                };
-              }
-              return item;
-            });
-            dispatch(updateForums(newForums));
-          }
-        }
-      });
-    } else {
-      onPresentConnectModal();
-    }
-  };
-
-  const onCollectiveLike = (action) => {
-    API.updateFavorite(
-      collectiveInfo.collective_id,
-      "collective",
-      action,
-      account
-    ).then((res: any) => {
-      if (res.data.success) {
-        setCollectiveInfo({
-          ...collectiveInfo,
-          favorites:
-            action === "up"
-              ? Number(collectiveInfo.favorite_count) + 1
-              : Number(collectiveInfo.favorite_count) - 1,
-          favorite_count: action === "up" ? 1 : 0,
-        });
-        dispatch(
-          updateCollective({
-            ...collectiveInfo,
-            favorites:
-              action === "up"
-                ? Number(collectiveInfo.favorite_count) + 1
-                : Number(collectiveInfo.favorite_count) - 1,
-            favorite_count: action === "up" ? 1 : 0,
+            crown_count: action === 'up' ? 1 : 0,
           })
-        );
-      }
-    });
-  };
-
+        }
+      })
+    } else {
+      onPresentConnectModal()
+    }
+  }
   const handleReply = () => {
-    API.replyComment(forum_id, null, "forum", commentText, account).then(
+    API.replyComment(forum_id, null, 'forum', commentText, account).then(
       (res: any) => {
-        const newComment = res.data.comment;
-        newComment.subComments = [];
-        setCommentData([newComment, ...commentData]);
+        const newComment = res.data.comment
+        newComment.subComments = []
+        setCommentData([newComment, ...commentData])
         setForumData({
           ...forumData,
           commentscount: Number(forumData.commentscount) + 1,
-        });
-        setCommentText("");
-        if (s_forums.length > 0) {
-          const newForums = s_forums.map((item) => {
-            if (item.forum_id === forumData.forum_id) {
-              return {
-                ...item,
-                commentscount: Number(item.commentscount) + 1,
-              };
-            }
-            return item;
-          });
-          dispatch(updateForums(newForums));
-        }
-      }
-    );
-    setShow(false);
-  };
+        })
+        setCommentText('')
+      },
+    )
+    setShow(false)
+  }
 
   const setCommentBox = () => {
     if (account) {
-      onMemberShipCheck(forumData.collective_id, account, () => setShow(!show));
+      onMemberShipCheck(forumData.collective_id, account, () => setShow(!show))
     } else {
-      onPresentConnectModal();
+      onPresentConnectModal()
     }
-  };
+  }
 
   return (
     <>
       {collectiveInfo && (
         <CollectiveDetailsContainer>
-          <div className={"detailsContent"}>
+          <div className={'detailsContent'}>
             <HomeTabWrapper>
               <div className="leftPart">
                 <Backbutton
@@ -325,11 +211,10 @@ export default function ForumDetails() {
                       state: {
                         forum_id,
                       },
-                    });
+                    })
                   }}
                 >
-                  <Back />
-                  <div className="post">Post</div>
+                  <MdArrowBack size={30} />
                 </Backbutton>
                 {forumData && (
                   <>
@@ -340,15 +225,15 @@ export default function ForumDetails() {
                             onMemberShipCheck(
                               forumData.collective_id,
                               account,
-                              () => handleVote("up")
-                            );
+                              () => handleVote('up'),
+                            )
                           }}
                           onVoteDown={() => {
                             onMemberShipCheck(
                               forumData.collective_id,
                               account,
-                              () => handleVote("down")
-                            );
+                              () => handleVote('down'),
+                            )
                           }}
                           votes={forumData.votes}
                           votes_count={forumData.votes_count}
@@ -357,12 +242,12 @@ export default function ForumDetails() {
                           <div
                             className="forumCardHeader"
                             onClick={() => {
-                              divRef.current?.focus();
-                              readMoreRef.current.toggleRead();
+                              divRef.current?.focus()
+                              readMoreRef.current.toggleRead()
                             }}
                           >
                             <Flex
-                              style={{ gridGap: "10px" }}
+                              style={{ gridGap: '10px' }}
                               alignItems="center"
                             >
                               <img
@@ -383,8 +268,8 @@ export default function ForumDetails() {
                           <div
                             className="forumTitle"
                             onClick={() => {
-                              divRef.current?.focus();
-                              readMoreRef.current.toggleRead();
+                              divRef.current?.focus()
+                              readMoreRef.current.toggleRead()
                             }}
                           >
                             {forumData.title}
@@ -394,17 +279,17 @@ export default function ForumDetails() {
                             length={400}
                             ref={readMoreRef}
                             itemClick={() => {
-                              divRef.current?.focus();
+                              divRef.current?.focus()
                             }}
                           >
                             {forumData.description}
                           </ReadMore>
 
-                          {forumData.type === "IMAGE" && forumData.images[0] && (
+                          {forumData.type === 'IMAGE' && forumData.images[0] && (
                             <div
                               onClick={() => {
-                                divRef.current?.focus();
-                                readMoreRef.current.toggleRead();
+                                divRef.current?.focus()
+                                readMoreRef.current.toggleRead()
                               }}
                               className={`forumImg size-${forumData.images.length}`}
                             >
@@ -416,44 +301,44 @@ export default function ForumDetails() {
                                     className={`img${index}`}
                                     key={`forum_image_${forum_id}_${index}`}
                                     onClick={() => {
-                                      onPresentImagePreviewModal(item);
+                                      onPresentImagePreviewModal(item)
                                     }}
                                   />
                                 ))}
                             </div>
                           )}
 
-                          {forumData.type === "LINK" && (
+                          {forumData.type === 'LINK' && (
                             <div className="linkPreview">
                               <LinkPreview
                                 url={forumData.url}
                                 fetcher={async (url: string) => {
                                   const response = await fetch(
-                                    `https://theia-rlp-proxy.herokuapp.com?url=${url}`
-                                  );
-                                  const json = await response.json();
+                                    `https://theia-rlp-proxy.herokuapp.com?url=${url}`,
+                                  )
+                                  const json = await response.json()
                                   const metadata = {
-                                    title: "",
-                                    description: "",
-                                    image: "",
-                                    siteName: "",
-                                    hostname: "",
-                                  };
+                                    title: '',
+                                    description: '',
+                                    image: '',
+                                    siteName: '',
+                                    hostname: '',
+                                  }
                                   return {
                                     ...metadata,
                                     ...json.metadata.og,
-                                  };
+                                  }
                                 }}
                                 showLoader={true}
                                 fallback={<div>Fallback</div>}
                               />
                             </div>
                           )}
-                          {forumData.type === "POLL" && (
+                          {forumData.type === 'POLL' && (
                             <div className="pollView">
                               {pollVotes.filter(
                                 (poll_vote) =>
-                                  poll_vote.user_address === account
+                                  poll_vote.user_address === account,
                               ).length === 0 ? (
                                 <>
                                   <div className="pollOptionList">
@@ -477,13 +362,13 @@ export default function ForumDetails() {
                                               }
                                               onChange={() => {
                                                 setActivePollOption(
-                                                  item.forum_poll_id
-                                                );
+                                                  item.forum_poll_id,
+                                                )
                                               }}
                                             />
                                             <span className="radioCheckmark"></span>
                                           </label>
-                                        )
+                                        ),
                                       )}
                                   </div>
                                   <div className="pollActions">
@@ -503,13 +388,13 @@ export default function ForumDetails() {
                                     forumData.poll_options.map(
                                       (pollOption, idx) => {
                                         const totalVotes =
-                                          pollVotes?.length ?? 0;
+                                          pollVotes?.length ?? 0
                                         const singleVotes =
                                           pollVotes?.filter(
                                             (poll_vote) =>
                                               poll_vote.forum_poll_id ===
-                                              pollOption.forum_poll_id
-                                          ).length ?? 0;
+                                              pollOption.forum_poll_id,
+                                          ).length ?? 0
                                         return (
                                           <div
                                             className="pollBar"
@@ -520,7 +405,7 @@ export default function ForumDetails() {
                                               style={{
                                                 width: `${Math.floor(
                                                   (singleVotes * 100) /
-                                                    totalVotes
+                                                    totalVotes,
                                                 )}%`,
                                               }}
                                             >
@@ -528,13 +413,14 @@ export default function ForumDetails() {
                                             </div>
                                             <div className="pollOptionPercent">
                                               {Math.floor(
-                                                (singleVotes * 100) / totalVotes
-                                              )}{" "}
+                                                (singleVotes * 100) /
+                                                  totalVotes,
+                                              )}{' '}
                                               %
                                             </div>
                                           </div>
-                                        );
-                                      }
+                                        )
+                                      },
                                     )}
                                 </div>
                               )}
@@ -542,7 +428,7 @@ export default function ForumDetails() {
                           )}
 
                           <div className="forumActions">
-                            <Flex style={{ gridGap: "20px" }}>
+                            <Flex style={{ gridGap: '20px' }}>
                               <HeartButton
                                 active={forumData.favorite_count > 0}
                                 count={forumData.favorites}
@@ -554,16 +440,16 @@ export default function ForumDetails() {
                                     () =>
                                       handleLike(
                                         forumData.favorite_count > 0
-                                          ? "down"
-                                          : "up"
-                                      )
-                                  );
+                                          ? 'down'
+                                          : 'up',
+                                      ),
+                                  )
                                 }}
                               />
                               <CrownButton
                                 active={forumData.crown_count > 0}
                                 count={forumData.crown}
-                                size={"lg"}
+                                size={'lg'}
                                 onClick={() => {
                                   onMemberShipCheck(
                                     forumData.collective_id,
@@ -571,10 +457,10 @@ export default function ForumDetails() {
                                     () =>
                                       handleCrown(
                                         forumData.crown_count > 0
-                                          ? "down"
-                                          : "up"
-                                      )
-                                  );
+                                          ? 'down'
+                                          : 'up',
+                                      ),
+                                  )
                                 }}
                               />
                               <CommentButton
@@ -584,20 +470,20 @@ export default function ForumDetails() {
                             </Flex>
                             <ShareButton
                               onClick={() => {
-                                if (typeof window !== "undefined") {
-                                  var shareLink = window.location.href;
-                                  if ("clipboard" in navigator) {
+                                if (typeof window !== 'undefined') {
+                                  const shareLink = window.location.href
+                                  if ('clipboard' in navigator) {
                                     navigator.clipboard.writeText(
-                                      shareLink.toString()
-                                    );
+                                      shareLink.toString(),
+                                    )
                                   } else {
                                     document.execCommand(
-                                      "copy",
+                                      'copy',
                                       true,
-                                      `${shareLink.toString()}`
-                                    );
+                                      `${shareLink.toString()}`,
+                                    )
                                   }
-                                  toastSuccess("Share link is copied", "");
+                                  toastSuccess('Share link is copied', '')
                                 }
                               }}
                             />
@@ -611,11 +497,11 @@ export default function ForumDetails() {
                         <div className="forum">
                           <div className="forumCardHeader">
                             <Flex
-                              style={{ gridGap: "10px", display: "flex" }}
+                              style={{ gridGap: '10px', display: 'flex' }}
                               alignItems="center"
                             >
                               <img
-                                src={profileData.avatar ?? ""}
+                                src={profileData.avatar ?? ''}
                                 className="creatorAvatar"
                                 alt={profileData.name}
                               />
@@ -624,28 +510,28 @@ export default function ForumDetails() {
                             </Flex>
                           </div>
                         </div>
-                        <div style={{ padding: "20px" }}>
+                        <div style={{ padding: '20px' }}>
                           <TextView
-                            label={""}
+                            label={''}
                             value={commentText}
                             rows={4}
                             onUserInput={(val) => {
-                              setCommentText(val);
+                              setCommentText(val)
                             }}
-                            placeholder={"Comment"}
+                            placeholder={'Comment'}
                           />
                           <div
                             style={{
-                              display: "flex",
-                              justifyContent: "end",
-                              marginTop: "30px",
-                              gridGap: "24px",
+                              display: 'flex',
+                              justifyContent: 'end',
+                              marginTop: '30px',
+                              gridGap: '24px',
                             }}
                           >
                             <button
                               className="replyBtn"
                               onClick={handleReply}
-                              disabled={commentText === ""}
+                              disabled={commentText === ''}
                             >
                               REPLY
                             </button>
@@ -657,7 +543,7 @@ export default function ForumDetails() {
                         comments={commentData}
                         depth={0}
                         onUpdateComments={(newComments, isAdding) => {
-                          setCommentData(newComments);
+                          setCommentData(newComments)
                           if (isAdding) {
                           }
                         }}
@@ -670,7 +556,6 @@ export default function ForumDetails() {
               <div className="rightPart">
                 <ExpandableView
                   header={<div>ABOUT</div>}
-                  individual={false}
                   content={
                     <div
                       dangerouslySetInnerHTML={{
@@ -683,15 +568,15 @@ export default function ForumDetails() {
                   header={<div>MEMBERS</div>}
                   content={
                     <Flex
-                      alignItems={"center"}
-                      style={{ gridGap: "20px", paddingBottom: "20px" }}
+                      alignItems={'center'}
+                      style={{ gridGap: '20px', paddingBottom: '20px' }}
                       className="horizontalScroll"
                     >
                       {members.map((member, idx) => (
                         <Flex
-                          flexDirection={"column"}
+                          flexDirection={'column'}
                           alignItems="center"
-                          style={{ gridGap: "5px" }}
+                          style={{ gridGap: '5px' }}
                           key={`user_${idx}`}
                         >
                           {member.creator && member.creator[0].avatar ? (
@@ -712,7 +597,7 @@ export default function ForumDetails() {
                               : formatBlockchainAddress(
                                   member.member_address,
                                   2,
-                                  2
+                                  2,
                                 )}
                           </div>
                           <div className="userTag">MEMBER</div>
@@ -739,14 +624,14 @@ export default function ForumDetails() {
                             setActiveSlideNum(activeSlide)
                           }
                         />
-                      );
+                      )
                     }}
                   />
                   <div className="carouselActions">
                     <div
                       className="moveBtn"
                       onClick={() => {
-                        if (ref.current) ref.current.goBack();
+                        if (ref.current) ref.current.goBack()
                       }}
                     >
                       <BsArrowLeft fill="#999999" />
@@ -755,7 +640,7 @@ export default function ForumDetails() {
                       {galleryImages.map((_, idx) => (
                         <span
                           key={`dot_${idx}`}
-                          className={classnames("dot", {
+                          className={classnames('dot', {
                             active: ref.current && idx === activeSlideNum,
                           })}
                         />
@@ -765,7 +650,7 @@ export default function ForumDetails() {
                       className="moveBtn"
                       onClick={() => {
                         if (ref.current) {
-                          ref?.current.goNext();
+                          ref?.current.goNext()
                         }
                       }}
                     >
@@ -779,5 +664,5 @@ export default function ForumDetails() {
         </CollectiveDetailsContainer>
       )}
     </>
-  );
+  )
 }

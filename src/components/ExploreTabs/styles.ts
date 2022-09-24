@@ -1,7 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components'
 
 interface ListProps {
-  direction?: "vertical" | "horizontal";
+  direction?: 'vertical' | 'horizontal'
 }
 
 export const AllCollectivesWrapper = styled.div`
@@ -10,7 +10,7 @@ export const AllCollectivesWrapper = styled.div`
   grid-gap: 8px;
 
   .collectives {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -27,7 +27,7 @@ export const AllCollectivesWrapper = styled.div`
   }
   .moreBtn {
     margin: 16px auto;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -36,7 +36,7 @@ export const AllCollectivesWrapper = styled.div`
     text-transform: uppercase;
     color: #101828;
   }
-`;
+`
 
 const gradientAnimation = keyframes`
   0% {
@@ -48,7 +48,7 @@ const gradientAnimation = keyframes`
 	100% {
 		background-position: 0% 50%;
 	}
-`;
+`
 
 export const LoadingRoot = styled.div`
   animation: ${gradientAnimation} 2s linear infinite;
@@ -56,26 +56,26 @@ export const LoadingRoot = styled.div`
   background-size: 600% 600%;
   color: #fff;
   padding: 8px;
-`;
+`
 
 export const List = styled.ul<ListProps>`
   display: ${({ direction }) =>
-    direction === "horizontal" ? "flex" : "block"};
+    direction === 'horizontal' ? 'flex' : 'block'};
   list-style: none;
   font-size: 16px;
   margin: 0;
   padding: 6px;
-`;
+`
 export const ListItem = styled.li`
   background-color: #fafafa;
   border: 1px solid #99b4c0;
   padding: 8px;
   margin: 4px;
-`;
+`
 
 export const ListContainer = styled.div`
   max-height: 500px;
   max-width: 500px;
   overflow: auto;
   background-color: #fafafa;
-`;
+`

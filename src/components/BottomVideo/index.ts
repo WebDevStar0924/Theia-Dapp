@@ -1,1 +1,1 @@
-export { default as BottomVideo } from "./BottomVideo";
+export { default as BottomVideo } from './BottomVideo'

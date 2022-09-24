@@ -1,42 +1,42 @@
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { SiDiscord } from "react-icons/si";
-import { FaTwitter, FaTelegramPlane } from "react-icons/fa";
-import { BsMedium } from "react-icons/bs";
-import logo from "../../assets/svg/logo.svg";
-import Container from "../container/Container";
-import { hoverTxtShadow, hoverZoom } from "../../utils/Animations";
-import "./_footer.scss";
+import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { SiDiscord } from 'react-icons/si'
+import { FaTwitter, FaTelegramPlane } from 'react-icons/fa'
+import { BsMedium } from 'react-icons/bs'
+import logo from '../../assets/svg/logo.svg'
+import Container from '../container/Container'
+import { hoverTxtShadow, hoverZoom } from '../../utils/Animations'
+import './_footer.scss'
 
 const data = [
   {
-    href: "https://discord.gg/b2ADVX5hPZ",
-    name: "Discord",
+    href: 'https://discord.gg/b2ADVX5hPZ',
+    name: 'Discord',
     logo: <SiDiscord className="footerLink-icon" />,
   },
   {
-    href: "https://twitter.com/Theia_Labs",
-    name: "Twitter",
+    href: 'https://twitter.com/Theia_Labs',
+    name: 'Twitter',
     logo: <FaTwitter className="footerLink-icon" />,
   },
   {
-    href: "https://medium.com/@theia.finance",
-    name: "Medium",
+    href: 'https://medium.com/@theia.finance',
+    name: 'Medium',
     logo: <BsMedium className="footerLink-icon" />,
   },
   {
-    href: "https://t.me/THEIAfinance",
-    name: "Telegram",
+    href: 'https://t.me/THEIAfinance',
+    name: 'Telegram',
     logo: <FaTelegramPlane className="footerLink-icon" />,
   },
-];
+]
 const Footer = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   return (
     <Container>
-      {pathname !== "/mint" && pathname !== "/404" && (
+      {pathname !== '/mint' && pathname !== '/404' && (
         <>
-          <div style={{ marginTop: "5rem" }} />
+          <div style={{ marginTop: '5rem' }} />
           <div className="footer">
             <motion.div whileHover={hoverZoom}>
               <Link to="/">
@@ -65,7 +65,7 @@ const Footer = () => {
               <motion.span
                 whileHover={hoverTxtShadow}
                 className="footer-bottom__link"
-                style={{ padding: "0 10px" }}
+                style={{ padding: '0 10px' }}
               >
                 Terms
               </motion.span>
@@ -73,7 +73,7 @@ const Footer = () => {
                 whileHover={hoverTxtShadow}
                 className="footer-bottom__link"
               >
-                <Link to="/privacy-policy">Privacy</Link>{" "}
+                <Link to="/privacy-policy">Privacy</Link>{' '}
               </motion.span>
             </div>
             <div className="footer-bottom__year">
@@ -83,7 +83,7 @@ const Footer = () => {
         </>
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

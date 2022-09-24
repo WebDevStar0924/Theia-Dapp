@@ -1,57 +1,54 @@
-import { useRef } from "react";
-import { StyledWrapper } from "./styles";
-import { BsCamera } from "react-icons/all";
-import { useToast } from "../../hooks/useToast";
+import { useRef } from 'react'
+import { StyledWrapper } from './styles'
+import { BsCamera } from 'react-icons/all'
+import { useToast } from '../../hooks/useToast'
 
 interface iProps {
-  showLabel: boolean;
-  bannerImg: string | null;
-  iconImg: string | null;
-  updateBannerImg: (img: string | null) => void;
-  updateIconImg: (img: string | null) => void;
-  editable?: boolean;
+  showLabel: boolean
+  bannerImg: string | null
+  iconImg: string | null
+  updateBannerImg: (img: string | undefined) => void
+  updateIconImg: (img: string | undefined) => void
+  editable?: boolean
 }
 
 export default function AddImage(props: iProps) {
-  const bannerRef = useRef<HTMLInputElement>(null);
-  const iconRef = useRef<HTMLInputElement>(null);
-  const { toastWarning } = useToast();
+  const bannerRef = useRef<HTMLInputElement>(null)
+  const iconRef = useRef<HTMLInputElement>(null)
+  const { toastWarning } = useToast()
 
-  const { bannerImg, iconImg, updateBannerImg, updateIconImg, editable } =
-    props;
+  const { bannerImg, iconImg, updateBannerImg, updateIconImg, editable } = props
 
   const descImgChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
       if (file.size > 1024 * 1024) {
-        toastWarning("Max image size is 1MB!", "");
+        toastWarning('Max image size is 1MB!', '')
       } else {
-        const reader = new FileReader();
+        const reader = new FileReader()
 
         reader.onload = function () {
-          // @ts-ignore
-          updateBannerImg(reader.result);
-        };
-        reader.readAsDataURL(file);
+          updateBannerImg(reader.result?.toString())
+        }
+        reader.readAsDataURL(file)
       }
     }
-  };
+  }
 
   const iconChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
       if (file.size > 1024 * 1024) {
-        toastWarning("Max image size is 1MB!", "");
+        toastWarning('Max image size is 1MB!', '')
       } else {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = function () {
-          // @ts-ignore
-          updateIconImg(reader.result);
-        };
-        reader.readAsDataURL(file);
+          updateIconImg(reader.result?.toString())
+        }
+        reader.readAsDataURL(file)
       }
     }
-  };
+  }
   return (
     <StyledWrapper>
       <input
@@ -77,17 +74,17 @@ export default function AddImage(props: iProps) {
         <img
           src={bannerImg}
           alt="Banner"
-          className={"bannerImg"}
+          className={'bannerImg'}
           onClick={() => {
-            editable && bannerRef.current && bannerRef.current.click();
+            editable && bannerRef.current && bannerRef.current.click()
           }}
         />
       ) : (
         <div
-          className={"emptyBanner"}
+          className={'emptyBanner'}
           onClick={() => bannerRef.current && bannerRef.current.click()}
         >
-          <BsCamera fill={"#FFF"} size={"27px"} className={"cameraIcon"} />
+          <BsCamera fill={'#FFF'} size={'27px'} className={'cameraIcon'} />
         </div>
       )}
 
@@ -95,17 +92,17 @@ export default function AddImage(props: iProps) {
         <img
           src={iconImg}
           alt="Icon"
-          className={"iconImg"}
+          className={'iconImg'}
           onClick={() => editable && iconRef.current && iconRef.current.click()}
         />
       ) : (
         <div
-          className={"emptyIcon"}
+          className={'emptyIcon'}
           onClick={() => iconRef.current && iconRef.current.click()}
         >
-          <BsCamera fill={"#FFF"} size={"27px"} className={"cameraIcon"} />
+          <BsCamera fill={'#FFF'} size={'27px'} className={'cameraIcon'} />
         </div>
       )}
     </StyledWrapper>
-  );
+  )
 }

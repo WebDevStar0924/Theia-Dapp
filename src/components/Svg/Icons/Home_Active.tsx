@@ -1,10 +1,10 @@
-import React from "react";
-import Svg from "../Svg";
-import { SvgProps } from "../types";
+import React from 'react'
+import Svg from '../Svg'
+import { SvgProps } from '../types'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
-    <Svg viewBox="0 0 30 30" {...props} fill={"none"}>
+    <Svg viewBox="0 0 30 30" {...props} fill={'none'}>
       <desc>Created with Lunacy</desc>
       <g id="home">
         <path
@@ -23,7 +23,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

@@ -1,76 +1,76 @@
-import API from "api/api";
-import { Flex } from "components/Flex";
-import { ForumCommentWrapper } from "components/ForumCard/styles";
-import { HeartButton } from "components/HeartButton";
-import { TextView } from "components/TextView";
-import { VoteBar } from "components/VoteBar";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
-import { useMembership } from "hooks/useMembership";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { BiMessageRounded } from "react-icons/all";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { useSelector } from "react-redux";
-import { State } from "state/types";
-import { getDiffTime } from "utils";
-import sampleImg from "../../assets/image/defaultProjectIcon.png";
-import { CommentCardContainer, CommentCardWrapper } from "./styles";
+import API from 'api/api'
+import { Flex } from 'components/Flex'
+import { ForumCommentWrapper } from 'components/ForumCard/styles'
+import { HeartButton } from 'components/HeartButton'
+import { TextView } from 'components/TextView'
+import { VoteBar } from 'components/VoteBar'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useMembership } from 'hooks/useMembership'
+import moment from 'moment'
+import { useEffect, useState } from 'react'
+import { BiMessageRounded } from 'react-icons/all'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { useSelector } from 'react-redux'
+import { State } from 'state/types'
+import { getDiffTime } from 'utils'
+import sampleImg from '../../assets/image/defaultProjectIcon.png'
+import { CommentCardContainer, CommentCardWrapper } from './styles'
 
 interface iProps {
-  collectiveID: string;
-  comments: any[];
-  depth: number;
-  onUpdateComments: (newComments: any[], isAdding: boolean) => void;
+  collectiveID: string
+  comments: any[]
+  depth: number
+  onUpdateComments: (newComments: any[], isAdding: boolean) => void
 }
 
 export default function CommentCard(props: iProps) {
-  const { account } = useActiveWeb3React();
-  const { comments, depth, onUpdateComments, collectiveID } = props;
-  const [commentsData, setCommentsData] = useState<any[]>(comments);
-  const [commentText, setComment] = useState("");
-  const profileData = useSelector((state: State) => state.profile.data);
-  const onMemberShipCheck = useMembership();
+  const { account } = useActiveWeb3React()
+  const { comments, depth, onUpdateComments, collectiveID } = props
+  const [commentsData, setCommentsData] = useState<any[]>(comments)
+  const [commentText, setComment] = useState('')
+  const profileData = useSelector((state: State) => state.profile.data)
+  const onMemberShipCheck = useMembership()
 
   useEffect(() => {
-    setCommentsData(comments);
-  }, [comments]);
+    setCommentsData(comments)
+  }, [comments])
 
   function handleVote(comment_id, action, idx) {
-    API.updateVote(comment_id, "comment", action, account).then((res) => {
+    API.updateVote(comment_id, 'comment', action, account).then((res) => {
       if (res.data.success) {
-        const newComments = [...comments];
+        const newComments = [...comments]
         newComments[idx] = {
           ...newComments[idx],
           votes:
-            action === "up"
+            action === 'up'
               ? Number(newComments[idx].votes) + 1
               : Number(newComments[idx].votes) - 1,
           votes_count:
-            action === "up"
+            action === 'up'
               ? Number(newComments[idx].votes_count) + 1
               : Number(newComments[idx].votes_count) - 1,
-        };
-        onUpdateComments(newComments, false);
+        }
+        onUpdateComments(newComments, false)
       }
-    });
+    })
   }
 
   const handleFavorite = (comment_id, action, idx) => {
-    API.updateFavorite(comment_id, "comment", action, account).then((res) => {
+    API.updateFavorite(comment_id, 'comment', action, account).then((res) => {
       if (res.data.success) {
-        const newComments = [...comments];
+        const newComments = [...comments]
         newComments[idx] = {
           ...newComments[idx],
           favorites:
-            action === "up"
+            action === 'up'
               ? Number(newComments[idx].favorites) + 1
               : Number(newComments[idx].favorites) - 1,
-          favorite_count: action === "up" ? 1 : 0,
-        };
-        onUpdateComments(newComments, false);
+          favorite_count: action === 'up' ? 1 : 0,
+        }
+        onUpdateComments(newComments, false)
       }
-    });
-  };
+    })
+  }
 
   // const handleCrown = (comment_id, action, idx) => {
   //   API.updateCrown(comment_id, "comment", action, account).then((res) => {
@@ -90,30 +90,29 @@ export default function CommentCard(props: iProps) {
   // };
 
   const showComment = (comment) => {
-    comment.show = !comment.show;
+    comment.show = !comment.show
     setCommentsData((_prev) => {
       _prev.forEach((item) => {
-        if (item.comment_id === comment.comment_id)
-          Object.assign(item, comment);
-      });
-      return [..._prev];
-    });
-  };
+        if (item.comment_id === comment.comment_id) Object.assign(item, comment)
+      })
+      return [..._prev]
+    })
+  }
 
   const handleReply = (post_id, parent_id, type, idx) => {
     API.replyComment(post_id, parent_id, type, commentText, account).then(
       (res: any) => {
         if (res.data.success) {
-          const newComment = res.data.comment;
-          newComment.subComments = [];
-          const newComments = [...comments];
-          newComments[idx].subComments.unshift(newComment);
-          newComments[idx].show = false;
-          onUpdateComments(newComments, false);
+          const newComment = res.data.comment
+          newComment.subComments = []
+          const newComments = [...comments]
+          newComments[idx].subComments.unshift(newComment)
+          newComments[idx].show = false
+          onUpdateComments(newComments, false)
         }
-      }
-    );
-  };
+      },
+    )
+  }
   return (
     <CommentCardContainer>
       {commentsData.map((comment, idx) => (
@@ -122,23 +121,23 @@ export default function CommentCard(props: iProps) {
             <VoteBar
               onVoteUp={() => {
                 onMemberShipCheck(collectiveID, account, () =>
-                  handleVote(comment.comment_id, "up", idx)
-                );
+                  handleVote(comment.comment_id, 'up', idx),
+                )
               }}
               onVoteDown={() => {
                 onMemberShipCheck(collectiveID, account, () =>
-                  handleVote(comment.comment_id, "down", idx)
-                );
+                  handleVote(comment.comment_id, 'down', idx),
+                )
               }}
               votes={comment.votes}
               votes_count={comment.votes_count}
             />
             <div className="commentBox">
               <div className="commentHeader">
-                <Flex style={{ gridGap: "10px" }} alignItems="center">
+                <Flex style={{ gridGap: '10px' }} alignItems="center">
                   {comment.creator[0].avatar !== null ? (
                     <img
-                      className={"userImage"}
+                      className={'userImage'}
                       src={comment.creator[0].avatar}
                       alt="user_image"
                     />
@@ -146,7 +145,7 @@ export default function CommentCard(props: iProps) {
                     <Jazzicon
                       diameter={35}
                       seed={jsNumberForAddress(
-                        comment.creator[0].walletaddress
+                        comment.creator[0].walletaddress,
                       )}
                     />
                   )}
@@ -169,18 +168,18 @@ export default function CommentCard(props: iProps) {
                     onMemberShipCheck(collectiveID, account, () =>
                       handleFavorite(
                         comment.comment_id,
-                        comment.favorite_count > 0 ? "down" : "up",
-                        idx
-                      )
-                    );
+                        comment.favorite_count > 0 ? 'down' : 'up',
+                        idx,
+                      ),
+                    )
                   }}
                 />
                 <div
                   className="circleBtn reply"
                   onClick={() => {
                     onMemberShipCheck(collectiveID, account, () =>
-                      showComment(comment)
-                    );
+                      showComment(comment),
+                    )
                   }}
                 >
                   <BiMessageRounded size={20} />
@@ -190,12 +189,12 @@ export default function CommentCard(props: iProps) {
             </div>
           </CommentCardWrapper>
           {comment.show && (
-            <div style={{ marginTop: "30px", marginLeft: "40px" }}>
+            <div style={{ marginTop: '30px', marginLeft: '40px' }}>
               <ForumCommentWrapper>
                 <div className="forum">
                   <div className="forumCardHeader">
                     <Flex
-                      style={{ gridGap: "10px", display: "flex" }}
+                      style={{ gridGap: '10px', display: 'flex' }}
                       alignItems="center"
                     >
                       <img
@@ -208,34 +207,34 @@ export default function CommentCard(props: iProps) {
                     </Flex>
                   </div>
                 </div>
-                <div style={{ padding: "10px", marginTop: "-15px" }}>
+                <div style={{ padding: '10px', marginTop: '-15px' }}>
                   <TextView
-                    label={""}
+                    label={''}
                     value={commentText}
                     rows={4}
                     onUserInput={(val) => {
-                      setComment(val);
+                      setComment(val)
                     }}
-                    placeholder={"Comment"}
+                    placeholder={'Comment'}
                   />
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "end",
-                      marginTop: "20px",
-                      gridGap: "24px",
+                      display: 'flex',
+                      justifyContent: 'end',
+                      marginTop: '20px',
+                      gridGap: '24px',
                     }}
                   >
                     <button
                       className="replyBtn"
-                      disabled={commentText === ""}
+                      disabled={commentText === ''}
                       onClick={() => {
                         handleReply(
                           comment.post_id,
                           comment.comment_id,
                           comment.type,
-                          idx
-                        );
+                          idx,
+                        )
                       }}
                     >
                       REPLY
@@ -246,17 +245,17 @@ export default function CommentCard(props: iProps) {
             </div>
           )}
           {comment.subComments.length > 0 && (
-            <div style={{ marginLeft: "40px" }}>
+            <div style={{ marginLeft: '40px' }}>
               <CommentCard
                 collectiveID={collectiveID}
                 comments={comment.subComments}
                 depth={depth + 1}
                 onUpdateComments={(newSubcomments, isAdding) => {
-                  const newComment = { ...comment };
-                  newComment.subComments = newSubcomments;
-                  const newComments = [...comments];
-                  newComments[idx] = newComment;
-                  onUpdateComments(newComments, isAdding);
+                  const newComment = { ...comment }
+                  newComment.subComments = newSubcomments
+                  const newComments = [...comments]
+                  newComments[idx] = newComment
+                  onUpdateComments(newComments, isAdding)
                 }}
               />
             </div>
@@ -264,5 +263,5 @@ export default function CommentCard(props: iProps) {
         </div>
       ))}
     </CommentCardContainer>
-  );
+  )
 }

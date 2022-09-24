@@ -1,76 +1,76 @@
-export type Breakpoints = string[];
+export type Breakpoints = string[]
 
 export type MediaQueries = {
-  xs: string;
-  sm: string;
-  md: string;
-  lg: string;
-  xl: string;
-  nav: string;
-};
+  xs: string
+  sm: string
+  md: string
+  lg: string
+  xl: string
+  nav: string
+}
 
-export type Spacing = number[];
+export type Spacing = number[]
 
 export type Radii = {
-  small: string;
-  default: string;
-  card: string;
-  circle: string;
-};
+  small: string
+  default: string
+  card: string
+  circle: string
+}
 
 export type Shadows = {
-  level1: string;
-  active: string;
-  success: string;
-  warning: string;
-  focus: string;
-  yellow: string;
-  inset: string;
-};
+  level1: string
+  active: string
+  success: string
+  warning: string
+  focus: string
+  yellow: string
+  inset: string
+}
 
 export type Gradients = {
-  bubblegum: string;
-};
+  bubblegum: string
+}
 
 export type Colors = {
-  primary: string;
-  primaryBright: string;
-  primaryDark: string;
-  secondary: string;
-  tertiary: string;
-  success: string;
-  failure: string;
-  warning: string;
-  contrast: string;
-  invertedContrast: string;
-  input: string;
-  background: string;
-  backgroundDisabled: string;
-  text: string;
-  textGray: string;
-  link: string;
-  textDisabled: string;
-  textSubtle: string;
-  borderColor: string;
-  card: string;
-  yellow: string;
-  white: string;
+  primary: string
+  primaryBright: string
+  primaryDark: string
+  secondary: string
+  tertiary: string
+  success: string
+  failure: string
+  warning: string
+  contrast: string
+  invertedContrast: string
+  input: string
+  background: string
+  backgroundDisabled: string
+  text: string
+  textGray: string
+  link: string
+  textDisabled: string
+  textSubtle: string
+  borderColor: string
+  card: string
+  yellow: string
+  white: string
 
   // Gradients
-  gradients: Gradients;
+  gradients: Gradients
 
   // Brand colors
-  binance: string;
+  binance: string
 
-  green: string;
-};
+  green: string
+}
 
 export type ZIndices = {
-  dropdown: number;
-  modal: number;
-};
+  dropdown: number
+  modal: number
+}
 
 export type FontFamily = {
-  titan: string;
-  poppins: string;
-};
+  titan: string
+  poppins: string
+}

@@ -1,5 +1,5 @@
-import { GalleryWrapper } from "./styles";
+import { GalleryWrapper } from './styles'
 
 export default function ProfileGallery() {
-  return <GalleryWrapper></GalleryWrapper>;
+  return <GalleryWrapper></GalleryWrapper>
 }

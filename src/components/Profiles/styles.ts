@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ProfileSettingsWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const ProfileSettingsWrapper = styled.div`
   border-radius: 30px;
 
   .settingsHeader {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -24,7 +24,7 @@ export const ProfileSettingsWrapper = styled.div`
 
   .favoritesHeader {
     border-bottom: 1px solid #e4e7ec;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -40,7 +40,7 @@ export const ProfileSettingsWrapper = styled.div`
     margin-bottom: 40px;
 
     .bannerTitle {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -50,7 +50,7 @@ export const ProfileSettingsWrapper = styled.div`
     }
 
     .avatarTitle {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -59,7 +59,7 @@ export const ProfileSettingsWrapper = styled.div`
     }
 
     .Recommend {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
@@ -109,7 +109,7 @@ export const ProfileSettingsWrapper = styled.div`
     background: #ffffff;
     border: 1px solid #d0d5dd;
     border-radius: 200px;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -148,7 +148,7 @@ export const ProfileSettingsWrapper = styled.div`
   }
 
   .bioMax {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -158,7 +158,7 @@ export const ProfileSettingsWrapper = styled.div`
 
   .addLinks {
     margin-bottom: 16px;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -221,7 +221,7 @@ export const ProfileSettingsWrapper = styled.div`
     flex-grow: 0;
     margin-top: 64px;
     margin-left: -415px;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -262,18 +262,18 @@ export const ProfileSettingsWrapper = styled.div`
     border: none;
     box-sizing: border-box;
     border-radius: 8px;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
     resize: none;
     width: 400px;
     &::placeholder {
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 16px;
       font-weight: 500;
       line-height: 24px;
       color: #98a2b3;
     }
   }
-`;
+`
 
 export const ProfileDashboardWrapper = styled.div`
   display: flex;
@@ -284,7 +284,7 @@ export const ProfileDashboardWrapper = styled.div`
     background-color: #ffffff;
 
     .subTitle {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 24px;
@@ -296,7 +296,7 @@ export const ProfileDashboardWrapper = styled.div`
 
     .moreBtn {
       margin: 16px auto;
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -306,7 +306,7 @@ export const ProfileDashboardWrapper = styled.div`
       color: #101828;
     }
   }
-`;
+`
 
 export const DashItemWrapper = styled.div`
   display: flex;
@@ -324,7 +324,7 @@ export const DashItemWrapper = styled.div`
   }
 
   .name {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -333,21 +333,21 @@ export const DashItemWrapper = styled.div`
   }
 
   .type {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 18px;
     color: #98a2b3;
   }
-`;
+`
 export const ProfileFavoritesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: 8px;
 
   .favorites {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -364,7 +364,7 @@ export const ProfileFavoritesWrapper = styled.div`
   }
   .moreBtn {
     margin: 16px auto;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -373,7 +373,7 @@ export const ProfileFavoritesWrapper = styled.div`
     text-transform: uppercase;
     color: #101828;
   }
-`;
+`
 
 export const SocialItem = styled.div`
   display: flex;
@@ -407,19 +407,19 @@ export const SocialItem = styled.div`
     box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px 8px;
 
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
   }
-`;
+`
 
 export const GalleryWrapper = styled.div`
   padding: 40px 10px;
 
   .shareBtn {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -439,7 +439,7 @@ export const GalleryWrapper = styled.div`
   }
 
   .removeBtn {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -478,7 +478,7 @@ export const GalleryWrapper = styled.div`
 
         .artLabels {
           color: #fff;
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-weight: 600;
         }
 
@@ -511,4 +511,4 @@ export const GalleryWrapper = styled.div`
       }
     }
   }
-`;
+`

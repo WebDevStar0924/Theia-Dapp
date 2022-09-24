@@ -1,1 +1,1 @@
-export { default as AcceptMobileView } from "./AcceptMobileView";
+export { default as AcceptMobileView } from './AcceptMobileView'

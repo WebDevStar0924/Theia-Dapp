@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StyledInviteContent = styled.div`
   display: flex;
   flex-direction: column;
 
   .title {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -15,7 +15,7 @@ export const StyledInviteContent = styled.div`
   }
 
   .description {
-    font-family: "Inter", serif;
+    font-family: 'Inter', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -35,4 +35,4 @@ export const StyledInviteContent = styled.div`
       flex: 1;
     }
   }
-`;
+`

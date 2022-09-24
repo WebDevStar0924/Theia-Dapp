@@ -1,26 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   newUser: true,
   data: {
-    username: "",
-    walletaddress: "",
-    email: "",
+    username: '',
+    walletaddress: '',
+    email: '',
     banner: null,
-    shortDescription: "",
+    shortDescription: '',
     avatar: null,
     twitter: null,
     discord: null,
     website: null,
-    role: "",
+    role: '',
   },
-};
+}
 
 const profileSlice = createSlice({
-  name: "profile",
+  name: 'profile',
   initialState,
   reducers: {
-    profileClear: (state) => ({
+    profileClear: () => ({
       ...initialState,
     }),
 
@@ -31,8 +31,8 @@ const profileSlice = createSlice({
       },
     }),
   },
-});
+})
 
-export const { profileClear, updateProfileData } = profileSlice.actions;
+export const { profileClear, updateProfileData } = profileSlice.actions
 
-export default profileSlice.reducer;
+export default profileSlice.reducer

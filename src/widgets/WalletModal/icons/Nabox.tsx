@@ -1,12 +1,12 @@
-import React from "react";
-import Svg from "../../../components/Svg/Svg";
-import { SvgProps } from "../../../components/Svg";
+import React from 'react'
+import Svg from '../../../components/Svg/Svg'
+import { SvgProps } from '../../../components/Svg'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg viewBox="0 0 200.17 228.32" {...props}>
       <defs>
-        <style>{".prefix__cls-1{fill:#2ac98b;fill-rule:evenodd}"}</style>
+        <style>{'.prefix__cls-1{fill:#2ac98b;fill-rule:evenodd}'}</style>
       </defs>
       <title>Nabox</title>
       <g id="prefix__\u56FE\u5C42_2" data-name="\u56FE\u5C42 2">
@@ -22,7 +22,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         </g>
       </g>
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

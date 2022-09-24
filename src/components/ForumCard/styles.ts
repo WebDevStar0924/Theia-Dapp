@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Card = styled.div`
   background: #e4e7ec;
@@ -12,27 +12,20 @@ export const Card = styled.div`
       padding: 0 0;
     }
   }
-`;
+`
 
 export const Backbutton = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
-  grid-gap: 25px;
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 28px;
-  color: #000000;
-  padding: 10px 24px;
-  background: #ffffff;
-  border: 1px solid #d0d5dd;
-  border-radius: 8px;
-  width: fit-content;
-  margin-bottom: 24px;
+  justify-content: center;
   cursor: pointer;
-`;
+  background: #ffffff;
+  width: 58px;
+  height: 58px;
+  border: 1px solid #d0d5dd;
+  border-radius: 100px;
+`
 
 export const ForumCardWrapper = styled.div`
   border-radius: 16px;
@@ -74,7 +67,7 @@ export const ForumCardWrapper = styled.div`
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
       }
       .username {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -82,7 +75,7 @@ export const ForumCardWrapper = styled.div`
         color: #101828;
       }
       .userTag {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
         font-size: 12px;
@@ -98,7 +91,7 @@ export const ForumCardWrapper = styled.div`
         }
       }
       .createTime {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 12px;
@@ -126,7 +119,7 @@ export const ForumCardWrapper = styled.div`
         justify-content: space-between;
 
         .pollOptionTitle {
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -141,7 +134,7 @@ export const ForumCardWrapper = styled.div`
         }
 
         .pollOptionPercent {
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -160,7 +153,7 @@ export const ForumCardWrapper = styled.div`
         grid-gap: 16px;
 
         .pollOption {
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -192,7 +185,7 @@ export const ForumCardWrapper = styled.div`
             border-radius: 50%;
 
             &:after {
-              content: "";
+              content: '';
               position: absolute;
               display: none;
 
@@ -226,7 +219,7 @@ export const ForumCardWrapper = styled.div`
         flex-direction: row;
         align-items: center;
         grid-gap: 24px;
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -237,7 +230,7 @@ export const ForumCardWrapper = styled.div`
         .pollVoteBtn {
           background: #101828;
           border-radius: 200px;
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -256,7 +249,7 @@ export const ForumCardWrapper = styled.div`
     }
 
     .forumTitle {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
@@ -292,8 +285,8 @@ export const ForumCardWrapper = styled.div`
       }
       &.size-3 {
         grid-template:
-          "img0 img2"
-          "img1 img2";
+          'img0 img2'
+          'img1 img2';
         .img0 {
           grid-area: img0;
         }
@@ -323,7 +316,7 @@ export const ForumCardWrapper = styled.div`
       padding: 16px;
     }
   }
-`;
+`
 
 export const ForumCommentWrapper = styled.div`
   border: 2px solid #e4e7ec;
@@ -338,7 +331,7 @@ export const ForumCommentWrapper = styled.div`
     border: none;
     background: #101828;
     border-radius: 200px;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -357,7 +350,7 @@ export const ForumCommentWrapper = styled.div`
     border: 1px solid #d0d5dd;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 200px;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -390,7 +383,7 @@ export const ForumCommentWrapper = styled.div`
       }
 
       .userTag {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
         font-size: 12px;
@@ -403,7 +396,7 @@ export const ForumCommentWrapper = styled.div`
         border-radius: 16px;
       }
       .createTime {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 14px;
@@ -416,7 +409,7 @@ export const ForumCommentWrapper = styled.div`
     }
 
     .forumTitle {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
@@ -446,4 +439,4 @@ export const ForumCommentWrapper = styled.div`
       justify-content: space-between;
     }
   }
-`;
+`

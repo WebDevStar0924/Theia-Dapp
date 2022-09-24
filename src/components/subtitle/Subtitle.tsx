@@ -1,8 +1,8 @@
-import React from "react";
-import "./subtitle.css";
+import React from 'react'
+import './subtitle.css'
 
 const Subtitle = ({ children }: any) => {
-  return <div className="theia_subtitle">{children}</div>;
-};
+  return <div className="theia_subtitle">{children}</div>
+}
 
-export default Subtitle;
+export default Subtitle

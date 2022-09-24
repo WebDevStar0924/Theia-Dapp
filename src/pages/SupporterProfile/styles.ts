@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const SupporterProfileContainer = styled.div`
   padding: 20px;
@@ -26,7 +26,7 @@ export const SupporterProfileContainer = styled.div`
       padding: 10px 20px 30px 250px;
 
       .name {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 30px;
@@ -39,7 +39,7 @@ export const SupporterProfileContainer = styled.div`
       }
 
       .userName {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -49,7 +49,7 @@ export const SupporterProfileContainer = styled.div`
 
       .shortDescription {
         margin-top: 10px;
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
@@ -65,7 +65,7 @@ export const SupporterProfileContainer = styled.div`
 
         .location {
           margin-left: 9px;
-          font-family: "Montserrat", serif;
+          font-family: 'Montserrat', serif;
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -86,7 +86,7 @@ export const SupporterProfileContainer = styled.div`
           border: 1px solid #ffffff;
           box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
           border-radius: 200px;
-          font-family: "Montserrat", serif;
+          font-family: 'Montserrat', serif;
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -117,7 +117,7 @@ export const SupporterProfileContainer = styled.div`
     }
 
     .userTag {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 500;
       font-size: 16px;
@@ -127,7 +127,7 @@ export const SupporterProfileContainer = styled.div`
     }
 
     .userDescription {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
@@ -154,4 +154,4 @@ export const SupporterProfileContainer = styled.div`
     object-fit: cover;
     border-radius: 50%;
   }
-`;
+`

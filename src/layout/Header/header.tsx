@@ -1,30 +1,30 @@
-import { Link, useLocation } from "react-router-dom";
-import Avatar from "../../components/Avatar/Avatar";
-import { MotionButton } from "../../components/MotionButton/styles";
-import Logo from "../../components/Svg/Icons/Logo";
-import LogoBlack from "../../components/Svg/Icons/LogoBlack";
-import useActiveWeb3React from "../../hooks/useActiveWeb3React";
-import useAuth from "../../hooks/useAuth";
-import { hoverTxtBoxShadow } from "../../utils/Animations";
-import { useWalletModal } from "../../widgets/WalletModal";
-import { HeaderLeftWrapper, HeaderWrapper } from "./styles";
+import { Link, useLocation } from 'react-router-dom'
+import Avatar from '../../components/Avatar/Avatar'
+import { MotionButton } from '../../components/MotionButton/styles'
+import Logo from '../../components/Svg/Icons/Logo'
+import LogoBlack from '../../components/Svg/Icons/LogoBlack'
+import useActiveWeb3React from '../../hooks/useActiveWeb3React'
+import useAuth from '../../hooks/useAuth'
+import { hoverTxtBoxShadow } from '../../utils/Animations'
+import { useWalletModal } from '../../widgets/WalletModal'
+import { HeaderLeftWrapper, HeaderWrapper } from './styles'
 
 export default function Header() {
-  const { account } = useActiveWeb3React();
-  const { login, logout } = useAuth();
+  const { account } = useActiveWeb3React()
+  const { login, logout } = useAuth()
   const { onPresentConnectModal } = useWalletModal(
     login,
     logout,
-    account || undefined
-  );
-  const location = useLocation();
+    account || undefined,
+  )
+  const location = useLocation()
 
   return (
-    <HeaderWrapper bgColor={location.pathname === "/mint" ? "#101828" : "#fff"}>
-      <div className={"headerContent"}>
+    <HeaderWrapper bgColor={location.pathname === '/mint' ? '#101828' : '#fff'}>
+      <div className={'headerContent'}>
         <HeaderLeftWrapper>
-          <Link to={"/"}>
-            {location.pathname === "/mint" ? (
+          <Link to={'/'}>
+            {location.pathname === '/mint' ? (
               <Logo width={135} />
             ) : (
               <LogoBlack width={135} />
@@ -38,7 +38,7 @@ export default function Header() {
             <MotionButton
               whileHover={hoverTxtBoxShadow}
               onClick={onPresentConnectModal}
-              className={"connectWalletBtn"}
+              className={'connectWalletBtn'}
             >
               Connect Wallet
             </MotionButton>
@@ -46,5 +46,5 @@ export default function Header() {
         </HeaderLeftWrapper>
       </div>
     </HeaderWrapper>
-  );
+  )
 }

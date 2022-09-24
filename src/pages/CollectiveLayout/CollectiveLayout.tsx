@@ -1,148 +1,193 @@
-import API from "api/api";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
-import { filter } from "lodash";
-import { useCallback, useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import CollectiveHeader from "./CollectiveHeader";
-import CollectiveSidebar from "./CollectiveSidebar";
-import { CollectiveLayoutWrapper } from "./styles";
+import API from 'api/api'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useCallback, useEffect, useState } from 'react'
+import { Outlet, useLocation, useParams } from 'react-router-dom'
+import CollectiveHeader from './CollectiveHeader'
+import CollectiveSidebar from './CollectiveSidebar'
+import { CollectiveLayoutWrapper } from './styles'
+interface LocationState {
+  forum_id: string
+}
 
 export default function CollectiveLayout() {
-  const [collectiveInfo, setCollectiveInfo] = useState<any>(null);
-  const { account } = useActiveWeb3React();
-  const { cname, ctab, post_id } = useParams();
+  const [collectiveInfo, setCollectiveInfo] = useState<any>(null)
+  const { account } = useActiveWeb3React()
+  const { cname } = useParams()
 
-  const [mixedData, setMixedData] = useState<any[]>([]);
-  const [forums, setForums] = useState<any[]>([]);
-  const [galleries, setGalleries] = useState<any[]>([]);
-  const [isMixed, setIsMixed] = useState(false);
-  const [sortOption, setSortOption] = useState("trending");
+  const [mixedData, setMixedData] = useState<any[]>([])
+  const [forums, setForums] = useState<any[]>([])
+  const [galleries, setGalleries] = useState<any[]>([])
+  const [members, setMembers] = useState<any[]>([])
+  const [isMixed, setIsMixed] = useState(false)
+  const [events, setEvents] = useState<any[]>([])
+  const [sortOption, setSortOption] = useState('trending')
+  const location = useLocation()
   const [filter, updateFilter] = useState({
     onlySaved: false,
-    onlyMyPosts: false
+    onlyMyPosts: false,
   })
 
   useEffect(() => {
     API.getCollectiveByName(cname, account).then((res) => {
       if (res.data.success) {
-        setCollectiveInfo(res.data.collective);
+        setCollectiveInfo(res.data.collective)
       }
-    });
-  }, [cname, account]);
+    })
+  }, [cname, account])
 
   const addNewForum = (newForum) => {
-    const newForums = [...forums];
-    newForums.unshift(newForum);
-    setForums(newForums);
+    const newForums = [...forums]
+    newForums.unshift(newForum)
+    setForums(newForums)
 
     const newMixedData = mixedData.map((item) => {
-      if (item.cardType === "gallery") {
-        return item;
+      if (item.cardType === 'gallery') {
+        return item
       }
       return {
         ...item,
         fIdx: item.fIdx + 1,
-      };
-    });
+      }
+    })
     newMixedData.unshift({
       ...newForum,
-      cardType: "forum",
+      cardType: 'forum',
       fIdx: 0,
-    });
-    setMixedData(newMixedData);
-  };
+    })
+    setMixedData(newMixedData)
+  }
 
   const addNewGallery = (shared) => {
-    setGalleries([...shared, ...galleries]);
+    setGalleries([...shared, ...galleries])
     const newMixedData = [
       ...shared.map((item, idx) => {
         return {
           ...item,
-          cardType: "gallery",
+          cardType: 'gallery',
           gIdx: idx,
-        };
+        }
       }),
       ...mixedData.map((item) => {
-        if (item.cardType === "forum") {
-          return item;
+        if (item.cardType === 'forum') {
+          return item
         }
-        item.gIdx += shared.length;
-        return item;
+        item.gIdx += shared.length
+        return item
       }),
-    ];
-    setMixedData(newMixedData);
-  };
+    ]
+    setMixedData(newMixedData)
+  }
 
   const loadMixDatas = useCallback(async () => {
-    const forumLast36 = await API.getForumLast36(collectiveInfo.collective_id);
+    const forumLast36 = await API.getForumLast36(collectiveInfo.collective_id)
     const galleryLast36 = await API.getGalleryLast36(
-      collectiveInfo.collective_id
-    );
-    let forumIdx = 0;
-    let galleryIdx = 0;
+      collectiveInfo.collective_id,
+    )
+    let forumIdx = 0
+    let galleryIdx = 0
     const sumWeight =
-      Number(forumLast36.data.count) + Number(galleryLast36.data.count);
+      Number(forumLast36.data.count) + Number(galleryLast36.data.count)
     const forumWeight =
-      sumWeight === 0 ? 1 : Number(forumLast36.data.count) / sumWeight;
-    const mixedData: any[] = [];
+      sumWeight === 0 ? 1 : Number(forumLast36.data.count) / sumWeight
+    const mixedData: any[] = []
     while (forumIdx < forums.length || galleryIdx < galleries.length) {
-      const rand = Math.random();
+      const rand = Math.random()
       if (rand < forumWeight && forumIdx < forums.length) {
         mixedData.push({
           ...forums[forumIdx],
-          cardType: "forum",
+          cardType: 'forum',
           fIdx: forumIdx,
-        });
-        forumIdx++;
+        })
+        forumIdx++
       } else {
         if (galleryIdx < galleries.length) {
           mixedData.push({
             ...galleries[galleryIdx],
-            cardType: "gallery",
+            cardType: 'gallery',
             gIdx: galleryIdx,
-          });
-          galleryIdx++;
+          })
+          galleryIdx++
         } else if (forumIdx < forums.length) {
           mixedData.push({
             ...forums[forumIdx],
-            cardType: "forum",
+            cardType: 'forum',
             fIdx: forumIdx,
-          });
-          forumIdx++;
+          })
+          forumIdx++
         }
       }
     }
-    setMixedData(mixedData);
-    setIsMixed(true);
-  }, [forums, galleries]);
+    setMixedData(mixedData)
+    setIsMixed(true)
+  }, [forums, galleries])
 
   useEffect(() => {
     if (forums.length > 0 || galleries.length > 0) {
       if (mixedData.length === 0 || !isMixed) {
-        loadMixDatas();
+        loadMixDatas()
       }
     }
-  }, [forums, galleries, isMixed]);
+  }, [forums, galleries, isMixed])
 
   useEffect(() => {
     if (collectiveInfo) {
       API.getForums(
         collectiveInfo.collective_id,
-        "forum",
-        account ?? "",
-        sortOption
+        'forum',
+        account ?? '',
+        sortOption,
       ).then((res) => {
-        setForums(res.data.forums);
-      });
+        setForums(res.data.forums)
+      })
 
       API.getGalleries(collectiveInfo.collective_id, account, sortOption).then(
         (res) => {
-          const galleries = res.data.galleries || [];
-          setGalleries(galleries);
+          const galleries = res.data.galleries || []
+          setGalleries(galleries)
+        },
+      )
+
+      API.getMembers(collectiveInfo.collective_id).then((res) => {
+        if (res.data.success) {
+          setMembers(res.data.members)
         }
-      );
+      })
     }
-  }, [account, sortOption, collectiveInfo]);
+  }, [account, sortOption, collectiveInfo])
+
+  useEffect(() => {
+    if (!document) {
+      return
+    }
+
+    if (!(location.state as LocationState)?.forum_id) {
+      return
+    }
+
+    setTimeout(() => {
+      const element_id = `forum_${(location.state as LocationState).forum_id}`
+      const componentView = document.getElementById('componentsView')
+      const element = document.getElementById(element_id)
+      componentView?.scrollTo(
+        0,
+        element?.offsetTop ? element.offsetTop - 100 : 0,
+      )
+    }, 2000)
+  }, [location])
+
+  useEffect(() => {
+    if (collectiveInfo) {
+      API.getEventList(collectiveInfo.collective_id).then((res) => {
+        // console.log("***************************");
+        // console.log(res.data);
+        setEvents(res.data.events)
+      })
+    }
+  }, [collectiveInfo])
+
+  const handleFilter = (newFilter) => {
+    updateFilter(newFilter)
+  }
   return (
     <>
       {collectiveInfo && (
@@ -161,21 +206,24 @@ export default function CollectiveLayout() {
             <Outlet
               context={{
                 forums,
+                events,
                 galleries,
                 mixedData,
                 setForums,
                 setGalleries,
                 setMixedData,
+                setEvents,
                 collectiveInfo,
                 sort: sortOption,
                 updateSort: setSortOption,
                 filter,
-                updateFilter
+                updateFilter: handleFilter,
+                members,
               }}
             />
           </div>
         </CollectiveLayoutWrapper>
       )}
     </>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const MintCard = styled.div<{ background: string }>`
   width: 300px;
@@ -13,7 +13,7 @@ export const MintCard = styled.div<{ background: string }>`
   border-radius: 16px;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -31,4 +31,4 @@ export const MintCard = styled.div<{ background: string }>`
     );
     mask-composite: exclude;
   }
-`;
+`

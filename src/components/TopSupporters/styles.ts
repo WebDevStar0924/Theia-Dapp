@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const TopSupporterWrapper = styled.div`
   background: conic-gradient(
@@ -17,7 +17,7 @@ export const TopSupporterWrapper = styled.div`
   backdrop-filter: opacity(0.5);
 
   .title {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
@@ -34,7 +34,7 @@ export const TopSupporterWrapper = styled.div`
     align-items: center;
     justify-content: space-around;
   }
-`;
+`
 
 export const TopSupporter = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const TopSupporter = styled.div`
   }
 
   .supporterIcon {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -81,7 +81,7 @@ export const TopSupporter = styled.div`
     width: 231px;
     height: 231px;
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -122,7 +122,7 @@ export const TopSupporter = styled.div`
   }
   .supporterName {
     margin-top: 20px;
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -130,4 +130,4 @@ export const TopSupporter = styled.div`
     text-align: center;
     color: #ffffff;
   }
-`;
+`

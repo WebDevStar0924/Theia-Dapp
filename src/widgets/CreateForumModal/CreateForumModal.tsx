@@ -1,72 +1,72 @@
-import API from "api/api";
-import { Dropdown } from "components/Dropdown";
-import { dropdownItem } from "components/Dropdown/types";
-import ExternalInput from "components/ExternalInput";
-import { Flex } from "components/Flex";
-import { MotionButton } from "components/MotionButton/styles";
-import { TabList } from "components/TabList";
-import { TextView } from "components/TextView";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
-import { useToast } from "hooks/useToast";
-import { useState } from "react";
-import { FileUploader } from "react-drag-drop-files";
-import { FaTrashAlt } from "react-icons/all";
-import { BiPoll } from "react-icons/bi";
-import { FiEdit3, FiImage, FiLink } from "react-icons/fi";
-import { HiOutlineUpload } from "react-icons/hi";
-import { IoGrid } from "react-icons/io5";
-import { RiAddLine } from "react-icons/ri";
-import { Modal } from "widgets/Modal";
-import { ForumModalWrapper } from "./styles";
+import API from 'api/api'
+import { Dropdown } from 'components/Dropdown'
+import { dropdownItem } from 'components/Dropdown/types'
+import ExternalInput from 'components/ExternalInput'
+import { Flex } from 'components/Flex'
+import { MotionButton } from 'components/MotionButton/styles'
+import { TabList } from 'components/TabList'
+import { TextView } from 'components/TextView'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useToast } from 'hooks/useToast'
+import { useState } from 'react'
+import { FileUploader } from 'react-drag-drop-files'
+import { FaTrashAlt } from 'react-icons/all'
+import { BiPoll } from 'react-icons/bi'
+import { FiEdit3, FiImage, FiLink } from 'react-icons/fi'
+import { HiOutlineUpload } from 'react-icons/hi'
+import { IoGrid } from 'react-icons/io5'
+import { RiAddLine } from 'react-icons/ri'
+import { Modal } from 'widgets/Modal'
+import { ForumModalWrapper } from './styles'
 
 interface iProps {
-  onDismiss?: () => null;
-  params?: any;
+  onDismiss?: () => null
+  params?: any
 }
 export default function CreateForumModal(props: iProps) {
-  const { onDismiss, params } = props;
-  const [activeTab, setActiveTab] = useState(params?.active ?? "POST");
-  const [forumTitle, setForumTitle] = useState("");
-  const [forumDesc, setForumDesc] = useState("");
-  const [forumUrl, setForumUrl] = useState("");
-  const [pollOptions, setPollOptions] = useState<string[]>(["", "", ""]);
-  const [imageFiles, setImageFiles] = useState([]);
-  const { account } = useActiveWeb3React();
-  const { toastError } = useToast();
-  const [activeHour, setHourItem] = useState<dropdownItem | null>(null);
-  const [activeMin, setMinItem] = useState<dropdownItem | null>(null);
-  const [activeDay, setDayItem] = useState<dropdownItem | null>(null);
+  const { onDismiss, params } = props
+  const [activeTab, setActiveTab] = useState(params?.active ?? 'POST')
+  const [forumTitle, setForumTitle] = useState('')
+  const [forumDesc, setForumDesc] = useState('')
+  const [forumUrl, setForumUrl] = useState('')
+  const [pollOptions, setPollOptions] = useState<string[]>(['', '', ''])
+  const [imageFiles, setImageFiles] = useState([])
+  const { account } = useActiveWeb3React()
+  const { toastError } = useToast()
+  const [activeHour, setHourItem] = useState<dropdownItem | null>(null)
+  const [activeMin, setMinItem] = useState<dropdownItem | null>(null)
+  const [activeDay, setDayItem] = useState<dropdownItem | null>(null)
 
-  const daysDropdownList: dropdownItem[] = [];
-  const hoursDropdownList: dropdownItem[] = [];
-  const minsDropdownList: dropdownItem[] = [];
+  const daysDropdownList: dropdownItem[] = []
+  const hoursDropdownList: dropdownItem[] = []
+  const minsDropdownList: dropdownItem[] = []
   for (let i = 0; i < 7; i++) {
     daysDropdownList.push({
       value: i,
       label: `${i}`,
-    });
+    })
   }
   for (let i = 0; i < 24; i++) {
     hoursDropdownList.push({
       value: i,
       label: `${i}`,
-    });
+    })
   }
   for (let i = 0; i < 60; i++) {
     minsDropdownList.push({
       value: i,
       label: `${i}`,
-    });
+    })
   }
 
   const onImageChange = (files) => {
-    setImageFiles(files);
-  };
+    setImageFiles(files)
+  }
 
   const handlePost = async () => {
-    if (forumTitle === "") {
-      toastError("Title is required", "");
-      return;
+    if (forumTitle === '') {
+      toastError('Title is required', '')
+      return
     }
     const data: any = {
       title: forumTitle,
@@ -74,47 +74,47 @@ export default function CreateForumModal(props: iProps) {
       type: activeTab,
       ownerAddress: account,
       collectiveID: params.collectiveID,
-    };
-    if (activeTab === "IMAGE") {
-      const formData = new FormData();
+    }
+    if (activeTab === 'IMAGE') {
+      const formData = new FormData()
       for (let i = 0; i < imageFiles.length; i++) {
-        formData.append("files", imageFiles[i]);
+        formData.append('files', imageFiles[i])
       }
-      const imageRes = await API.uploadFiles(formData);
+      const imageRes = await API.uploadFiles(formData)
       if (imageRes.data.success) {
-        data.images = imageRes.data.urls;
+        data.images = imageRes.data.urls
       }
-    } else if (activeTab === "LINK") {
-      if (forumUrl === "") {
-        toastError("URL is required", "");
-        return;
+    } else if (activeTab === 'LINK') {
+      if (forumUrl === '') {
+        toastError('URL is required', '')
+        return
       }
-      data.url = forumUrl;
-    } else if (activeTab === "POLL") {
-      data.polls = pollOptions;
+      data.url = forumUrl
+    } else if (activeTab === 'POLL') {
+      data.polls = pollOptions
       data.pollLength = {
         days: activeDay?.value ?? 0,
         hours: activeHour?.value ?? 0,
         mins: activeMin?.value ?? 0,
-      };
+      }
     }
     API.createForum(data).then((res) => {
       if (res.data.success) {
-        onDismiss && onDismiss();
-        params?.callback(res.data.forum);
+        onDismiss && onDismiss()
+        params?.callback(res.data.forum)
       } else {
-        toastError(res.data.msg, "");
+        toastError(res.data.msg, '')
       }
-    });
-  };
+    })
+  }
 
   const onRemovePollOption = (idx) => {
-    const newPollOptions = [...pollOptions];
-    newPollOptions.splice(idx, 1);
-    setPollOptions(newPollOptions);
-  };
+    const newPollOptions = [...pollOptions]
+    newPollOptions.splice(idx, 1)
+    setPollOptions(newPollOptions)
+  }
   return (
-    <Modal title={""} onDismiss={onDismiss} width="760px" bodyPadding="48px">
+    <Modal title={''} onDismiss={onDismiss} width="760px" bodyPadding="48px">
       <ForumModalWrapper>
         <div className="title">Create Post</div>
         <TabList
@@ -122,31 +122,31 @@ export default function CreateForumModal(props: iProps) {
           items={[
             {
               icon: <FiEdit3 size={18} />,
-              text: "POST",
-              value: "POST",
+              text: 'POST',
+              value: 'POST',
             },
             {
               icon: <FiImage size={18} />,
-              text: "IMAGE",
-              value: "IMAGE",
+              text: 'IMAGE',
+              value: 'IMAGE',
             },
             {
               icon: <FiLink size={18} />,
-              text: "LINK",
-              value: "LINK",
+              text: 'LINK',
+              value: 'LINK',
             },
             {
               icon: <BiPoll size={18} />,
-              text: "POLL",
-              value: "POLL",
+              text: 'POLL',
+              value: 'POLL',
             },
           ]}
           setActiveTab={function (item: string): void {
-            setActiveTab(item);
+            setActiveTab(item)
           }}
         />
 
-        {activeTab === "POST" && (
+        {activeTab === 'POST' && (
           <>
             <ExternalInput
               label="Title"
@@ -164,7 +164,7 @@ export default function CreateForumModal(props: iProps) {
             />
           </>
         )}
-        {activeTab === "IMAGE" && (
+        {activeTab === 'IMAGE' && (
           <>
             <ExternalInput
               label="Title"
@@ -184,7 +184,7 @@ export default function CreateForumModal(props: iProps) {
             <FileUploader
               handleChange={onImageChange}
               name="file"
-              types={["JPG", "PNG", "GIF", "JPEG", "SVG"]}
+              types={['JPG', 'PNG', 'GIF', 'JPEG', 'SVG']}
               multiple={true}
               classes="drag_drop"
               fileOrFiles={imageFiles}
@@ -197,7 +197,7 @@ export default function CreateForumModal(props: iProps) {
                         src={URL.createObjectURL(file)}
                         key={`preview_${idx}`}
                         width="80px"
-                        style={{ margin: "5px" }}
+                        style={{ margin: '5px' }}
                       />
                     ))}
                   </div>
@@ -211,7 +211,7 @@ export default function CreateForumModal(props: iProps) {
             />
           </>
         )}
-        {activeTab === "LINK" && (
+        {activeTab === 'LINK' && (
           <>
             <ExternalInput
               label="Title"
@@ -236,7 +236,7 @@ export default function CreateForumModal(props: iProps) {
             />
           </>
         )}
-        {activeTab === "POLL" && (
+        {activeTab === 'POLL' && (
           <>
             <ExternalInput
               label="Title"
@@ -260,7 +260,7 @@ export default function CreateForumModal(props: iProps) {
                   <ExternalInput
                     value={pollOption}
                     placeholder={`Options ${idx + 1}`}
-                    type={pollOption.length < 25 ? "active" : "inactive"}
+                    type={pollOption.length < 25 ? 'active' : 'inactive'}
                     endIcon={
                       <span className="pollLimit">
                         {pollOption.length} / 25
@@ -268,9 +268,9 @@ export default function CreateForumModal(props: iProps) {
                     }
                     onUserInput={(val) => {
                       if (val.length <= 25) {
-                        const newPollOptions = [...pollOptions];
-                        newPollOptions[idx] = val;
-                        setPollOptions(newPollOptions);
+                        const newPollOptions = [...pollOptions]
+                        newPollOptions[idx] = val
+                        setPollOptions(newPollOptions)
                       }
                     }}
                   />
@@ -285,7 +285,7 @@ export default function CreateForumModal(props: iProps) {
                 <div
                   className="pollOption"
                   onClick={() => {
-                    setPollOptions([...pollOptions, ""]);
+                    setPollOptions([...pollOptions, ''])
                   }}
                 >
                   <RiAddLine size="20" color="#101828" />
@@ -294,7 +294,7 @@ export default function CreateForumModal(props: iProps) {
               )}
 
               <div className="pollTitle">Poll Length</div>
-              <Flex alignItems={"center"} style={{ gridGap: "10px" }}>
+              <Flex alignItems={'center'} style={{ gridGap: '10px' }}>
                 <Dropdown
                   type="active"
                   activeItem={activeDay}
@@ -331,5 +331,5 @@ export default function CreateForumModal(props: iProps) {
         </div>
       </ForumModalWrapper>
     </Modal>
-  );
+  )
 }

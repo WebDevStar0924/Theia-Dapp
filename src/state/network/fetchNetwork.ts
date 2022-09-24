@@ -1,15 +1,15 @@
 const fetchAndUpdateNetwork = (
   web3ChainId: number,
   account: string,
-  chainId: number
+  chainId: number,
 ) => {
   if (account) {
     if (web3ChainId === chainId) {
-      return { chainId };
+      return { chainId }
     }
-    return { chainId: web3ChainId };
+    return { chainId: web3ChainId }
   }
-  return { chainId };
-};
+  return { chainId }
+}
 
-export default fetchAndUpdateNetwork;
+export default fetchAndUpdateNetwork

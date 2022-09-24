@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { escapeRegExp } from "../../utils";
+import React from 'react'
+import styled from 'styled-components'
+import { escapeRegExp } from '../../utils'
 
 export const StyledInput = styled.input<{
-  error?: boolean;
-  fontSize?: string;
-  align?: string;
+  error?: boolean
+  fontSize?: string
+  align?: string
 }>`
   color: ${({ error, theme }) =>
     error ? theme.colors.failure : theme.colors.text};
@@ -15,7 +15,7 @@ export const StyledInput = styled.input<{
   border: none;
   flex: 1 1 auto;
   background-color: transparent;
-  font-size: ${({ fontSize }) => fontSize || "16px"};
+  font-size: ${({ fontSize }) => fontSize || '16px'};
   text-align: ${({ align }) => align && align};
   white-space: nowrap;
   overflow: hidden;
@@ -28,7 +28,7 @@ export const StyledInput = styled.input<{
     -webkit-appearance: none;
   }
 
-  [type="number"] {
+  [type='number'] {
     -moz-appearance: textfield;
   }
 
@@ -36,8 +36,8 @@ export const StyledInput = styled.input<{
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-`;
-const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`); // match escaped "." characters via in a non-capturing group
+`
+const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
 
 export const Input = React.memo(function InnerInput({
   value,
@@ -45,17 +45,17 @@ export const Input = React.memo(function InnerInput({
   placeholder,
   ...rest
 }: {
-  value: string | number;
-  onUserInput: (input: string) => void;
-  error?: boolean;
-  fontSize?: string;
-  align?: "right" | "left";
-} & Omit<React.HTMLProps<HTMLInputElement>, "ref" | "onChange" | "as">) {
+  value: string | number
+  onUserInput: (input: string) => void
+  error?: boolean
+  fontSize?: string
+  align?: 'right' | 'left'
+} & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
   const enforcer = (nextUserInput: string) => {
-    if (nextUserInput === "" || inputRegex.test(escapeRegExp(nextUserInput))) {
-      onUserInput(nextUserInput);
+    if (nextUserInput === '' || inputRegex.test(escapeRegExp(nextUserInput))) {
+      onUserInput(nextUserInput)
     }
-  };
+  }
   return (
     <>
       <StyledInput
@@ -63,17 +63,17 @@ export const Input = React.memo(function InnerInput({
         value={value}
         onChange={(event) => {
           // replace commas with periods, because we exclusively uses period as the decimal separator
-          const removedComma = event.target.value.replace(/,/g, ".");
+          const removedComma = event.target.value.replace(/,/g, '.')
           if (Number(removedComma) === 0) {
-            if (removedComma.includes(".")) {
-              enforcer(removedComma);
+            if (removedComma.includes('.')) {
+              enforcer(removedComma)
             } else {
-              enforcer("0");
+              enforcer('0')
             }
           } else if (Number(removedComma) < 1) {
-            enforcer(removedComma);
+            enforcer(removedComma)
           } else {
-            enforcer(removedComma.replace(/^0+/, ""));
+            enforcer(removedComma.replace(/^0+/, ''))
           }
         }}
         // universal input options
@@ -84,15 +84,15 @@ export const Input = React.memo(function InnerInput({
         // text-specific options
         type="text"
         pattern="^[0-9]*[.,]?[0-9]*$"
-        placeholder={placeholder || "0.0"}
+        placeholder={placeholder || '0.0'}
         minLength={1}
         maxLength={79}
         spellCheck="false"
         fontSize="22px"
-        style={{ marginRight: "10px" }}
+        style={{ marginRight: '10px' }}
       />
     </>
-  );
-});
+  )
+})
 
-export default Input;
+export default Input

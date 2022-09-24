@@ -1,44 +1,44 @@
-import React from "react";
-import cn from "classnames";
-import { MemberItemWrapper } from "../../styles";
-import { formatBlockchainAddress } from "../../../../utils";
+import React from 'react'
+import cn from 'classnames'
+import { MemberItemWrapper } from '../../styles'
+import { formatBlockchainAddress } from '../../../../utils'
 
 interface MemberItemProps {
-  member: any;
-  isTeamMember: boolean;
+  member: any
+  isTeamMember: boolean
 }
 
 function MemberItem(props: MemberItemProps) {
-  const { member, isTeamMember } = props;
+  const { member, isTeamMember } = props
   return (
     <MemberItemWrapper
-      className={isTeamMember ? "teamMemberItem" : "memberItem"}
+      className={isTeamMember ? 'teamMemberItem' : 'memberItem'}
     >
       {member.image ? (
         <img
-          className={isTeamMember ? "teamMemberImage" : "memberImage"}
+          className={isTeamMember ? 'teamMemberImage' : 'memberImage'}
           src={member.image}
-          alt={"member_image"}
+          alt={'member_image'}
         />
       ) : (
         <div
           className={
-            isTeamMember ? "teamMemberDefaultImage" : "memberDefaultImage"
+            isTeamMember ? 'teamMemberDefaultImage' : 'memberDefaultImage'
           }
         />
       )}
-      <div className={"memberName"}>
+      <div className={'memberName'}>
         {member.name ?? formatBlockchainAddress(member.address, 4, 4)}
       </div>
       <div>
         <span
           className={
-            "memberType " +
+            'memberType ' +
             cn({
-              adminTag: member.type === "Admin",
-              coreTag: member.type === "Core",
-              whaleTag: member.type === "Whale",
-              memberTag: member.type === "Member",
+              adminTag: member.type === 'Admin',
+              coreTag: member.type === 'Core',
+              whaleTag: member.type === 'Whale',
+              memberTag: member.type === 'Member',
             })
           }
         >
@@ -46,7 +46,7 @@ function MemberItem(props: MemberItemProps) {
         </span>
       </div>
     </MemberItemWrapper>
-  );
+  )
 }
 
-export default MemberItem;
+export default MemberItem

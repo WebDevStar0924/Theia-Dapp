@@ -1,16 +1,16 @@
-import { ProgressBarWrapper } from "./styles";
-import ReactTooltip from "react-tooltip";
+import { ProgressBarWrapper } from './styles'
+import ReactTooltip from 'react-tooltip'
 
 interface iProps {
-  firstValue: number;
-  bgColor: string;
-  activeColor: string;
-  secondValue?: number;
-  totalValue: number;
-  secondColor?: string;
-  showTooltip?: boolean;
-  address?: string;
-  symbol?: string;
+  firstValue: number
+  bgColor: string
+  activeColor: string
+  secondValue?: number
+  totalValue: number
+  secondColor?: string
+  showTooltip?: boolean
+  address?: string
+  symbol?: string
 }
 
 export default function ProgressBar(props: iProps) {
@@ -24,7 +24,7 @@ export default function ProgressBar(props: iProps) {
     showTooltip,
     address,
     symbol,
-  } = props;
+  } = props
   return (
     <ProgressBarWrapper bgColor={bgColor}>
       <div
@@ -32,8 +32,8 @@ export default function ProgressBar(props: iProps) {
         data-for={`investTooltip_${address}`}
         style={{
           backgroundColor: activeColor,
-          height: "8px",
-          borderRadius: "4px",
+          height: '8px',
+          borderRadius: '4px',
           width: `${Math.round((firstValue * 100) / totalValue)}%`,
           zIndex: 2,
         }}
@@ -44,10 +44,10 @@ export default function ProgressBar(props: iProps) {
           data-for={`convertTooltip_${address}`}
           style={{
             backgroundColor: secondColor,
-            height: "8px",
-            borderRadius: "4px",
+            height: '8px',
+            borderRadius: '4px',
             width: `${Math.round((secondValue * 100) / totalValue)}%`,
-            marginLeft: "-4px",
+            marginLeft: '-4px',
             zIndex: 1,
           }}
         />
@@ -56,22 +56,22 @@ export default function ProgressBar(props: iProps) {
         <>
           <ReactTooltip
             id={`investTooltip_${address}`}
-            place={"top"}
-            type={"dark"}
-            effect={"solid"}
+            place={'top'}
+            type={'dark'}
+            effect={'solid'}
           >
             {firstValue} {symbol} Invested
           </ReactTooltip>
           <ReactTooltip
             id={`convertTooltip_${address}`}
-            place={"top"}
-            type={"dark"}
-            effect={"solid"}
+            place={'top'}
+            type={'dark'}
+            effect={'solid'}
           >
             {secondValue} {symbol} Converted
           </ReactTooltip>
         </>
       )}
     </ProgressBarWrapper>
-  );
+  )
 }

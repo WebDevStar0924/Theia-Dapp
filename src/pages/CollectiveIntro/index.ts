@@ -1,1 +1,1 @@
-export { default as CollectiveIntro } from "./CollectiveIntro";
+export { default as CollectiveIntro } from './CollectiveIntro'

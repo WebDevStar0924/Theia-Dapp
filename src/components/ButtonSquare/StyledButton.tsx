@@ -1,11 +1,11 @@
-import styled, { DefaultTheme } from "styled-components";
-import { space } from "styled-system";
-import { ButtonSquareProps, ButtonSquareThemeVariant, variants } from "./types";
-import getFontFamily from "../../utils/getFontFamily";
+import styled, { DefaultTheme } from 'styled-components'
+import { space } from 'styled-system'
+import { ButtonSquareProps, ButtonSquareThemeVariant, variants } from './types'
+import getFontFamily from '../../utils/getFontFamily'
 
 type ThemedProps = {
-  theme: DefaultTheme;
-} & ButtonSquareProps;
+  theme: DefaultTheme
+} & ButtonSquareProps
 
 const getDisabledStyles = ({ isLoading, theme }: ThemedProps) => {
   if (isLoading === true) {
@@ -14,7 +14,7 @@ const getDisabledStyles = ({ isLoading, theme }: ThemedProps) => {
       &.button--disabled {
         cursor: not-allowed;
       }
-    `;
+    `
   }
 
   return `
@@ -26,24 +26,24 @@ const getDisabledStyles = ({ isLoading, theme }: ThemedProps) => {
       color: ${theme.colors.textDisabled};
       cursor: not-allowed;
     }
-  `;
-};
+  `
+}
 
 const removePointerEvents = ({ disabled, as }: ThemedProps) => {
-  if (disabled && as && as !== "button") {
+  if (disabled && as && as !== 'button') {
     return `
       pointer-events: none;
-    `;
+    `
   }
 
-  return "";
-};
+  return ''
+}
 
 const getButtonVariantProp =
   (prop: keyof ButtonSquareThemeVariant) =>
   ({ theme, variant = variants.PRIMARY }: ThemedProps) => {
-    return theme.button[variant][prop];
-  };
+    return theme.button[variant][prop]
+  }
 
 const StyledButtonSquare = styled.button<ButtonSquareProps>`
   align-items: center;
@@ -54,23 +54,23 @@ const StyledButtonSquare = styled.button<ButtonSquareProps>`
   color: white;
   cursor: pointer;
   display: inline-flex;
-  font-size: ${({ fontSize }) => fontSize || "12px"};
+  font-size: ${({ fontSize }) => fontSize || '12px'};
   font-weight: 700;
   font-family: ${({ fontFamily, theme }) =>
     fontFamily && getFontFamily(fontFamily, theme)};
   /* max-content instead of auto for Safari fix */
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "max-content")};
-  height: ${({ size }) => (size === "sm" ? "36px" : "36px")};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'max-content')};
+  height: ${({ size }) => (size === 'sm' ? '36px' : '36px')};
   line-height: 1;
   letter-spacing: 0.03em;
   justify-content: center;
   outline: 0;
-  padding: ${({ size }) => (size === "sm" ? "0 16px" : "0 24px")};
+  padding: ${({ size }) => (size === 'sm' ? '0 16px' : '0 24px')};
   transition: background-color 0.2s;
   opacity: ${({ isLoading }) => (isLoading ? 0.5 : 1)};
 
   &:hover:not(:disabled):not(.button--disabled):not(:active) {
-    background-color: ${getButtonVariantProp("backgroundHover")};
+    background-color: ${getButtonVariantProp('backgroundHover')};
   }
 
   &:focus:not(:active) {
@@ -78,17 +78,17 @@ const StyledButtonSquare = styled.button<ButtonSquareProps>`
   }
 
   &:active {
-    box-shadow: ${getButtonVariantProp("boxShadowActive")};
+    box-shadow: ${getButtonVariantProp('boxShadowActive')};
   }
 
   ${getDisabledStyles}
   ${removePointerEvents}
   ${space}
-`;
+`
 
 StyledButtonSquare.defaultProps = {
   fullWidth: false,
-  type: "button",
-};
+  type: 'button',
+}
 
-export default StyledButtonSquare;
+export default StyledButtonSquare

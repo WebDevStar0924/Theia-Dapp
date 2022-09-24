@@ -1,12 +1,12 @@
-import cn from "classnames";
-import { SpinnerIcon } from "components/Svg";
-import { ethers } from "ethers";
-import { ReactComponent as EthereumSvg } from "./ethereum.svg";
-import { MintCard } from "./styles";
+import cn from 'classnames'
+import { SpinnerIcon } from 'components/Svg'
+import { ethers } from 'ethers'
+import { ReactComponent as EthereumSvg } from './ethereum.svg'
+import { MintCard } from './styles'
 interface iProps {
-  mintItem: any;
-  onClick: () => void;
-  loading: boolean;
+  mintItem: any
+  onClick: () => void
+  loading: boolean
 }
 
 const MintItem = ({ onClick, loading, mintItem }: iProps) => {
@@ -46,26 +46,26 @@ const MintItem = ({ onClick, loading, mintItem }: iProps) => {
         &nbsp;remaining
       </div>
       <div
-        className={cn("mintBtn", {
+        className={cn('mintBtn', {
           disabled: loading || mintItem.currentSupply >= mintItem.maxSupply,
         })}
         onClick={() => {
           if (!loading && mintItem.currentSupply < mintItem.maxSupply) {
-            onClick();
+            onClick()
           }
         }}
       >
         {loading ? (
-          <SpinnerIcon className={"loading-icon"} />
+          <SpinnerIcon className={'loading-icon'} />
         ) : mintItem.tokenID === 1 &&
           mintItem.currentSupply >= mintItem.maxSupply ? (
-          "SOLD OUT"
+          'SOLD OUT'
         ) : (
-          "MINT"
+          'MINT'
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MintItem;
+export default MintItem

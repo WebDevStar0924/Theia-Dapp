@@ -1,25 +1,25 @@
-import * as React from "react";
-import styled, { keyframes } from "styled-components";
+import * as React from 'react'
+import styled, { keyframes } from 'styled-components'
 
 interface ListProps {
-  direction?: "vertical" | "horizontal";
+  direction?: 'vertical' | 'horizontal'
 }
 
 export const List = styled.ul<ListProps>`
   display: ${({ direction }) =>
-    direction === "horizontal" ? "flex" : "block"};
+    direction === 'horizontal' ? 'flex' : 'block'};
   list-style: none;
   font-size: 16px;
   margin: 0;
   padding: 6px;
-`;
+`
 
 export const ListItem = styled.li`
   background-color: #fafafa;
   border: 1px solid #99b4c0;
   padding: 8px;
   margin: 4px;
-`;
+`
 
 const gradientAnimation = keyframes`
   0% {
@@ -31,7 +31,7 @@ const gradientAnimation = keyframes`
 	100% {
 		background-position: 0% 50%;
 	}
-`;
+`
 
 const LoadingRoot = styled.div`
   animation: ${gradientAnimation} 2s linear infinite;
@@ -39,8 +39,8 @@ const LoadingRoot = styled.div`
   background-size: 600% 600%;
   color: #fff;
   padding: 8px;
-`;
+`
 
 export function Loading() {
-  return <LoadingRoot>Loading...</LoadingRoot>;
+  return <LoadingRoot>Loading...</LoadingRoot>
 }

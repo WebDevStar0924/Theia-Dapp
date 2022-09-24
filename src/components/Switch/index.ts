@@ -1,1 +1,1 @@
-export { default as Switch } from "./Swtich";
+export { default as Switch } from './Swtich'

@@ -1,1 +1,1 @@
-export { default as CollectiveLayout } from "./CollectiveLayout";
+export { default as CollectiveLayout } from './CollectiveLayout'

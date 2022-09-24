@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const StyledWrapper = styled.div`
     color: #98a2b3;
     margin-bottom: 16px;
   }
-  input[type="file"] {
+  input[type='file'] {
     display: none;
   }
 
@@ -76,4 +76,4 @@ export const StyledWrapper = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
   }
-`;
+`

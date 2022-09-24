@@ -1,10 +1,10 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import Loader from "./components/loader/Loader";
-import Providers from "./Providers";
-import { BrowserRouter } from "react-router-dom";
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+import Loader from './components/loader/Loader'
+import Providers from './Providers'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
@@ -16,6 +16,6 @@ ReactDOM.render(
       </Providers>
     </React.StrictMode>
   </Suspense>,
-  document.getElementById("root")
-);
-reportWebVitals();
+  document.getElementById('root'),
+)
+reportWebVitals()

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CollectiveDetailsContainer = styled.div`
   display: flex;
@@ -12,11 +12,11 @@ export const CollectiveDetailsContainer = styled.div`
     flex-direction: column;
     border-radius: 30px;
   }
-`;
+`
 
 export const TabWrapper = styled.div`
   .subtitle {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -24,7 +24,7 @@ export const TabWrapper = styled.div`
     color: #101828;
     margin-bottom: 24px;
   }
-`;
+`
 
 export const HomeTabWrapper = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const HomeTabWrapper = styled.div`
   .horizontalScroll {
     overflow: scroll;
     ::-webkit-scrollbar {
-      height: 5px;
+      width: 5px;
     }
     ::-webkit-scrollbar-track {
       background: #f1f1f1;
@@ -79,7 +79,7 @@ export const HomeTabWrapper = styled.div`
   }
 
   .roleName {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 900;
     font-size: 14px;
@@ -89,7 +89,7 @@ export const HomeTabWrapper = styled.div`
   }
 
   .userName {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -99,7 +99,7 @@ export const HomeTabWrapper = styled.div`
   }
 
   .userTag {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -111,7 +111,7 @@ export const HomeTabWrapper = styled.div`
     background: #a4bcfd;
     border-radius: 16px;
   }
-`;
+`
 
 export const StackedCarouselWrapper = styled.div<{ bg: any }>`
   padding: 50px 0 80px 0;
@@ -158,7 +158,7 @@ export const StackedCarouselWrapper = styled.div<{ bg: any }>`
       }
     }
   }
-`;
+`
 
 export const ForumTabWrapper = styled.div`
   display: flex;
@@ -230,7 +230,7 @@ export const ForumTabWrapper = styled.div`
     background: #f2f4f7;
 
     .guideline_index {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -250,7 +250,7 @@ export const ForumTabWrapper = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 500;
       font-size: 16px;
@@ -282,7 +282,7 @@ export const ForumTabWrapper = styled.div`
     }
 
     .userName {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 700;
       font-size: 16px;
@@ -291,7 +291,7 @@ export const ForumTabWrapper = styled.div`
     }
 
     .userTag {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
@@ -303,7 +303,7 @@ export const ForumTabWrapper = styled.div`
     }
 
     .followBtn {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -315,7 +315,7 @@ export const ForumTabWrapper = styled.div`
       padding: 6px 15px;
     }
   }
-`;
+`
 export const MembersTabWrapper = styled.div`
   display: flex;
   align-items: flex-start;
@@ -325,7 +325,7 @@ export const MembersTabWrapper = styled.div`
     border-right: 0.5px solid #d0d5dd;
 
     .teamSubtitle {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 24px;
@@ -347,7 +347,7 @@ export const MembersTabWrapper = styled.div`
     padding-left: 50px;
 
     .subtitle {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 24px;
@@ -363,7 +363,7 @@ export const MembersTabWrapper = styled.div`
       column-gap: 116px;
     }
   }
-`;
+`
 
 export const MemberItemWrapper = styled.div`
   &.teamMemberItem {
@@ -394,7 +394,7 @@ export const MemberItemWrapper = styled.div`
   }
 
   .memberName {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
@@ -404,7 +404,7 @@ export const MemberItemWrapper = styled.div`
   }
 
   .memberType {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -430,7 +430,7 @@ export const MemberItemWrapper = styled.div`
   .memberTag {
     background-color: #a4bcfd;
   }
-`;
+`
 
 export const EventsTabWrapper = styled.div`
   display: flex;
@@ -446,7 +446,7 @@ export const EventsTabWrapper = styled.div`
       flex: 1;
 
       .subTitle {
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 700;
         font-size: 24px;
@@ -455,7 +455,7 @@ export const EventsTabWrapper = styled.div`
       }
     }
   }
-`;
+`
 
 export const GalleryWrapper = styled.div`
   &.blurBg {
@@ -463,7 +463,7 @@ export const GalleryWrapper = styled.div`
   }
 
   .shareBtn {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -489,7 +489,7 @@ export const GalleryWrapper = styled.div`
   }
 
   .removeBtn {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -531,7 +531,7 @@ export const GalleryWrapper = styled.div`
 
         .artLabels {
           color: #fff;
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-weight: 600;
         }
 
@@ -564,4 +564,4 @@ export const GalleryWrapper = styled.div`
       }
     }
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
   display: flex;
@@ -6,11 +6,11 @@ export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
   align-items: center;
   grid-gap: 10px;
   padding: 8px 4px;
-  background-color: ${({ bgColor }) => bgColor ?? "initial"};
+  background-color: ${({ bgColor }) => bgColor ?? 'initial'};
   width: 40px;
 
   .votes {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -57,4 +57,4 @@ export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
       }
     }
   }
-`;
+`

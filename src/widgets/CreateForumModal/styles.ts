@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ForumModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: 25px;
   .title {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -31,7 +31,7 @@ export const ForumModalWrapper = styled.div`
     flex-direction: column;
     grid-gap: 20px;
     .pollTitle {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -50,7 +50,7 @@ export const ForumModalWrapper = styled.div`
       box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
       border-radius: 8px;
       .pollLimit {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -60,7 +60,7 @@ export const ForumModalWrapper = styled.div`
     }
 
     .addPoll {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -73,7 +73,7 @@ export const ForumModalWrapper = styled.div`
     height: 36px;
   }
   .dropdownLabel {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -87,4 +87,4 @@ export const ForumModalWrapper = styled.div`
     justify-content: center;
     padding-top: 10px;
   }
-`;
+`

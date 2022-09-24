@@ -1,11 +1,9 @@
-import { useModal } from "../Modal";
-import EventCardModal from "./index";
+import { useModal } from '../Modal'
+import EventCardModal from './index'
 
 const useEventCardModal = () => {
-  const [onPresentEventCardModal] = useModal(
-    <EventCardModal />
-  );
-  return { onPresentEventCardModal };
-};
+  const [onPresentEventCardModal] = useModal(<EventCardModal />)
+  return { onPresentEventCardModal }
+}
 
-export default useEventCardModal;
+export default useEventCardModal

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "../Modal";
-import { StyledInput } from "../../components/CurrencyInputPanel/NumericalInput";
-import { Text } from "../../components/Text";
-import styled from "styled-components";
-import { Currency } from "../../components/CurrencyInputPanel/types";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../state/types";
-import { setActiveCurrency } from "../../state/chain";
-import { AutoColumn } from "../../components/Layout/Column";
-import API from "../../api/api";
-import { AutoRow } from "../../components/Layout/Row";
+import React, { useEffect, useState } from 'react'
+import { Modal } from '../Modal'
+import { StyledInput } from '../../components/CurrencyInputPanel/NumericalInput'
+import { Text } from '../../components/Text'
+import styled from 'styled-components'
+import { Currency } from '../../components/CurrencyInputPanel/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '../../state/types'
+import { setActiveCurrency } from '../../state/chain'
+import { AutoColumn } from '../../components/Layout/Column'
+import API from '../../api/api'
+import { AutoRow } from '../../components/Layout/Row'
 
 interface Props {
-  onDismiss?: () => null;
+  onDismiss?: () => null
 }
 
 const CurrencyItem = styled.div<{ active?: boolean }>`
@@ -28,12 +28,12 @@ const CurrencyItem = styled.div<{ active?: boolean }>`
     margin-right: 6px;
   }
 
-  background-color: ${({ active }) => (active ? "#0000004D" : "transparent")};
+  background-color: ${({ active }) => (active ? '#0000004D' : 'transparent')};
 
   &:hover {
     background-color: #0000002d;
   }
-`;
+`
 
 const CurrencyList = styled.div`
   height: 420px;
@@ -48,7 +48,7 @@ const CurrencyList = styled.div`
     border-radius: 24px;
     height: 156px;
   }
-`;
+`
 
 const RecommendedCurrency = styled.div`
   width: 87px;
@@ -66,57 +66,57 @@ const RecommendedCurrency = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.25);
   }
-`;
+`
 
 const TokenListModal: React.FC<Props> = ({ onDismiss }) => {
-  const [searchStr, setSearchStr] = useState("");
+  const [searchStr, setSearchStr] = useState('')
   const { activeChainID, activeCurrency } = useSelector(
-    (state: State) => state.chain
-  );
-  const [tokenList, setTokenList] = useState<Currency[]>([]);
+    (state: State) => state.chain,
+  )
+  const [tokenList, setTokenList] = useState<Currency[]>([])
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const handleSetCurrency = (token: Currency) => {
-    dispatch(setActiveCurrency(token));
-    onDismiss && onDismiss();
-  };
+    dispatch(setActiveCurrency(token))
+    onDismiss && onDismiss()
+  }
 
   useEffect(() => {
     API.getAvailbleTokens(1).then((res) => {
-      setTokenList(Object.values(res.data));
-    });
-  }, [activeChainID]);
+      setTokenList(Object.values(res.data))
+    })
+  }, [activeChainID])
 
   return (
     <Modal
-      title={"Select Token"}
+      title={'Select Token'}
       onDismiss={onDismiss}
-      bgColor={"#272727"}
-      bodyPadding={"8px 0 0 0"}
+      bgColor={'#272727'}
+      bodyPadding={'8px 0 0 0'}
     >
-      <AutoColumn gap={"12px"}>
-        <AutoColumn gap={"12px"} style={{ padding: "0 40px" }}>
+      <AutoColumn gap={'12px'}>
+        <AutoColumn gap={'12px'} style={{ padding: '0 40px' }}>
           <StyledInput
             value={searchStr}
             onChange={(event) => {
-              setSearchStr(event.target.value);
+              setSearchStr(event.target.value)
             }}
-            autoComplete={"off"}
-            autoCorrect={"off"}
-            type={"text"}
-            placeholder={"Search by token name"}
-            fontSize={"18px"}
+            autoComplete={'off'}
+            autoCorrect={'off'}
+            type={'text'}
+            placeholder={'Search by token name'}
+            fontSize={'18px'}
             style={{
-              backgroundColor: "#FFFFFF10",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              lineHeight: "32px",
-              width: "100%",
+              backgroundColor: '#FFFFFF10',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              lineHeight: '32px',
+              width: '100%',
             }}
           />
 
-          <Text fontSize={"12px"}>Recommended (Low fees)</Text>
-          <AutoRow gap={"8px"}>
+          <Text fontSize={'12px'}>Recommended (Low fees)</Text>
+          <AutoRow gap={'8px'}>
             {[0, 1, 2].map(
               (index) =>
                 tokenList[index] && (
@@ -125,12 +125,12 @@ const TokenListModal: React.FC<Props> = ({ onDismiss }) => {
                   >
                     <img
                       src={tokenList[index].logoUrl}
-                      alt={"tokenlogo"}
-                      width={"20px"}
+                      alt={'tokenlogo'}
+                      width={'20px'}
                     />
                     {tokenList[index].symbol}
                   </RecommendedCurrency>
-                )
+                ),
             )}
           </AutoRow>
         </AutoColumn>
@@ -138,7 +138,7 @@ const TokenListModal: React.FC<Props> = ({ onDismiss }) => {
         <CurrencyList>
           {tokenList
             .filter((token) =>
-              token.symbol.toLowerCase().includes(searchStr.toLowerCase())
+              token.symbol.toLowerCase().includes(searchStr.toLowerCase()),
             )
             .map((token, index) => (
               <CurrencyItem
@@ -146,14 +146,14 @@ const TokenListModal: React.FC<Props> = ({ onDismiss }) => {
                 active={activeCurrency?.symbol === token.symbol}
                 onClick={() => handleSetCurrency(token)}
               >
-                <img src={token.logoUrl} alt={"tokenlogo"} width={"20px"} />
+                <img src={token.logoUrl} alt={'tokenlogo'} width={'20px'} />
                 {token.symbol}
               </CurrencyItem>
             ))}
         </CurrencyList>
       </AutoColumn>
     </Modal>
-  );
-};
+  )
+}
 
-export default TokenListModal;
+export default TokenListModal

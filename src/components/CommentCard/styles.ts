@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CommentCardContainer = styled.div`
   .commentItem {
     position: relative;
     &:before {
-      content: "";
+      content: '';
       width: 2px;
       left: 20px;
       top: 57px;
@@ -19,7 +19,7 @@ export const CommentCardContainer = styled.div`
       }
     }
   }
-`;
+`
 export const CommentCardWrapper = styled.div`
   flex: 1;
   position: relative;
@@ -58,7 +58,7 @@ export const CommentCardWrapper = styled.div`
       }
 
       .userTag {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
         font-size: 12px;
@@ -71,7 +71,7 @@ export const CommentCardWrapper = styled.div`
         border-radius: 16px;
       }
       .createTime {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -84,7 +84,7 @@ export const CommentCardWrapper = styled.div`
     }
     .commentContent {
       margin-top: 6px;
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 500;
       font-size: 14px;
@@ -110,7 +110,7 @@ export const CommentCardWrapper = styled.div`
     cursor: pointer;
 
     &.reply {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -133,4 +133,4 @@ export const CommentCardWrapper = styled.div`
       }
     }
   }
-`;
+`

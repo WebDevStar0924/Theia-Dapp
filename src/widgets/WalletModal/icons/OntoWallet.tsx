@@ -1,11 +1,11 @@
-import React from "react";
-import Svg from "../../../components/Svg/Svg";
-import { SvgProps } from "../../../components/Svg";
+import React from 'react'
+import Svg from '../../../components/Svg/Svg'
+import { SvgProps } from '../../../components/Svg'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg viewBox="0 0 32 32" {...props}>
-      <title>{"\u7F16\u7EC4"}</title>
+      <title>{'\u7F16\u7EC4'}</title>
       <g
         id="\u9875\u9762-1"
         stroke="none"
@@ -32,7 +32,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         </g>
       </g>
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

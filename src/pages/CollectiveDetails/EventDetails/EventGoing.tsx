@@ -1,9 +1,7 @@
 // import "./styles.scss";
-import { EventGoingWrapper } from "./styles";
+import { EventGoingWrapper } from './styles'
 
-interface iProps { }
-
-export default function EventGoing(props: iProps) {
+export default function EventGoing() {
   return (
     <EventGoingWrapper>
       <div className="container">
@@ -11,5 +9,5 @@ export default function EventGoing(props: iProps) {
         <p className="containerTitle">ratclarinet</p>
       </div>
     </EventGoingWrapper>
-  );
+  )
 }

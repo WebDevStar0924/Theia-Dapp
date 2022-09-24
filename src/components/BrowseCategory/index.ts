@@ -1,1 +1,1 @@
-export { default as BrowseCategory } from "./BrowseCategory";
+export { default as BrowseCategory } from './BrowseCategory'

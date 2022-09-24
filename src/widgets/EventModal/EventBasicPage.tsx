@@ -1,89 +1,169 @@
-import ExternalInput from "components/ExternalInput";
-import { Flex } from "components/Flex";
-import { useState } from "react";
-import { Dropdown } from "components/Dropdown";
-import { TimeOptions, TimeZones } from "./data";
-import { Button } from "components/Button";
+import ExternalInput from 'components/ExternalInput'
+import { Flex } from 'components/Flex'
+import { useState } from 'react'
+import { Dropdown } from 'components/Dropdown'
+import { TimeOptions, TimeZones } from './data'
+import { Button } from 'components/Button'
+import { Switch } from 'components/Switch'
+import Calendar from 'react-calendar'
+import CalendarSvg from '../../assets/svg/calendar.svg'
+import ClockSvg from '../../assets/svg/clock.svg'
+import WorldSvg from '../../assets/svg/world.svg'
+import 'react-calendar/dist/Calendar.css'
+import { ModalBodyWrapper } from './styles'
+import { useRef, useEffect } from 'react'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { useDispatch } from 'react-redux'
+import { updateEvent } from 'state/event'
+import { useSelector } from 'react-redux'
+import { State } from 'state/types'
 
-import { Switch } from "components/Switch";
-import Calendar from "react-calendar";
-import CalendarSvg from "../../assets/svg/calendar.svg";
-import ClockSvg from "../../assets/svg/clock.svg";
-import WorldSvg from "../../assets/svg/world.svg";
-import "react-calendar/dist/Calendar.css";
-import { ModalBodyWrapper } from "./styles";
-import { useRef, useEffect } from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-interface iProps { }
+export type eventDetailsPageProps = {
+  isActiveSaveButton: boolean
+  updateDetailsData: (arg: boolean) => void
+}
 
-export default function EventDetailPage(props: iProps) {
-  const [activeLocationItem, setActiveLocationItem] = useState("virtual");
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [enddate, setEnddate] = useState("");
-  const [defdate, setDefaultDate] = useState("");
-  const [isShowCalendar, showCalendar] = useState(false);
-  const [timezone, setTimezone] = useState("");
-  const [starttime, setStarttime] = useState("");
-  const [endtime, setEndtime] = useState("");
-  const wrapperRef = useRef(null);
-  const [isActiveButton, activeSaveButton] = useState(false);
-  useOutsideAlerter(wrapperRef);
+const EventDetailPage: React.FC<eventDetailsPageProps> = ({
+  isActiveSaveButton,
+  updateDetailsData,
+}) => {
+  const eventData = useSelector((state: State) => state.event.data)
+  const [activeLocationItem, setActiveLocationItem] = useState(eventData.location_type.toLowerCase())
+  const [title, setTitle] = useState("")
+  const [starttime, setStartTime] = useState("")
+  const [endtime, setEndTime] = useState("")
+  const [timezone, setTimezone] = useState("")
+  const [location, setLocation] = useState("")
+  const [enddate, setEnddate] = useState("")
+  const [defdate, setDefaultDate] = useState("")
+  const [isShowCalendar, showCalendar] = useState(false)
+  const dispatch = useDispatch()
 
+  const wrapperRef = useRef(null)
+  const [isActive, setActiveSaveButton] = useState<boolean>(false)
+
+  function updateEventData() {
+    dispatch(
+      updateEvent({
+        title: title,
+        location: location,
+        location_type: activeLocationItem.toUpperCase(),
+        event_date: enddate,
+        starttime: starttime,
+        endtime: endtime,
+        description: '',
+        details: '',
+        collective_id: '',
+        owneraddress: '',
+        timezone: timezone,
+        image: '',
+
+      }),
+    )
+  }
+
+  useEffect(() => {
+    setActiveSaveButton(isActiveSaveButton)
+  }, [isActiveSaveButton])
+
+  function disableSaveButton() {
+    setActiveSaveButton(false);
+  }
   function validationCheck() {
     let validation = true;
     if (title === "") validation = false;
+    if (location === "") validation = false;
     if (enddate === "") validation = false;
     if (starttime === "") validation = false;
     if (endtime === "") validation = false;
     if (timezone === "") validation = false;
-    if (location === "") validation = false;
-    activeSaveButton(validation);
+    setActiveSaveButton(validation);
   }
+  useOutsideAlerter(wrapperRef)
+  useEffect(() => {
+    updateEventData();
+    if (title === "")
+      disableSaveButton();
+    else validationCheck();
+  }, [title])
 
   useEffect(() => {
-    validationCheck();
-  });
+    updateEventData();
+    if (location === "")
+      disableSaveButton();
+    else validationCheck();
+
+  }, [location])
+
+  useEffect(() => {
+    updateEventData();
+    if (enddate === "")
+      disableSaveButton();
+    else validationCheck();
+
+  }, [enddate])
+  useEffect(() => {
+    updateEventData();
+    if (timezone === "")
+      disableSaveButton();
+    else validationCheck();
+
+  }, [timezone])
+  useEffect(() => {
+    updateEventData();
+    if (starttime === "")
+      disableSaveButton();
+    else validationCheck();
+
+  }, [starttime])
+  useEffect(() => {
+    updateEventData();
+    if (endtime === "")
+      disableSaveButton();
+    else validationCheck();
+
+  }, [endtime])
+
 
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          showCalendar(false);
+          showCalendar(false)
         }
       }
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }, [ref])
   }
 
   function showDate(value) {
-    var d = new Date(value),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
+    const d = new Date(value)
+    let month = '' + (d.getMonth() + 1)
+    let day = '' + d.getDate()
+    const year = d.getFullYear()
 
-    setDefaultDate(value);
+    setDefaultDate(value)
 
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
 
-    value = [year, month, day].join("/");
-    setEnddate(value);
-    showCalendar(false);
+    value = [year, month, day].join('/')
+    setEnddate(value)
+    showCalendar(false)
   }
   return (
     <ModalBodyWrapper>
       <Flex
         flexDirection="column"
-        style={{ marginTop: "42px", gap: "24px", marginRight: "28px" }}
+        style={{ marginTop: '42px', gap: '24px', marginRight: '28px' }}
       >
         <div className="pageTitle">Basic Info</div>
 
-        <Flex flexDirection="column" style={{ gap: "8px" }}>
+        <Flex flexDirection="column" style={{ gap: '8px' }}>
           <Flex justifyContent="space-between" alignItems="center">
             <p className="fieldTitle">Event Title</p>
             <p className="characterLimit">0/60</p>
@@ -91,65 +171,63 @@ export default function EventDetailPage(props: iProps) {
           <ExternalInput
             type="inactive"
             value={title}
-            placeholder={"Add event title"}
+            placeholder={'Add event title'}
             fontSize="14px"
             onUserInput={(val) => {
-              setTitle(val.toUpperCase());
+              setTitle(val.toUpperCase())
             }}
           />
         </Flex>
 
-        <Flex flexDirection="column" style={{ gap: "8px" }}>
+        <Flex flexDirection="column" style={{ gap: '8px' }}>
           <Flex
             justifyContent="flex-start"
             alignItems="center"
-            style={{ gap: "16px" }}
+            style={{ gap: '16px' }}
           >
             <p className="fieldTitle">Location</p>
             <Switch
               items={[
                 {
-                  value: "virtual",
-                  label: "VIRTUAL",
+                  value: 'virtual',
+                  label: 'VIRTUAL',
                 },
                 {
-                  value: "irl",
-                  label: "IRL",
+                  value: 'irl',
+                  label: 'IRL',
                 },
               ]}
               activeValue={activeLocationItem}
-
               onUpdateItem={(val) => {
                 setActiveLocationItem(val)
-                setLocation("");
-              }
-
-              }
+                setLocation('')
+              }}
             />
           </Flex>
-          {activeLocationItem === "virtual" ? (
+          {activeLocationItem === 'virtual' ? (
             <ExternalInput
               type="inactive"
               value={location}
-              placeholder={"Add conference URL"}
+              placeholder={'Add conference URL'}
               fontSize="14px"
               onUserInput={(val) => {
-                setLocation(val);
+                setLocation(val)
               }}
             />
           ) : (
-            <GooglePlacesAutocomplete apiKey="AIzaSyASu_m7VIHuekxu4UrZL4buQRi2ipE1DH8"
+            <GooglePlacesAutocomplete
+              apiKey="AIzaSyASu_m7VIHuekxu4UrZL4buQRi2ipE1DH8"
               selectProps={{
                 location,
-                onChange: setLocation,
+                onChange: (val) => { setLocation(val.label) },
               }}
             />
           )}
         </Flex>
 
-        <Flex style={{ gap: "20px" }}>
-          <div style={{ width: "23%" }}>
-            <Flex flexDirection="column" style={{ position: "relative" }}>
+        <Flex style={{ gap: '20px' }}>
+          <div style={{ width: '23%' }}>
+            <Flex flexDirection="column" style={{ position: 'relative' }}>
               {isShowCalendar && (
                 <div ref={wrapperRef}>
                   <Calendar
@@ -158,18 +236,18 @@ export default function EventDetailPage(props: iProps) {
                     prev2Label="‹"
                     next2Label="›"
                     onChange={(value) => {
-                      showDate(value);
+                      showDate(value)
                     }}
                   />
                 </div>
               )}
-              <p style={{ marginBottom: "8px" }} className="fieldTitle">
+              <p style={{ marginBottom: '8px' }} className="fieldTitle">
                 Date
               </p>
               <ExternalInput
                 type="inactive"
                 value={enddate}
-                placeholder={"Enter date"}
+                placeholder={'Enter date'}
                 fontSize="14px"
                 endIcon={<img src={CalendarSvg} alt="calendar" />}
                 onFocus={() => showCalendar(true)}
@@ -179,60 +257,63 @@ export default function EventDetailPage(props: iProps) {
             </Flex>
           </div>
 
-          <div style={{ width: "23%" }}>
-            <Flex flexDirection="column" style={{ gap: "8px" }}>
+          <div style={{ width: '23%' }}>
+            <Flex flexDirection="column" style={{ gap: '8px' }}>
               <p className="fieldTitle">Time Zone</p>
 
               <Dropdown
-                className={"timeZoneInput"}
+                className={'timeZoneInput'}
                 activeItem={{
                   label: timezone,
-                  value: timezone,
+                  value: timezone
                 }}
-                placeholder={"Time zone"}
-                onChange={(val) => {
-                  setTimezone(val);
+                placeholder={'Time zone`'}
+                key="timezone"
+                onChange={(item) => {
+                  setTimezone(item.value)
                 }}
-                type={"inactive"}
+                type={'inactive'}
                 dropdownlist={TimeZones}
                 icon={<img src={WorldSvg} alt="world" />}
               />
             </Flex>
           </div>
-          <div style={{ width: "23%" }}>
-            <Flex flexDirection="column" style={{ gap: "8px" }}>
+          <div style={{ width: '23%' }}>
+            <Flex flexDirection="column" style={{ gap: '8px' }}>
               <p className="fieldTitle">Start</p>
 
               <Dropdown
-                className={"timeZoneInput"}
+                key="starttime"
+                className={'timeZoneInput'}
                 activeItem={{
                   label: starttime,
-                  value: starttime,
+                  value: starttime
                 }}
-                placeholder={"Start time"}
-                onChange={(val) => {
-                  setStarttime(val);
+                placeholder={'Start time'}
+                onChange={(item) => {
+                  setStartTime(item.value)
                 }}
-                type={"inactive"}
+                type={'inactive'}
                 dropdownlist={TimeOptions}
                 icon={<img src={ClockSvg} alt="clock" />}
               />
             </Flex>
           </div>
-          <div style={{ width: "23%" }}>
-            <Flex flexDirection="column" style={{ gap: "8px" }}>
+          <div style={{ width: '23%' }}>
+            <Flex flexDirection="column" style={{ gap: '8px' }}>
               <p className="fieldTitle">End</p>
               <Dropdown
-                className={"timeZoneInput"}
+                key="endtime"
+                className={'timeZoneInput'}
                 activeItem={{
                   label: endtime,
-                  value: endtime,
+                  value: endtime
                 }}
-                placeholder={"End time"}
-                onChange={(val) => {
-                  setEndtime(val);
+                placeholder={'End time'}
+                onChange={(item) => {
+                  setEndTime(item.value)
                 }}
-                type={"inactive"}
+                type={'inactive'}
                 dropdownlist={TimeOptions}
                 icon={<img src={ClockSvg} alt="clock" />}
               />
@@ -240,9 +321,19 @@ export default function EventDetailPage(props: iProps) {
           </div>
         </Flex>
       </Flex>
-      <Flex justifyContent="center" style={{ marginTop: "52px", marginRight: "25px" }}>
-        <Button className="saveButton" disabled={!isActiveButton}>SAVE</Button>
+      <Flex
+        justifyContent="center"
+        style={{ marginTop: '52px', marginRight: '25px' }}
+      >
+        <Button
+          className="saveButton"
+          disabled={!isActive}
+          onClick={() => updateDetailsData(true)}
+        >
+          SAVE
+        </Button>
       </Flex>
     </ModalBodyWrapper>
-  );
+  )
 }
+export default EventDetailPage

@@ -1,9 +1,9 @@
-import "./mint.scss";
+import './mint.scss'
 
 interface iProps {
-  videoSrc: string;
-  title: string;
-  content: string;
+  videoSrc: string
+  title: string
+  content: string
 }
 
 const MintDetailItem = ({ videoSrc, title, content }: iProps) => {
@@ -22,7 +22,7 @@ const MintDetailItem = ({ videoSrc, title, content }: iProps) => {
         <div className="mintBtn">LAUNCH ALPHA APP</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MintDetailItem;
+export default MintDetailItem

@@ -1,34 +1,34 @@
-import { CommunityLeftWrapper, CommunityWrapper } from "./styles";
-import { MotionButton } from "../MotionButton/styles";
-import { BsArrowRight } from "react-icons/all";
-import communityImg from "./community.png";
-import { useNavigate } from "react-router-dom";
+import { CommunityLeftWrapper, CommunityWrapper } from './styles'
+import { MotionButton } from '../MotionButton/styles'
+import { BsArrowRight } from 'react-icons/all'
+import communityImg from './community.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function Community() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <CommunityWrapper>
       <CommunityLeftWrapper>
-        <div className={"communityName"}>
+        <div className={'communityName'}>
           Revolutionizing Funding for Web 3.0
         </div>
-        <div className={"communityDesc"}>
+        <div className={'communityDesc'}>
           THEIA is a community of creators and investors building the future of
           Web3.
         </div>
-        <div className={"buttonGroup"}>
+        <div className={'buttonGroup'}>
           <MotionButton
-            bgColor={"#101828"}
-            color={"#FFFFFF"}
+            bgColor={'#101828'}
+            color={'#FFFFFF'}
             onClick={() => {
-              navigate("/project/list/all");
+              navigate('/project/list/all')
             }}
           >
             Invest
           </MotionButton>
           <MotionButton
             onClick={() => {
-              navigate("/project/intro");
+              navigate('/project/intro')
             }}
           >
             Create
@@ -36,15 +36,15 @@ export default function Community() {
         </div>
         <a
           href={
-            "https://medium.com/@theia.finance/testnet-v2-manual-262b31a2f86e"
+            'https://medium.com/@theia.finance/testnet-v2-manual-262b31a2f86e'
           }
-          target={"_blank"}
+          target={'_blank'}
         >
           How it works <BsArrowRight />
         </a>
       </CommunityLeftWrapper>
 
-      <img src={communityImg} alt={"community"} />
+      <img src={communityImg} alt={'community'} />
     </CommunityWrapper>
-  );
+  )
 }

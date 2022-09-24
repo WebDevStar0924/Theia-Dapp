@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   grid-gap: 26px;
 
   .title {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -46,7 +46,7 @@ export const Wrapper = styled.div`
         #65e3f2 64.13%,
         #013ada 100%
       );
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -70,14 +70,14 @@ export const Wrapper = styled.div`
       -webkit-background-clip: text, border;
       -webkit-text-fill-color: transparent;
 
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 24px;
       line-height: 32px;
     }
   }
-`;
+`
 
 export const CategoryItem = styled.div`
   display: flex;
@@ -86,7 +86,7 @@ export const CategoryItem = styled.div`
   cursor: pointer;
   position: relative;
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -169,4 +169,4 @@ export const CategoryItem = styled.div`
     top: 0;
     bottom: 0;
   }
-`;
+`

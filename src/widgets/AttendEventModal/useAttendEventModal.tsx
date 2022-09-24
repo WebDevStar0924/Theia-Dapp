@@ -1,11 +1,10 @@
-import { useModal } from "../Modal";
-import AttendEventModal from "./index";
+import { useModal } from '../Modal'
+import AttendEventModal from './index'
 
-const useAttendEventModal = () => {
-  const [onPresentAttendEventModal] = useModal(
-    <AttendEventModal />
-  );
-  return { onPresentAttendEventModal };
-};
+const useAttendEventModal = (eventData?: any) => {
+  const [onPresentAttendEventModal] = useModal(<AttendEventModal eventData={eventData} />)
+  return { onPresentAttendEventModal }
+}
 
-export default useAttendEventModal;
+
+export default useAttendEventModal

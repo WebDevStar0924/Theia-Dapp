@@ -1,6 +1,6 @@
-import React from "react";
-import Svg from "../Svg";
-import { SvgProps } from "../types";
+import React from 'react'
+import Svg from '../Svg'
+import { SvgProps } from '../types'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
@@ -8,7 +8,7 @@ const Icon: React.FC<SvgProps> = (props) => {
       <circle cx="125" cy="125" r="125" fill="url(#paint0_linear)" />
       <style type="text/css">
         {
-          "\r\n\t.st0{fill:#FFAD23;}\r\n\t.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#633001;}\r\n\t.st2{fill:#FCDC49;}\r\n\t.st3{fill:#633001;}\r\n"
+          '\r\n\t.st0{fill:#FFAD23;}\r\n\t.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#633001;}\r\n\t.st2{fill:#FCDC49;}\r\n\t.st3{fill:#633001;}\r\n'
         }
       </style>
       <g>
@@ -71,7 +71,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         </linearGradient>
       </defs>
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const DropdownMenuCointainer = styled.div`
   position: relative;
@@ -47,4 +47,4 @@ export const DropdownMenuCointainer = styled.div`
       }
     }
   }
-`;
+`

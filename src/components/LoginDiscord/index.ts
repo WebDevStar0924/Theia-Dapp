@@ -1,1 +1,1 @@
-export { default as LoginDiscord } from "./LoginDiscord";
+export { default as LoginDiscord } from './LoginDiscord'

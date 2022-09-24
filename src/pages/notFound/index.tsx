@@ -1,9 +1,9 @@
-import Container from "../../components/container/Container";
-import { Title, Subtitle } from "../../components";
-import "./notFound.css";
-import { ImArrowLeft2 } from "react-icons/im";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Container from '../../components/container/Container'
+import { Title, Subtitle } from '../../components'
+import './notFound.css'
+import { ImArrowLeft2 } from 'react-icons/im'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
@@ -22,19 +22,19 @@ const NotFound = () => {
                 className="notFound-button"
                 type="button"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 whileHover={{
                   y: -1,
                   x: 1,
-                  textShadow: "0px 0px 8px rgb(255, 255, 255)",
-                  boxShadow: "0px 0px 8px rgb(255, 255, 255)",
+                  textShadow: '0px 0px 8px rgb(255, 255, 255)',
+                  boxShadow: '0px 0px 8px rgb(255, 255, 255)',
                 }}
               >
                 <ImArrowLeft2
-                  style={{ fontSize: "24px", marginRight: "12px" }}
+                  style={{ fontSize: '24px', marginRight: '12px' }}
                 />
                 Back To Home
               </motion.button>
@@ -43,7 +43,7 @@ const NotFound = () => {
         </div>
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

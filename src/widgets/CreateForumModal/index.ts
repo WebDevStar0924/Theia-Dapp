@@ -1,1 +1,1 @@
-export { default as CreateForumModal } from "./CreateForumModal";
+export { default as CreateForumModal } from './CreateForumModal'

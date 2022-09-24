@@ -1,31 +1,45 @@
-import classnames from "classnames";
-import { Card } from "components/Card";
-import { ExpandableView } from "components/ExpandableView";
-import { FilterBar } from "components/FilterBar";
-import { Flex } from "components/Flex";
-import { ForumCard } from "components/ForumCard";
-import { GalleryCard } from "components/GalleryCard";
-import { ImageCard } from "components/ImageCard/ImageCard";
-import { CollectiveContextProps } from "pages/CollectiveLayout/types";
-import { useRef, useState } from "react";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import classnames from 'classnames'
+import { ExpandableView } from 'components/ExpandableView'
+import { FilterBar } from 'components/FilterBar'
+import { Flex } from 'components/Flex'
+import { ForumCard } from 'components/ForumCard'
+import { GalleryCard } from 'components/GalleryCard'
+import { ImageCard } from 'components/ImageCard/ImageCard'
+import { TagList } from 'components/TagList'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
+import { useMemo, useRef, useState } from 'react'
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 import {
   ResponsiveContainer,
-  StackedCarousel
-} from "react-stacked-center-carousel";
-import { formatBlockchainAddress } from "utils";
-import stackedBg from "../../../assets/image/stackedBg.png";
-import { galleryImages } from "../data";
-import { HomeTabWrapper, StackedCarouselWrapper } from "../styles";
-import EventCardModal from "../../../widgets/EventCardModal"
+  StackedCarousel,
+} from 'react-stacked-center-carousel'
+import { formatBlockchainAddress } from 'utils'
+import EventCardModal from 'widgets/EventCardModal'
+import stackedBg from '../../../assets/image/stackedBg.png'
+import { galleryImages } from '../data'
+import { HomeTabWrapper, StackedCarouselWrapper } from '../styles'
+
 export default function HomeTab() {
-  // const { sortOption, updateSort, members } = props;
-  const members: any[] = []
-  const [activeSlideNum, setActiveSlideNum] = useState(0);
-  const ref = useRef<any>(null);
-  const navigate = useNavigate();
+  const [activeSlideNum, setActiveSlideNum] = useState(0)
+  const ref = useRef<any>(null)
+  const navigate = useNavigate()
+  const { account } = useActiveWeb3React()
+
+  const tags = [
+    'announcements',
+    'suggestions',
+    'whitelist',
+    'product bugs',
+    'memes',
+    'new drop',
+    'fan art',
+    'events',
+    'ethereum merge',
+    'airdrop',
+  ]
 
   const {
     forums,
@@ -38,40 +52,54 @@ export default function HomeTab() {
     sort,
     updateSort,
     filter,
-    updateFilter
-  } = useOutletContext<CollectiveContextProps>();
+    updateFilter,
+    members,
+  } = useOutletContext<CollectiveContextProps>()
 
   const onUpdateGallery = (idx: number, gallery: any) => {
-    const newGalleries = [...galleries];
-    newGalleries[idx] = gallery;
-    setGalleries(newGalleries);
+    const newGalleries = [...galleries]
+    newGalleries[idx] = gallery
+    setGalleries(newGalleries)
 
-    const newMixedData = [...mixedData];
+    const newMixedData = [...mixedData]
     setMixedData(
       newMixedData.map((item) => {
         if (item.gallery_id === gallery.gallery_id) {
-          return gallery;
+          return gallery
         }
-        return item;
-      })
-    );
-  };
+        return item
+      }),
+    )
+  }
 
   const onUpdateForum = (idx: number, forum: any) => {
-    const newForums = [...forums];
-    newForums[idx] = forum;
-    setForums(newForums);
+    const newForums = [...forums]
+    newForums[idx] = forum
+    setForums(newForums)
 
-    const newMixedData = [...mixedData];
+    const newMixedData = [...mixedData]
     setMixedData(
       newMixedData.map((item) => {
         if (item.forum_id === forum.forum_id) {
-          return forum;
+          return forum
         }
-        return item;
-      })
-    );
-  };
+        return item
+      }),
+    )
+  }
+
+  const filterData = useMemo(() => {
+    let newData = mixedData
+    if (filter.onlySaved) {
+      newData = mixedData.filter(
+        (item) => localStorage.getItem(`forum_${item.forum_id}`) === 'true',
+      )
+    }
+    if (filter.onlyMyPosts) {
+      newData = newData.filter((item) => item.owneraddress === account)
+    }
+    return newData
+  }, [filter, mixedData])
 
   return (
     <HomeTabWrapper>
@@ -83,29 +111,29 @@ export default function HomeTab() {
           updateFilter={updateFilter}
         />
         <EventCardModal></EventCardModal>
-        {mixedData.map((item, idx) => (
+        {filterData.map((item, idx) => (
           <div
             key={`mixdata_${idx}`}
             id={
-              item.cardType === "forum"
+              item.cardType === 'forum'
                 ? `forum_${item.forum_id}`
                 : `gallery_${item.gallery_id}`
             }
           >
-            {item.cardType === "forum" && (
+            {item.cardType === 'forum' && (
               <ForumCard
                 data={item}
                 key={`forum_${idx}`}
                 onCardClick={() => {
                   navigate(
-                    `/collective/${collectiveInfo.name}/details/${item.forum_id}/home`
-                  );
+                    `/collective/${collectiveInfo.name}/details/${item.forum_id}/home`,
+                  )
                 }}
                 onUpdateForum={(forum) => onUpdateForum(forum.fIdx, forum)}
                 sort={sort}
               />
             )}
-            {item.cardType === "gallery" && (
+            {item.cardType === 'gallery' && (
               <GalleryCard
                 data={item}
                 key={`gallery_${idx}`}
@@ -114,8 +142,8 @@ export default function HomeTab() {
                 }
                 onClick={() => {
                   navigate(
-                    `/collective/${collectiveInfo.name}/home/${item.gallery_id}`
-                  );
+                    `/collective/${collectiveInfo.name}/home/${item.gallery_id}`,
+                  )
                 }}
               />
             )}
@@ -124,26 +152,27 @@ export default function HomeTab() {
       </div>
       <div className="rightPart">
         <ExpandableView
-          header={<div>ABOUT</div>}
-          individual={false}
-          content={
-            <div dangerouslySetInnerHTML={{ __html: collectiveInfo.details }} />
-          }
+          header={<div>TOPICS</div>}
+          content={<TagList tags={tags} />}
         />
 
-        <Card
+        <ExpandableView
           header={<div>MEMBERS</div>}
           content={
             <Flex
-              alignItems={"center"}
-              style={{ gridGap: "20px", paddingBottom: "20px" }}
-              className="horizontalScroll"
+              flexDirection={'column'}
+              style={{
+                gridGap: '20px',
+                paddingBottom: '20px',
+                maxHeight: '1130px',
+                overflow: 'scroll',
+              }}
             >
               {members.map((member, idx) => (
                 <Flex
-                  flexDirection={"column"}
-                  alignItems="center"
-                  style={{ gridGap: "5px" }}
+                  flexDirection={'column'}
+                  alignItems="flex-start"
+                  style={{ gridGap: '5px' }}
                   key={`user_${idx}`}
                 >
                   {member.creator && member.creator[0].avatar ? (
@@ -188,14 +217,14 @@ export default function HomeTab() {
                     setActiveSlideNum(activeSlide)
                   }
                 />
-              );
+              )
             }}
           />
           <div className="carouselActions">
             <div
               className="moveBtn"
               onClick={() => {
-                if (ref.current) ref.current.goBack();
+                if (ref.current) ref.current.goBack()
               }}
             >
               <BsArrowLeft fill="#999999" />
@@ -204,7 +233,7 @@ export default function HomeTab() {
               {galleryImages.map((_, idx) => (
                 <span
                   key={`dot_${idx}`}
-                  className={classnames("dot", {
+                  className={classnames('dot', {
                     active: ref.current && idx === activeSlideNum,
                   })}
                 />
@@ -214,7 +243,7 @@ export default function HomeTab() {
               className="moveBtn"
               onClick={() => {
                 if (ref.current) {
-                  ref?.current.goNext();
+                  ref?.current.goNext()
                 }
               }}
             >
@@ -224,5 +253,5 @@ export default function HomeTab() {
         </StackedCarouselWrapper>
       </div>
     </HomeTabWrapper>
-  );
+  )
 }

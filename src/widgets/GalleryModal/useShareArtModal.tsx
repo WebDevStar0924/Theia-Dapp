@@ -1,73 +1,73 @@
-import { CollectiveInfo } from "pages/CollectiveDetails/types";
-import { useModal } from "../Modal";
-import ArtDetailModal from "./ArtDetailModal";
-import RemoveArtModal from "./RemoveArtModal";
-import ShareArtConnectModal from "./ShareArtConnectModal";
-import ShareArtMemberModal from "./ShareArtMemberModal";
-import ShareArtModal from "./ShareArtModal";
+import { CollectiveInfo } from 'pages/CollectiveDetails/types'
+import { useModal } from '../Modal'
+import ArtDetailModal from './ArtDetailModal'
+import RemoveArtModal from './RemoveArtModal'
+import ShareArtConnectModal from './ShareArtConnectModal'
+import ShareArtMemberModal from './ShareArtMemberModal'
+import ShareArtModal from './ShareArtModal'
 
 const useShareArtConnectModal = (
-  communityName?: string
+  communityName?: string,
 ): {
-  onPresentShareArtConnectModal: () => void;
+  onPresentShareArtConnectModal: () => void
 } => {
   const [onPresentShareArtConnectModal] = useModal(
-    <ShareArtConnectModal communityName={communityName} />
-  );
-  return { onPresentShareArtConnectModal };
-};
+    <ShareArtConnectModal communityName={communityName} />,
+  )
+  return { onPresentShareArtConnectModal }
+}
 
 const useShareArtMemberModal = (): {
-  onPresentShareArtMemberModal: () => void;
+  onPresentShareArtMemberModal: () => void
 } => {
-  const [onPresentShareArtMemberModal] = useModal(<ShareArtMemberModal />);
-  return { onPresentShareArtMemberModal };
-};
+  const [onPresentShareArtMemberModal] = useModal(<ShareArtMemberModal />)
+  return { onPresentShareArtMemberModal }
+}
 
 const useShareArtModal = (
   sharedNfts: Array<any>,
   onShare: (nfts: Array<any>) => void,
-  collectiveInfo?: CollectiveInfo
+  collectiveInfo?: CollectiveInfo,
 ): {
-  onPresentShareArtModal: () => void;
+  onPresentShareArtModal: () => void
 } => {
   const [onPresentShareArtModal] = useModal(
     <ShareArtModal
       collectiveInfo={collectiveInfo}
       sharedNfts={sharedNfts}
       onShare={onShare}
-    />
-  );
-  return { onPresentShareArtModal };
-};
+    />,
+  )
+  return { onPresentShareArtModal }
+}
 
 const useRemoveArtModal = (
   nfts: Array<any>,
   onRemove: (nfts: Array<any>) => void,
-  collectiveInfo?: CollectiveInfo
+  collectiveInfo?: CollectiveInfo,
 ): {
-  onPresentRemoveArtModal: () => void;
+  onPresentRemoveArtModal: () => void
 } => {
   const [onPresentRemoveArtModal] = useModal(
     <RemoveArtModal
       collectiveInfo={collectiveInfo}
       nfts={nfts}
       onRemove={onRemove}
-    />
-  );
-  return { onPresentRemoveArtModal };
-};
+    />,
+  )
+  return { onPresentRemoveArtModal }
+}
 
 const useArtDetailModal = (
-  collectiveInfo: CollectiveInfo
+  collectiveInfo: CollectiveInfo,
 ): {
-  onPresentArtDetailModal: (params: any) => void;
+  onPresentArtDetailModal: (params: any) => void
 } => {
   const [onPresentArtDetailModal] = useModal(
-    <ArtDetailModal collectiveInfo={collectiveInfo} />
-  );
-  return { onPresentArtDetailModal };
-};
+    <ArtDetailModal collectiveInfo={collectiveInfo} />,
+  )
+  return { onPresentArtDetailModal }
+}
 
 export {
   useShareArtConnectModal,
@@ -75,4 +75,4 @@ export {
   useShareArtModal,
   useRemoveArtModal,
   useArtDetailModal,
-};
+}

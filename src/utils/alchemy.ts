@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios'
 
-export const ALCHEMY_ENDPOINT = "https://eth-mainnet.g.alchemy.com/";
+export const ALCHEMY_ENDPOINT = 'https://eth-mainnet.g.alchemy.com/'
 
 export async function getNFTs(
   owner,
   contractAddress,
   pageKey,
   pageSize,
-  withMetadata
+  withMetadata,
 ) {
   return axios.get(
     `${ALCHEMY_ENDPOINT}/nft/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}/getNFTs`,
@@ -18,10 +18,10 @@ export async function getNFTs(
         pageKey,
         pageSize,
         withMetadata,
-        filters: ["SPAM", "AIRDROPS"],
+        filters: ['SPAM', 'AIRDROPS'],
       },
-    }
-  );
+    },
+  )
 }
 export async function getNFTMetadata(contractAddress, tokenId, tokenType) {
   return axios.get(
@@ -32,6 +32,6 @@ export async function getNFTMetadata(contractAddress, tokenId, tokenType) {
         tokenId,
         tokenType,
       },
-    }
-  );
+    },
+  )
 }

@@ -1,1 +1,1 @@
-export { default as TabList } from "./TabList";
+export { default as TabList } from './TabList'

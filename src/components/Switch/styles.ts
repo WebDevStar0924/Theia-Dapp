@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const SwitchWrapper = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const SwitchWrapper = styled.div`
   border-radius: 30px;
 
   .switchItem {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -21,8 +21,8 @@ export const SwitchWrapper = styled.div`
     padding: 2px 16px;
     border-radius: 20px;
     &.active {
-      background: #1D2939;
+      background: #1d2939;
       color: #ffffff;
     }
   }
-`;
+`

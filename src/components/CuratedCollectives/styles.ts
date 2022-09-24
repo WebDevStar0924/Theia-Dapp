@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 interface Props {
-  bg: any;
+  bg: any
 }
 
 export const CuratedCollectivesWrapper = styled.div<Props>`
@@ -39,7 +39,7 @@ export const CuratedCollectivesWrapper = styled.div<Props>`
   }
 
   .curatedLabel {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -95,7 +95,7 @@ export const CuratedCollectivesWrapper = styled.div<Props>`
         align-items: center;
 
         .infoName {
-          font-family: "Montserrat", serif;
+          font-family: 'Montserrat', serif;
           font-style: normal;
           font-weight: 600;
           font-size: 18px;
@@ -111,7 +111,7 @@ export const CuratedCollectivesWrapper = styled.div<Props>`
       }
 
       .infoDescription {
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 600;
         font-size: 14px;
@@ -119,4 +119,4 @@ export const CuratedCollectivesWrapper = styled.div<Props>`
       }
     }
   }
-`;
+`

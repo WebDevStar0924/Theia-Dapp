@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const TabListWrapper = styled.div<{
-  gridGap?: string;
-  direction?: string;
-  minWidth?: string;
+  gridGap?: string
+  direction?: string
+  minWidth?: string
 }>`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: ${({ direction }) => direction ?? "row"};
-  grid-gap: ${({ gridGap }) => gridGap ?? "20px"};
+  flex-direction: ${({ direction }) => direction ?? 'row'};
+  grid-gap: ${({ gridGap }) => gridGap ?? '20px'};
 
   .tabItem {
     cursor: pointer;
@@ -17,7 +17,7 @@ export const TabListWrapper = styled.div<{
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 200px;
     padding: 8px 20px;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -28,7 +28,7 @@ export const TabListWrapper = styled.div<{
     align-items: center;
     grid-gap: 12px;
     height: 40px;
-    min-width: ${({ minWidth }) => minWidth ?? "inherit"};
+    min-width: ${({ minWidth }) => minWidth ?? 'inherit'};
     flex: 1;
 
     .tabContent {
@@ -78,4 +78,4 @@ export const TabListWrapper = styled.div<{
       }
     }
   }
-`;
+`

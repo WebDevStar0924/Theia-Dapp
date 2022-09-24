@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CardWrapper = styled.div<{
-  padding?: string;
-  borderWidth?: string;
+  padding?: string
+  borderWidth?: string
 }>`
   display: flex;
   flex-direction: column;
-  border-width: ${({ borderWidth }) => borderWidth ?? "2px"}
+  border-width: ${({ borderWidth }) => borderWidth ?? '2px'}
   border-color: #e4e7ec;
   border-radius: 16px;
   overflow: hidden;
@@ -24,6 +24,6 @@ export const CardWrapper = styled.div<{
     color: #0f1419;
   }
   .cardContent {
-    padding: ${({ padding }) => padding ?? "20px"};
+    padding: ${({ padding }) => padding ?? '20px'};
   }
-`;
+`

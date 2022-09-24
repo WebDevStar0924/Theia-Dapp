@@ -1,7 +1,7 @@
-import React from "react";
-import StyledButton from "./StyledButton";
-import { ButtonSquareProps, variants, sizes } from "./types";
-import getExternalLinkProps from "../../utils/getExternalLinkProps";
+import React from 'react'
+import StyledButton from './StyledButton'
+import { ButtonSquareProps, variants, sizes } from './types'
+import getExternalLinkProps from '../../utils/getExternalLinkProps'
 
 const ButtonSquare: React.FC<ButtonSquareProps> = ({
   startIcon,
@@ -14,8 +14,8 @@ const ButtonSquare: React.FC<ButtonSquareProps> = ({
   color,
   ...props
 }) => {
-  const internalProps = external ? getExternalLinkProps() : {};
-  const isDisabled = isLoading || disabled;
+  const internalProps = external ? getExternalLinkProps() : {}
+  const isDisabled = isLoading || disabled
 
   return (
     <StyledButton
@@ -28,16 +28,16 @@ const ButtonSquare: React.FC<ButtonSquareProps> = ({
     >
       {React.isValidElement(startIcon) &&
         React.cloneElement(startIcon as React.ReactElement<any>, {
-          mr: "0.5rem",
+          mr: '0.5rem',
         })}
       {children}``
       {React.isValidElement(endIcon) &&
         React.cloneElement(endIcon as React.ReactElement<any>, {
-          ml: "0.5rem",
+          ml: '0.5rem',
         })}
     </StyledButton>
-  );
-};
+  )
+}
 
 ButtonSquare.defaultProps = {
   variant: variants.PRIMARY,
@@ -45,6 +45,6 @@ ButtonSquare.defaultProps = {
   external: false,
   isLoading: false,
   disabled: false,
-};
+}
 
-export default ButtonSquare;
+export default ButtonSquare

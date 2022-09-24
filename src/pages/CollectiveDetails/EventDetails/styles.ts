@@ -1,11 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 export const BackButtonWrapper = styled.div`
 .backButton{
   height: 58px;
   width: 58px;
   position: absolute;
-  left: 0;
-  top: 20px;
+  left: -10%;
   cursor: pointer;
   box-sizing: border-box;
   display: flex;
@@ -19,7 +18,7 @@ export const BackButtonWrapper = styled.div`
     border: 2px solid #1E84E3;
 
   }
-`;
+`
 export const EventDetailsWrapper = styled.div`
 position: relative;
   width : 900px;
@@ -36,7 +35,23 @@ position: relative;
     letter-spacing: 0em;
     text-align: center;
   }
-  .locationMark{
+  .virtualTag {
+    align-items: center;
+    padding: 2px 8px;
+    gap: 4px;
+    width: 70px;
+    height: 22px;
+    background: linear-gradient(50.04deg, #1E84E3 29.41%, #5C26D3 83.82%);
+    border-radius: 16px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+  }
+  .irlMark{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -50,7 +65,7 @@ position: relative;
     order: 1;
     flex-grow: 0;
   }
-  .locationMarkText{
+  .irlMarkText{
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
@@ -68,7 +83,7 @@ position: relative;
     font-weight: 600;
     font-size: 20px;
     line-height: 22px;
-    text-align: center;
+    text-align: left;
     color: #101828;
   }
   .attendButton{
@@ -177,7 +192,7 @@ position: relative;
     }
   }
 
-`;
+`
 export const ReplyItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -325,32 +340,30 @@ export const ReplyItemWrapper = styled.div`
     color: #98A2B3;
     margin-left: 8px;
   }
-`;
+`
 export const EventGoingWrapper = styled.div`
-    .container {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-    }
-    .containterShape{
-      width: 60px;
-      height: 60px;
-      border-radius: 50px;
-      background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
-      border: 2px solid #e4e7ec;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    }
-    .containerTitle{
-      margin-top: 5px;
-      font-family: 'Montserrat';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 20px;
-      text-align: center;
-      color: #101828;
-    }
-   
-   
-`;
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .containterShape {
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
+    border: 2px solid #e4e7ec;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  }
+  .containerTitle {
+    margin-top: 5px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #101828;
+  }
+`

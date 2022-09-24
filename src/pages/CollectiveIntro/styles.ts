@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CollectiveIntroWrapper = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const CollectiveIntroWrapper = styled.div`
   position: relative;
 
   .heading {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 72px;
@@ -26,7 +26,7 @@ export const CollectiveIntroWrapper = styled.div`
   }
 
   .supportingText {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -47,4 +47,4 @@ export const CollectiveIntroWrapper = styled.div`
     left: 50%;
     bottom: 0;
   }
-`;
+`

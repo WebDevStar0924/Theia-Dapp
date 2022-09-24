@@ -1,18 +1,15 @@
-import { EventCarousel } from "components/Carousel";
-import { EventCard } from "components/EventCard";
-import { FilterBar } from "components/FilterBar";
-import { CollectiveContextProps } from "pages/CollectiveLayout/types";
-import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { useEventCreateModal } from "widgets/EventModal/useShareEventModal";
-import { EventsTabWrapper } from "../styles";
-import { useNavigate, useParams } from "react-router-dom";
+import { EventCarousel } from 'components/Carousel'
+import { EventCard } from 'components/EventCard'
+import { FilterBar } from 'components/FilterBar'
+import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
+import { useNavigate, useOutletContext } from 'react-router-dom'
+import { EventsTabWrapper } from '../styles'
 
 export default function EventsTab() {
-  const { sort, updateSort, filter, updateFilter } =
-    useOutletContext<CollectiveContextProps>();
-  const [events, updateEventList] = useState<any[]>([1, 2, 3]);
-  const navigate = useNavigate();
+  const { events, sort, updateSort, filter, updateFilter } =
+    useOutletContext<CollectiveContextProps>()
+  // const [events, updateEventList] = useState<any[]();
+  const navigate = useNavigate()
 
   // const { onPresentEventDetailModal } = useEventCreateModal();
   const responsive = {
@@ -56,7 +53,7 @@ export default function EventsTab() {
       items: 2,
       partialVisibilityGutter: 30,
     },
-  };
+  }
 
   return (
     <EventsTabWrapper>
@@ -68,43 +65,30 @@ export default function EventsTab() {
       />
 
       <div className="mainPart">
-        <div className={"sideContent"}>
-          <div className={"subTitle"}>Upcoming Events</div>
+        <div className={'sideContent'}>
+          <div className={'subTitle'}>Upcoming Events</div>
           <EventCarousel
             items={events.map((item, index) => (
-              <EventCard onClick={() => {
-                navigate(`details/${item}`)
-              }}
-
+              <EventCard
+                eventData={item}
+                onClick={() => {
+                  navigate(`eventdetails/${item.event_id}`)
+                }}
                 key={index}
               />
             ))}
             responsive={responsive}
           />
         </div>
-        <div className={"sideContent"}>
-          <div className={"subTitle"}>Featured Events</div>
+        <div className={'sideContent'}>
+          <div className={'subTitle'}>Featured Events</div>
           <EventCarousel
             items={events.map((item, index) => (
-              <EventCard onClick={() => {
-                navigate(`details/${item}`)
-              }}
-
-                key={index}
-              />
-            ))}
-            responsive={responsive}
-          />
-        </div>
-
-        <div className={"sideContent"}>
-          <div className={"subTitle"}>Community Events</div>
-          <EventCarousel
-            items={events.map((item, index) => (
-              <EventCard onClick={() => {
-                navigate(`details/${item}`)
-              }}
-
+              <EventCard
+                eventData={item}
+                onClick={() => {
+                  navigate(`eventdetails/${item.event_id}`)
+                }}
                 key={index}
               />
             ))}
@@ -112,14 +96,31 @@ export default function EventsTab() {
           />
         </div>
 
-        <div className={"sideContent"}>
-          <div className={"subTitle"}>Past Events</div>
+        <div className={'sideContent'}>
+          <div className={'subTitle'}>Community Events</div>
           <EventCarousel
             items={events.map((item, index) => (
-              <EventCard onClick={() => {
-                navigate(`details/${item}`)
-              }}
+              <EventCard
+                eventData={item}
+                onClick={() => {
+                  navigate(`eventdetails/${item.event_id}`)
+                }}
+                key={index}
+              />
+            ))}
+            responsive={responsive}
+          />
+        </div>
 
+        <div className={'sideContent'}>
+          <div className={'subTitle'}>Past Events</div>
+          <EventCarousel
+            items={events.map((item, index) => (
+              <EventCard
+                eventData={item}
+                onClick={() => {
+                  navigate(`eventdetails/${item.event_id}`)
+                }}
                 key={index}
               />
             ))}
@@ -128,5 +129,5 @@ export default function EventsTab() {
         </div>
       </div>
     </EventsTabWrapper>
-  );
+  )
 }

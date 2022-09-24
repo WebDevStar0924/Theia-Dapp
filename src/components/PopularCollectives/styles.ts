@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PopularCollectivesWrapper = styled.div`
   .listHeader {
@@ -9,7 +9,7 @@ export const PopularCollectivesWrapper = styled.div`
     grid-gap: 40px;
 
     .listName {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
@@ -17,4 +17,4 @@ export const PopularCollectivesWrapper = styled.div`
       color: #101828;
     }
   }
-`;
+`

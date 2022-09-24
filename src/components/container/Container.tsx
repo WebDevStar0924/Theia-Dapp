@@ -1,7 +1,7 @@
-import "./container.scss";
+import './container.scss'
 
 const Container = ({ children }: any) => {
-  return <div className="atom-container">{children}</div>;
-};
+  return <div className="atom-container">{children}</div>
+}
 
-export default Container;
+export default Container

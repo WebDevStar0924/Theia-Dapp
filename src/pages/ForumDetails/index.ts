@@ -1,1 +1,1 @@
-export { default as ForumDetails } from "./ForumDetails";
+export { default as ForumDetails } from './ForumDetails'

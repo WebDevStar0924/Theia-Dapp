@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 interface Props {
-  bg: any;
+  bg: any
 }
 export const BottomVideoWrapper = styled.div<Props>`
   background-image: url(${(props) => props.bg});
@@ -12,7 +12,7 @@ export const BottomVideoWrapper = styled.div<Props>`
   align-items: center;
 
   .videoLabel {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 300;
     font-size: 30px;
@@ -20,7 +20,7 @@ export const BottomVideoWrapper = styled.div<Props>`
     text-align: center;
     color: white;
   }
-`;
+`
 
 export const VideoContent = styled.div<Props>`
   background-image: url(${(props) => props.bg});
@@ -54,4 +54,4 @@ export const VideoContent = styled.div<Props>`
       border-radius: 30px;
     }
   }
-`;
+`

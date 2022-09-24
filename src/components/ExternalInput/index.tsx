@@ -1,8 +1,8 @@
-import { StyledWrapper } from "./styles";
-import { externalInputProps } from "./types";
+import { StyledWrapper } from './styles'
+import { externalInputProps } from './types'
 
 export default function ExternalInput(
-  props: externalInputProps & React.HTMLAttributes<HTMLDivElement>
+  props: externalInputProps & React.HTMLAttributes<HTMLDivElement>,
 ) {
   const {
     label,
@@ -14,19 +14,19 @@ export default function ExternalInput(
     errorMsg,
     type,
     onClick,
-    inputType = "text",
+    inputType = 'text',
     ...rest
-  } = props;
+  } = props
 
   return (
     <StyledWrapper
       props={props}
-      className={props.className ?? ""}
+      className={props.className ?? ''}
       onClick={onClick}
       onFocus={rest.onFocus}
       onBlur={rest.onBlur}
     >
-      {label && <div className={"label"}>{label}</div>}
+      {label && <div className={'label'}>{label}</div>}
       <div className={`inputWrapper`}>
         {startIcon && startIcon}
         <input
@@ -34,13 +34,13 @@ export default function ExternalInput(
           placeholder={placeholder}
           type={inputType}
           onChange={(e) => {
-            onUserInput && onUserInput(e.target.value);
+            onUserInput && onUserInput(e.target.value)
           }}
-          disabled={type === "disabled"}
+          disabled={type === 'disabled'}
         />
         {endIcon && endIcon}
       </div>
-      {errorMsg && <div className={"errorMsg"}>{errorMsg}</div>}
+      {errorMsg && <div className={'errorMsg'}>{errorMsg}</div>}
     </StyledWrapper>
-  );
+  )
 }

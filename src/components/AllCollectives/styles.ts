@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const AllCollectivesWrapper = styled.div`
   .listHeader {
@@ -8,7 +8,7 @@ export const AllCollectivesWrapper = styled.div`
     margin-bottom: 30px;
 
     .listName {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
@@ -16,4 +16,4 @@ export const AllCollectivesWrapper = styled.div`
       color: #101828;
     }
   }
-`;
+`

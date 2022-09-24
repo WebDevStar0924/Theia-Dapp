@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const AcceptMobileViewWrapper = styled.div`
   min-height: 100vh;
@@ -47,4 +47,4 @@ export const AcceptMobileViewWrapper = styled.div`
       color: #101828;
     }
   }
-`;
+`

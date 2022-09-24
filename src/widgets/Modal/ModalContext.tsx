@@ -1,12 +1,12 @@
-import React, { createContext, useState, ReactElement } from "react";
-import styled from "styled-components";
-import Overlay from "../../components/Overlay/Overlay";
-import { Handler } from "./types";
+import React, { createContext, useState, ReactElement } from 'react'
+import styled from 'styled-components'
+import Overlay from '../../components/Overlay/Overlay'
+import { Handler } from './types'
 
 interface ModalsContext {
-  onPresent: (node: React.ReactNode, params: any, key?: string) => void;
-  onDismiss: Handler;
-  setCloseOnOverlayClick: React.Dispatch<React.SetStateAction<boolean>>;
+  onPresent: (node: React.ReactNode, params: any, key?: string) => void
+  onDismiss: Handler
+  setCloseOnOverlayClick: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ModalWrapper = styled.div`
@@ -20,43 +20,43 @@ const ModalWrapper = styled.div`
   bottom: 0;
   left: 0;
   z-index: ${({ theme }) => theme.zIndices.modal - 1};
-`;
+`
 
 export const Context = createContext<ModalsContext>({
   onPresent: () => null,
   onDismiss: () => null,
   setCloseOnOverlayClick: () => true,
-});
+})
 
 const ModalProvider: React.FC = ({ children }) => {
-  const [modalNode, setModalNode] = useState<React.ReactNode[]>([]);
-  const [closeOnOverlayClick, setCloseOnOverlayClick] = useState(true);
-  const [modalParams, setModalParams] = useState<any[]>([]);
+  const [modalNode, setModalNode] = useState<React.ReactNode[]>([])
+  const [closeOnOverlayClick, setCloseOnOverlayClick] = useState(true)
+  const [modalParams, setModalParams] = useState<any[]>([])
 
   const handlePresent = (node: React.ReactNode, params?: any) => {
-    setModalNode([...modalNode, node]);
-    setModalParams([...modalParams, params]);
-  };
+    setModalNode([...modalNode, node])
+    setModalParams([...modalParams, params])
+  }
 
   const handleDismiss = () => {
-    modalNode.splice(modalNode.length - 1, 1);
-    setModalNode([...modalNode]);
-    modalParams.splice(modalParams.length - 1, 1);
-    setModalParams([...modalParams]);
-  };
+    modalNode.splice(modalNode.length - 1, 1)
+    setModalNode([...modalNode])
+    modalParams.splice(modalParams.length - 1, 1)
+    setModalParams([...modalParams])
+  }
 
   const handleOverlayDismiss = () => {
     if (closeOnOverlayClick) {
-      const params = modalParams[modalParams.length - 1];
+      const params = modalParams[modalParams.length - 1]
       if (params) {
-        const { callback } = params;
+        const { callback } = params
         if (callback) {
-          callback();
+          callback()
         }
       }
-      handleDismiss();
+      handleDismiss()
     }
-  };
+  }
 
   return (
     <Context.Provider
@@ -78,7 +78,7 @@ const ModalProvider: React.FC = ({ children }) => {
       ))}
       {children}
     </Context.Provider>
-  );
-};
+  )
+}
 
-export default ModalProvider;
+export default ModalProvider

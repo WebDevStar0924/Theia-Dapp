@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import { Text } from "../Text";
-import ArrowDropDown from "../Svg/Icons/ArrowDropDown";
-import { Handler } from "../../widgets/Modal/types";
-import { NETWORK_LABEL } from "../../config/constants/chains";
+import styled from 'styled-components'
+import { Text } from '../Text'
+import ArrowDropDown from '../Svg/Icons/ArrowDropDown'
+import { Handler } from '../../widgets/Modal/types'
+import { NETWORK_LABEL } from '../../config/constants/chains'
 
 interface NetworkSelectProps {
-  activeChainID: number;
-  onSelect: Handler;
+  activeChainID: number
+  onSelect: Handler
 }
 
 const NetworkSelectContainer = styled.div`
-  background-color: ${({ theme }) => (theme.isDark ? "#383838" : "#F0F0F0")};
+  background-color: ${({ theme }) => (theme.isDark ? '#383838' : '#F0F0F0')};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ const NetworkSelectContainer = styled.div`
     width: 384px;
     flex-direction: row;
   }
-`;
+`
 export default function NetworkSelect({
   activeChainID,
   onSelect,
@@ -34,5 +34,5 @@ export default function NetworkSelect({
       <Text>{NETWORK_LABEL[activeChainID]}</Text>
       <ArrowDropDown />
     </NetworkSelectContainer>
-  );
+  )
 }

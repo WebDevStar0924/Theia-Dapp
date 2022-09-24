@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const HomeContentWrapper = styled.div`
   display: flex;
@@ -7,4 +7,4 @@ export const HomeContentWrapper = styled.div`
 
   padding-left: 30px;
   grid-gap: 70px;
-`;
+`

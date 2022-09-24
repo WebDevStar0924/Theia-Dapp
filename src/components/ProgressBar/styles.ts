@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ProgressBarWrapper = styled.div<{ bgColor: string }>`
   background-color: ${({ bgColor }) => bgColor};
@@ -9,4 +9,4 @@ export const ProgressBarWrapper = styled.div<{ bgColor: string }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
+`

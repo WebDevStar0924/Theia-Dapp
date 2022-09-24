@@ -1,44 +1,44 @@
-import React, { useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
-};
+}
 
 const modal = {
   hidden: {
-    y: "-100vh",
+    y: '-100vh',
     opacity: 0,
   },
   visible: {
-    y: "200px",
+    y: '200px',
     opacity: 1,
     transition: { delay: 0.5 },
   },
-};
+}
 
 const Modal = ({ showModal, setShowModal }) => {
-  const modalRef = useRef();
+  const modalRef = useRef()
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setShowModal(false);
+      setShowModal(false)
     }
-  };
+  }
 
   const keyPress = useCallback(
     (e) => {
-      if (e.key === "Escape" && showModal) {
-        setShowModal(false);
+      if (e.key === 'Escape' && showModal) {
+        setShowModal(false)
       }
     },
-    [setShowModal, showModal]
-  );
+    [setShowModal, showModal],
+  )
 
   useEffect(() => {
-    document.addEventListener("keydown", keyPress);
-    return () => document.removeEventListener("keydown", keyPress);
-  }, [keyPress]);
+    document.addEventListener('keydown', keyPress)
+    return () => document.removeEventListener('keydown', keyPress)
+  }, [keyPress])
   return (
     <AnimatePresence exitBeforeEnter>
       {showModal && (
@@ -88,11 +88,11 @@ const Modal = ({ showModal, setShowModal }) => {
 
             <motion.button
               whileHover={{
-                textShadow: "0px 0px 8px rgb(255, 255, 255)",
-                boxShadow: "0px 0px 8px rgb(255, 255, 255)",
+                textShadow: '0px 0px 8px rgb(255, 255, 255)',
+                boxShadow: '0px 0px 8px rgb(255, 255, 255)',
               }}
               className="modal-button"
-              style={{ marginTop: "1.8rem" }}
+              style={{ marginTop: '1.8rem' }}
             >
               Sign Sell Agreement
             </motion.button>
@@ -100,7 +100,7 @@ const Modal = ({ showModal, setShowModal }) => {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

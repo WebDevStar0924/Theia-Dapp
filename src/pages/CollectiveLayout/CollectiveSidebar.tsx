@@ -1,59 +1,63 @@
-import cn from "classnames";
-import { TabList } from "components/TabList";
-import useActiveWeb3React from "hooks/useActiveWeb3React";
-import { useMembership } from "hooks/useMembership";
-import { useEffect, useState } from "react";
-import { FiCalendar, FiEdit3, FiHome, FiImage, HiPlus } from "react-icons/all";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useForumModal from "widgets/CreateForumModal/useForumModal";
-import { useShareArtModal } from "widgets/GalleryModal/useShareArtModal";
-import defaultProjectIcon from "../../assets/image/defaultProjectIcon.png";
-// import useEventCardModal from "../../widgets/EventCardModal/useEventCardModal";
-import { useEventCreateModal } from "widgets/EventModal/useShareEventModal";
+import cn from 'classnames'
+import { TabList } from 'components/TabList'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useMembership } from 'hooks/useMembership'
+import { useEffect, useState } from 'react'
+import { FiCalendar, FiEdit3, FiHome, FiImage, HiPlus } from 'react-icons/all'
+import { useDispatch } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { eventClear } from 'state/event'
+import useForumModal from 'widgets/CreateForumModal/useForumModal'
+import { useShareArtModal } from 'widgets/GalleryModal/useShareArtModal'
 
-import { CollectiveSidebarWrapper } from "./styles";
+import defaultProjectIcon from '../../assets/image/defaultProjectIcon.png'
+// import useEventCardModal from "../../widgets/EventCardModal/useEventCardModal";
+import { useEventCreateModal } from 'widgets/EventModal/useShareEventModal'
+
+import { CollectiveSidebarWrapper } from './styles'
 
 interface iProps {
-  collectiveInfo: any;
-  galleries: any[];
-  addNewForum: (newForum: any) => void;
-  addNewGallery: (newGallery: any) => void;
+  collectiveInfo: any
+  galleries: any[]
+  addNewForum: (newForum: any) => void
+  addNewGallery: (newGallery: any) => void
 }
 export default function CollectiveSidebar(props: iProps) {
-  const { cname, ctab } = useParams();
-  const location = useLocation();
-  const { collectiveInfo, galleries, addNewForum, addNewGallery } = props;
-  const [activeTabItem, setActiveTabItem] = useState("home");
-  const [isShowEventBtns, showEventBtns] = useState(false);
-  const onMemberShipCheck = useMembership();
-  const { account } = useActiveWeb3React();
+  const dispatch = useDispatch()
+  const { cname } = useParams()
+  const location = useLocation()
+  const { collectiveInfo, galleries, addNewForum, addNewGallery } = props
+  const [activeTabItem, setActiveTabItem] = useState('home')
+  const [isShowEventBtns, showEventBtns] = useState(false)
+  const onMemberShipCheck = useMembership()
+  const { account } = useActiveWeb3React()
   // const { onPresentEventCardModal } = useEventCardModal();
 
-  const { onPresentForumModal } = useForumModal();
-  const { onPresentEventCreateModal } = useEventCreateModal();
+  const { onPresentForumModal } = useForumModal()
+  const { onPresentEventCreateModal } = useEventCreateModal()
   const { onPresentShareArtModal } = useShareArtModal(
     galleries,
     addNewGallery,
-    collectiveInfo
-  );
-  const navigate = useNavigate();
+    collectiveInfo,
+  )
+  const navigate = useNavigate()
   useEffect(() => {
     switch (location.pathname) {
       case `/collective/${cname}`:
       case `/collective/${cname}/home`:
-        setActiveTabItem("home");
-        break;
+        setActiveTabItem('home')
+        break
       case `/collective/${cname}/forum`:
-        setActiveTabItem("forum");
-        break;
+        setActiveTabItem('forum')
+        break
       case `/collective/${cname}/gallery`:
-        setActiveTabItem("gallery");
-        break;
+        setActiveTabItem('gallery')
+        break
       case `/collective/${cname}/events`:
-        setActiveTabItem("events");
-        break;
+        setActiveTabItem('events')
+        break
     }
-  }, [location]);
+  }, [location])
   return (
     <CollectiveSidebarWrapper>
       <img
@@ -63,7 +67,7 @@ export default function CollectiveSidebar(props: iProps) {
       />
       <div className="createBtns">
         <div
-          className={cn("eventToggleBtn", {
+          className={cn('eventToggleBtn', {
             active: isShowEventBtns,
           })}
           onClick={() => showEventBtns(!isShowEventBtns)}
@@ -77,10 +81,10 @@ export default function CollectiveSidebar(props: iProps) {
               onClick={() =>
                 onMemberShipCheck(collectiveInfo.collective_id, account, () =>
                   onPresentForumModal({
-                    active: "POST",
+                    active: 'POST',
                     collectiveID: collectiveInfo.collective_id,
                     callback: addNewForum,
-                  })
+                  }),
                 )
               }
             >
@@ -91,16 +95,21 @@ export default function CollectiveSidebar(props: iProps) {
               className="eventBtn"
               onClick={() =>
                 onMemberShipCheck(collectiveInfo.collective_id, account, () =>
-                  onPresentShareArtModal()
+                  onPresentShareArtModal(),
                 )
               }
             >
               <FiImage size={24} color="#101828" />
               <span>Share</span>
             </div>
-            <div className="eventBtn"
-              onClick={() =>
-                onPresentEventCreateModal({})}
+            <div
+              className="eventBtn"
+              onClick={() => {
+                dispatch(eventClear())
+                onPresentEventCreateModal({
+                  collectiveID: collectiveInfo.collective_id,
+                })
+              }}
             >
               <FiCalendar size={24} color="#101828" />
               <span>Event</span>
@@ -119,7 +128,7 @@ export default function CollectiveSidebar(props: iProps) {
                 <FiHome size={24} /> HOME
               </div>
             ),
-            value: "home",
+            value: 'home',
             onClick: () => navigate(`/collective/${cname}`),
           },
           {
@@ -128,7 +137,7 @@ export default function CollectiveSidebar(props: iProps) {
                 <FiEdit3 size={24} /> FORUM
               </div>
             ),
-            value: "forum",
+            value: 'forum',
             onClick: () => navigate(`/collective/${cname}/forum`),
           },
           {
@@ -137,7 +146,7 @@ export default function CollectiveSidebar(props: iProps) {
                 <FiImage size={24} /> GALLERY
               </div>
             ),
-            value: "gallery",
+            value: 'gallery',
             onClick: () => navigate(`/collective/${cname}/gallery`),
           },
           {
@@ -147,7 +156,7 @@ export default function CollectiveSidebar(props: iProps) {
                 EVENTS
               </div>
             ),
-            value: "events",
+            value: 'events',
             onClick: () => navigate(`/collective/${cname}/events`),
           },
         ]}
@@ -155,5 +164,5 @@ export default function CollectiveSidebar(props: iProps) {
         setActiveTab={(val) => setActiveTabItem(val)}
       />
     </CollectiveSidebarWrapper>
-  );
+  )
 }

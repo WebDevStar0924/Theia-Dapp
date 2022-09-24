@@ -1,36 +1,36 @@
-import axios from "axios";
+import axios from 'axios'
 
-const BRIDGE_SERVER_URL = "https://bridgeapi.anyswap.exchange";
+const BRIDGE_SERVER_URL = 'https://bridgeapi.anyswap.exchange'
 
 export default class API {
   static getAvailbleTokens(chainId) {
-    return axios.get(`${BRIDGE_SERVER_URL}/v2/serverInfo/${chainId}`);
+    return axios.get(`${BRIDGE_SERVER_URL}/v2/serverInfo/${chainId}`)
   }
 
   static getProjectDetails() {
-    return axios.get(`${process.env.REACT_APP_API_URL}/project-details`);
+    return axios.get(`${process.env.REACT_APP_API_URL}/project-details`)
   }
 
-  static getMarketplace1Invest(projectID, interval = "7d") {
+  static getMarketplace1Invest(projectID, interval = '7d') {
     return axios.get(`${process.env.REACT_APP_API_URL}/getInvest`, {
       params: {
         projectID,
         interval,
       },
-    });
+    })
   }
 
   static updateMarketplace1Invest(projectID, data) {
     return axios.post(`${process.env.REACT_APP_API_URL}/updateInvest`, {
       projectID,
       data,
-    });
+    })
   }
 
   static getRequestUSDC(address) {
     return axios.post(`${process.env.REACT_APP_API_URL}/getRequestUSDC`, {
       address,
-    });
+    })
   }
 
   static updateRequestUSDC(address, amount, twitterId, twitterUsername) {
@@ -39,23 +39,23 @@ export default class API {
       amount,
       twitterId,
       twitterUsername,
-    });
+    })
   }
 
   static createProject(projectInfo) {
     return axios.post(`${process.env.REACT_APP_API_URL}/project/create`, {
       projectInfo,
-    });
+    })
   }
 
   static updateProject(projectInfo) {
     return axios.post(`${process.env.REACT_APP_API_URL}/project/update`, {
       projectInfo,
-    });
+    })
   }
 
   static getProjectByID(projectID) {
-    return axios.get(`${process.env.REACT_APP_API_URL}/project/${projectID}`);
+    return axios.get(`${process.env.REACT_APP_API_URL}/project/${projectID}`)
   }
 
   static getProjectList(page, limit, filterStr, category) {
@@ -66,13 +66,13 @@ export default class API {
         filter: filterStr,
         category,
       },
-    });
+    })
   }
 
   static updateTP(data) {
     return axios.post(`${process.env.REACT_APP_API_URL}/project/updateTP`, {
       data,
-    });
+    })
   }
 
   static getInvestByUser(projectID, address) {
@@ -81,7 +81,7 @@ export default class API {
         projectID,
         address,
       },
-    });
+    })
   }
 
   static getInvestorsForProject(projectID) {
@@ -91,8 +91,8 @@ export default class API {
         params: {
           projectID,
         },
-      }
-    );
+      },
+    )
   }
 
   static getActivity(projectID, page, limit) {
@@ -102,7 +102,7 @@ export default class API {
         page,
         limit,
       },
-    });
+    })
   }
 
   static getUserCollectives(address, page, pageSize) {
@@ -112,7 +112,7 @@ export default class API {
         page,
         pageSize,
       },
-    });
+    })
   }
 
   static getUserProjects(address, page, pageSize) {
@@ -122,7 +122,7 @@ export default class API {
         page,
         pageSize,
       },
-    });
+    })
   }
 
   static getUserFavorites(address, page, pageSize) {
@@ -132,7 +132,7 @@ export default class API {
         page,
         pageSize,
       },
-    });
+    })
   }
 
   static getProfile(address) {
@@ -140,25 +140,25 @@ export default class API {
       params: {
         walletaddress: address,
       },
-    });
+    })
   }
 
   static createProfile(userInfo) {
     return axios.post(`${process.env.REACT_APP_API_URL}/profile/create`, {
       ...userInfo,
-    });
+    })
   }
 
   static createCollective(collectiveInfo) {
     return axios.post(`${process.env.REACT_APP_API_URL}/collective/create`, {
       collectiveInfo,
-    });
+    })
   }
 
   static getCollectiveByID(collectiveID) {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}/collective/${collectiveID}`
-    );
+      `${process.env.REACT_APP_API_URL}/collective/${collectiveID}`,
+    )
   }
 
   static getGalleries(collectiveID, address, sort) {
@@ -168,7 +168,7 @@ export default class API {
         address,
         sort,
       },
-    });
+    })
   }
 
   static addGalleries(collectiveID, nfts, owneraddress) {
@@ -176,13 +176,13 @@ export default class API {
       collectiveID,
       nfts,
       owneraddress,
-    });
+    })
   }
 
   static removeGalleries(gallery_ids) {
     return axios.post(`${process.env.REACT_APP_API_URL}/gallery/remove`, {
       gallery_ids,
-    });
+    })
   }
 
   static getGalleryByID(galleryID, address) {
@@ -191,7 +191,7 @@ export default class API {
         galleryID,
         address,
       },
-    });
+    })
   }
 
   static getMembers(collectiveID) {
@@ -199,7 +199,7 @@ export default class API {
       params: {
         collectiveID,
       },
-    });
+    })
   }
 
   // TODO make api on server side
@@ -208,14 +208,14 @@ export default class API {
       `${process.env.REACT_APP_API_URL}/collective/${collectiveID}/remove`,
       {
         data,
-      }
-    );
+      },
+    )
   }
 
   static getCollectiveList(limit, page, filter, type) {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}/collective/list?limit=${limit}&page=${page}&filter=${filter}&type=${type}`
-    );
+      `${process.env.REACT_APP_API_URL}/collective/list?limit=${limit}&page=${page}&filter=${filter}&type=${type}`,
+    )
   }
 
   static getCollectiveByName(name, address) {
@@ -224,13 +224,13 @@ export default class API {
         name,
         address,
       },
-    });
+    })
   }
 
   static updateCollective(collectiveInfo) {
     return axios.post(`${process.env.REACT_APP_API_URL}/collective/update`, {
       collectiveInfo: collectiveInfo,
-    });
+    })
   }
 
   static getComments(postID, type, address, sort) {
@@ -241,10 +241,10 @@ export default class API {
         address,
         sort,
       },
-    });
+    })
   }
 
-  static getForums(collectiveID, type, address = "", sortOption) {
+  static getForums(collectiveID, type, address = '', sortOption) {
     return axios.get(`${process.env.REACT_APP_API_URL}/forum/list`, {
       params: {
         collectiveID,
@@ -252,11 +252,11 @@ export default class API {
         address,
         sort: sortOption,
       },
-    });
+    })
   }
 
   static createForum(data) {
-    return axios.post(`${process.env.REACT_APP_API_URL}/forum/create`, data);
+    return axios.post(`${process.env.REACT_APP_API_URL}/forum/create`, data)
   }
 
   static getForumById(forum_id, address) {
@@ -265,7 +265,7 @@ export default class API {
         forum_id,
         address,
       },
-    });
+    })
   }
 
   static updateVote(postID, type, action, ownerAddress) {
@@ -274,7 +274,7 @@ export default class API {
       type,
       action,
       ownerAddress,
-    });
+    })
   }
 
   static updateFavorite(postID, type, action, ownerAddress) {
@@ -283,7 +283,7 @@ export default class API {
       type,
       action,
       ownerAddress,
-    });
+    })
   }
 
   static updateCrown(postID, type, action, ownerAddress) {
@@ -292,7 +292,7 @@ export default class API {
       type,
       action,
       ownerAddress,
-    });
+    })
   }
 
   static replyComment(postID, parentID, type, text, ownerAddress) {
@@ -302,7 +302,7 @@ export default class API {
       type,
       text,
       ownerAddress,
-    });
+    })
   }
 
   static uploadFiles(formData) {
@@ -311,10 +311,10 @@ export default class API {
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
-      }
-    );
+      },
+    )
   }
 
   static checkMember(collectiveID, address) {
@@ -323,7 +323,7 @@ export default class API {
         collectiveID,
         address,
       },
-    });
+    })
   }
 
   static getForumLast36(collectiveID) {
@@ -331,7 +331,7 @@ export default class API {
       params: {
         collectiveID,
       },
-    });
+    })
   }
 
   static getGalleryLast36(collectiveID) {
@@ -339,7 +339,7 @@ export default class API {
       params: {
         collectiveID,
       },
-    });
+    })
   }
 
   static voteForumPoll(forum_poll_id, address, forum_id) {
@@ -347,10 +347,49 @@ export default class API {
       forum_poll_id,
       address,
       forum_id,
-    });
+    })
   }
 
   static getPopularCollectives() {
-    return axios.get(`${process.env.REACT_APP_API_URL}/collective/popular`);
+    return axios.get(`${process.env.REACT_APP_API_URL}/collective/popular`)
+  }
+
+  static createEvent(
+    title,
+    location,
+    location_type,
+    event_date,
+    starttime,
+    endtime,
+    description,
+    details,
+    collective_id,
+    owneraddress,
+    timezone
+  ) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/events/create`, {
+      title,
+      location,
+      location_type,
+      event_date,
+      starttime,
+      endtime,
+      description,
+      details,
+      collective_id,
+      owneraddress,
+      timezone
+    })
+  }
+
+  static getEventList(collective_id) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/events/list`, {
+      collective_id,
+    })
+  }
+  static getEventById(event_id) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/events/getById`, {
+      event_id,
+    })
   }
 }

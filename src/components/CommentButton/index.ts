@@ -1,1 +1,1 @@
-export { default as CommentButton } from "./CommentButton";
+export { default as CommentButton } from './CommentButton'

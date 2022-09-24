@@ -1,6 +1,6 @@
-import React from "react";
-import Svg from "../Svg";
-import { SvgProps } from "../types";
+import React from 'react'
+import Svg from '../Svg'
+import { SvgProps } from '../types'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
@@ -44,7 +44,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         d="M33.75 41.12a2.94 2.94 0 01-3-2.86v-1a2.94 2.94 0 013-2.85 2.94 2.94 0 013 2.85v1a2.94 2.94 0 01-3 2.86zM51.84 41.12a2.94 2.94 0 01-3-2.86v-1a2.94 2.94 0 013-2.85 2.94 2.94 0 013 2.85v1a2.94 2.94 0 01-3 2.86z"
       />
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

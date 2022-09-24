@@ -1,1 +1,1 @@
-export { default as TopSupporters } from "./TopSupporters";
+export { default as TopSupporters } from './TopSupporters'

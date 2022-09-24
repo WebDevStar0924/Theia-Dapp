@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const MarketInfoWrapper = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const MarketInfoWrapper = styled.div`
   border-radius: 16px;
   padding: 64px;
   background-color: #ffffff;
-`;
+`
 
 export const MarketInfoItem = styled.div`
   flex: 1;
@@ -31,4 +31,4 @@ export const MarketInfoItem = styled.div`
     font-weight: 500;
     color: ${({ theme }) => theme.colors.link};
   }
-`;
+`

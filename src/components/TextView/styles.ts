@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
   row-gap: 6px;
 
   .label {
-    font-family: "Montserrat", seriff;
+    font-family: 'Montserrat', seriff;
     font-style: normal;
     font-size: 18px;
     color: #475467;
@@ -24,16 +24,16 @@ export const StyledWrapper = styled.div`
     box-sizing: border-box;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
     resize: none;
     width: 100%;
 
     &::placeholder {
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 16px;
       font-weight: 500;
       line-height: 24px;
       color: #98a2b3;
     }
   }
-`;
+`

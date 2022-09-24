@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StyledShareArtContent = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const StyledShareArtContent = styled.div`
   position: relative;
 
   .title {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -15,7 +15,7 @@ export const StyledShareArtContent = styled.div`
   }
 
   .description {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -107,7 +107,7 @@ export const StyledShareArtContent = styled.div`
     height: 36px;
     border-radius: 18px;
   }
-`;
+`
 
 export const StyledBecomeMemberContent = styled.div`
   .close {
@@ -117,7 +117,7 @@ export const StyledBecomeMemberContent = styled.div`
     cursor: pointer;
   }
   .title {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
@@ -127,7 +127,7 @@ export const StyledBecomeMemberContent = styled.div`
   }
 
   .description {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -149,7 +149,7 @@ export const StyledBecomeMemberContent = styled.div`
     text-align: center;
 
     .actionBtn {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -169,7 +169,7 @@ export const StyledBecomeMemberContent = styled.div`
       display: inline-block;
     }
   }
-`;
+`
 
 export const ArtDetailContent = styled.div`
   position: relative;
@@ -190,7 +190,7 @@ export const ArtDetailContent = styled.div`
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     }
     .username {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -198,7 +198,7 @@ export const ArtDetailContent = styled.div`
       color: #101828;
     }
     .userTag {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
@@ -214,7 +214,7 @@ export const ArtDetailContent = styled.div`
       }
     }
     .createTime {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 12px;
@@ -285,7 +285,7 @@ export const ArtDetailContent = styled.div`
       outline: none;
       box-shadow: none;
       .input {
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         outline: none;
         border: none;
       }
@@ -411,7 +411,7 @@ export const ArtDetailContent = styled.div`
     .detailRight {
       max-width: 200px;
       .name {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 24px;
@@ -419,7 +419,7 @@ export const ArtDetailContent = styled.div`
         color: black;
       }
       .description {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 600;
         font-size: 18px;
@@ -427,7 +427,7 @@ export const ArtDetailContent = styled.div`
         margin-top: 5px;
       }
       .artDescription {
-        font-family: "Montserrat";
+        font-family: 'Montserrat';
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -438,7 +438,7 @@ export const ArtDetailContent = styled.div`
         margin-top: 25px;
         word-break: break-all;
         .dLabel {
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 600;
           font-size: 16px;
@@ -452,7 +452,7 @@ export const ArtDetailContent = styled.div`
           border: 1px solid #d0d5dd;
         }
         .dText {
-          font-family: "Montserrat";
+          font-family: 'Montserrat';
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
@@ -545,7 +545,7 @@ export const ArtDetailContent = styled.div`
       background-color: #a4bcfd;
     }
   }
-`;
+`
 
 export const ReplyItemWrapper = styled.div`
   display: flex;
@@ -666,4 +666,4 @@ export const ReplyItemWrapper = styled.div`
   .memberTag {
     background-color: #a4bcfd;
   }
-`;
+`

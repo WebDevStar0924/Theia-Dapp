@@ -1,7 +1,7 @@
-import React from "react";
-import getExternalLinkProps from "../../utils/getExternalLinkProps";
-import StyledButton from "./StyledButton";
-import { ButtonProps, variants, sizes } from "./types";
+import React from 'react'
+import getExternalLinkProps from '../../utils/getExternalLinkProps'
+import StyledButton from './StyledButton'
+import { ButtonProps, variants, sizes } from './types'
 
 const Button: React.FC<ButtonProps> = ({
   startIcon,
@@ -14,8 +14,8 @@ const Button: React.FC<ButtonProps> = ({
   color,
   ...props
 }) => {
-  const internalProps = external ? getExternalLinkProps() : {};
-  const isDisabled = isLoading || disabled;
+  const internalProps = external ? getExternalLinkProps() : {}
+  const isDisabled = isLoading || disabled
 
   return (
     <StyledButton
@@ -28,16 +28,16 @@ const Button: React.FC<ButtonProps> = ({
     >
       {React.isValidElement(startIcon) &&
         React.cloneElement(startIcon as React.ReactElement<any>, {
-          mr: "0.5rem",
+          mr: '0.5rem',
         })}
       {children}
       {React.isValidElement(endIcon) &&
         React.cloneElement(endIcon as React.ReactElement<any>, {
-          ml: "0.5rem",
+          ml: '0.5rem',
         })}
     </StyledButton>
-  );
-};
+  )
+}
 
 Button.defaultProps = {
   variant: variants.PRIMARY,
@@ -45,6 +45,6 @@ Button.defaultProps = {
   external: false,
   isLoading: false,
   disabled: false,
-};
+}
 
-export default Button;
+export default Button

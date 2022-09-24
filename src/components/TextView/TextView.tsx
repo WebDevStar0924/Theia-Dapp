@@ -1,11 +1,11 @@
-import { StyledWrapper } from "./styles";
-import { textViewProps } from "./types";
+import { StyledWrapper } from './styles'
+import { textViewProps } from './types'
 
 export default function TextView(props: textViewProps) {
-  const { label, value, rows, placeholder, onUserInput } = props;
+  const { label, value, rows, placeholder, onUserInput } = props
   return (
     <StyledWrapper>
-      {label && <div className={"label"}>{label}</div>}
+      {label && <div className={'label'}>{label}</div>}
       <textarea
         value={value}
         rows={rows}
@@ -13,5 +13,5 @@ export default function TextView(props: textViewProps) {
         onChange={(e) => onUserInput && onUserInput(e.target.value)}
       />
     </StyledWrapper>
-  );
+  )
 }

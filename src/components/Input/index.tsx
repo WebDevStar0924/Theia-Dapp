@@ -1,5 +1,5 @@
-import { StyledInputWrapper } from "./styles";
-import { StyledInput } from "../CurrencyInputPanel/NumericalInput";
+import { StyledInputWrapper } from './styles'
+import { StyledInput } from '../CurrencyInputPanel/NumericalInput'
 
 export default function Input({ value, onUserInput, placeholder, ...rest }) {
   return (
@@ -9,7 +9,7 @@ export default function Input({ value, onUserInput, placeholder, ...rest }) {
         value={value}
         onChange={(event) => {
           // replace commas with periods, because we exclusively uses period as the decimal separator
-          onUserInput(event.target.value);
+          onUserInput(event.target.value)
         }}
         autoComplete="off"
         autoCorrect="off"
@@ -19,5 +19,5 @@ export default function Input({ value, onUserInput, placeholder, ...rest }) {
         fontSize="16px"
       />
     </StyledInputWrapper>
-  );
+  )
 }

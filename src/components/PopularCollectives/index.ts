@@ -1,1 +1,1 @@
-export { default as PopularCollectives } from "./PopularCollectives";
+export { default as PopularCollectives } from './PopularCollectives'

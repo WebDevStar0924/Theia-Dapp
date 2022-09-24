@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 export const Card = styled.div`
   background: #e4e7ec;
   border-radius: 16px;
@@ -11,7 +11,7 @@ export const Card = styled.div`
       padding: 0 16px;
     }
   }
-`;
+`
 export const GalleryCardWrapper = styled.div`
   border-radius: 16px;
   display: flex;
@@ -36,7 +36,7 @@ export const GalleryCardWrapper = styled.div`
     }
 
     .username {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -45,7 +45,7 @@ export const GalleryCardWrapper = styled.div`
     }
 
     .userTag {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
@@ -58,7 +58,7 @@ export const GalleryCardWrapper = styled.div`
       border-radius: 16px;
     }
     .createTime {
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 12px;
@@ -74,7 +74,7 @@ export const GalleryCardWrapper = styled.div`
   }
 
   .galleryTitle {
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -103,4 +103,4 @@ export const GalleryCardWrapper = styled.div`
     padding: 16px 0;
     justify-content: space-between;
   }
-`;
+`

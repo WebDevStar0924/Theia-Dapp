@@ -1,7 +1,7 @@
-import { AllCollectivesData } from "./data";
-import { AllCollectivesWrapper } from "./styles";
-import { CollectiveCard } from "../CollectiveCard";
-import { Carousel } from "../Carousel";
+import { AllCollectivesData } from './data'
+import { AllCollectivesWrapper } from './styles'
+import { CollectiveCard } from '../CollectiveCard'
+import { Carousel } from '../Carousel'
 
 export default function AllCollectives() {
   const responsive = {
@@ -45,11 +45,11 @@ export default function AllCollectives() {
       items: 2,
       partialVisibilityGutter: 30,
     },
-  };
+  }
   return (
     <AllCollectivesWrapper>
-      <div className={"listHeader"}>
-        <div className={"listName"}>Popular Collectives</div>
+      <div className={'listHeader'}>
+        <div className={'listName'}>Popular Collectives</div>
       </div>
 
       <Carousel
@@ -57,9 +57,9 @@ export default function AllCollectives() {
         items={AllCollectivesData.slice(0, AllCollectivesData.length).map(
           (item, index) => (
             <CollectiveCard collective={item} key={`popular_${index}`} />
-          )
+          ),
         )}
       />
     </AllCollectivesWrapper>
-  );
+  )
 }

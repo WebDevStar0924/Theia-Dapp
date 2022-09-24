@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CommentButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   grid-gap: 12px;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -27,4 +27,4 @@ export const CommentButtonWrapper = styled.div`
     background-clip: text;
     text-fill-color: transparent;
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const AvatarWrapper = styled.div`
   position: relative;
@@ -19,7 +19,7 @@ export const AvatarWrapper = styled.div`
       display: flex;
     }
     .menuHeader {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -43,7 +43,7 @@ export const AvatarWrapper = styled.div`
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -57,7 +57,7 @@ export const AvatarWrapper = styled.div`
           padding: 2px 8px;
           background: #f2f4f7;
           border-radius: 8px;
-          font-family: "Montserrat", serif;
+          font-family: 'Montserrat', serif;
           font-style: normal;
           font-weight: 500;
           font-size: 12px;
@@ -72,7 +72,7 @@ export const AvatarWrapper = styled.div`
         }
       }
       .balanceValue {
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -88,7 +88,7 @@ export const AvatarWrapper = styled.div`
       flex-direction: row;
       align-items: center;
       grid-gap: 12px;
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -127,4 +127,4 @@ export const AvatarWrapper = styled.div`
     display: flex;
     padding-right: 15px;
   }
-`;
+`

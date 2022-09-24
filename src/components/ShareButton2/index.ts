@@ -1,1 +1,1 @@
-export { default as ShareButton2 } from "./ShareButton2";
+export { default as ShareButton2 } from './ShareButton2'

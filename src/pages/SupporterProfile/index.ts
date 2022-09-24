@@ -1,1 +1,1 @@
-export { default as SupporterProfile } from "./SupporterProfile";
+export { default as SupporterProfile } from './SupporterProfile'

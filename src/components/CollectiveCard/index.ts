@@ -1,1 +1,1 @@
-export { default as CollectiveCard } from "./CollectiveCard";
+export { default as CollectiveCard } from './CollectiveCard'

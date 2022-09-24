@@ -1,1 +1,1 @@
-export { default as ExpandableView } from "./ExpandableView";
+export { default as ExpandableView } from './ExpandableView'

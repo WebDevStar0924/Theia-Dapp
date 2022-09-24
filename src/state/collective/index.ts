@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   collective: null,
@@ -8,13 +8,13 @@ const initialState = {
   galleries: [],
   mixedData: [],
   members: [],
-};
+}
 
 const collectiveSlice = createSlice({
-  name: "collective",
+  name: 'collective',
   initialState,
   reducers: {
-    collectiveClear: (state) => ({
+    collectiveClear: () => ({
       ...initialState,
     }),
 
@@ -53,7 +53,7 @@ const collectiveSlice = createSlice({
       sort: action.payload,
     }),
   },
-});
+})
 
 export const {
   collectiveClear,
@@ -64,6 +64,6 @@ export const {
   updateMixedData,
   updateMembers,
   updateSortOption,
-} = collectiveSlice.actions;
+} = collectiveSlice.actions
 
-export default collectiveSlice.reducer;
+export default collectiveSlice.reducer

@@ -1,24 +1,24 @@
-import { ProfileDashboardWrapper } from "./styles";
-import DashItem from "./DashItem";
-import { MotionButton } from "../MotionButton/styles";
+import { ProfileDashboardWrapper } from './styles'
+import DashItem from './DashItem'
+import { MotionButton } from '../MotionButton/styles'
 
 interface iProps {
-  collectives: any[];
-  projects: any[];
+  collectives: any[]
+  projects: any[]
   pageNum: {
-    projects: number;
-    collectives: number;
-  };
-  onMore: (type: string) => void;
+    projects: number
+    collectives: number
+  }
+  onMore: (type: string) => void
 }
 
 export default function ProfileDashboard(props: iProps) {
-  const { collectives, projects, onMore } = props;
+  const { collectives, projects, onMore } = props
 
   return (
     <ProfileDashboardWrapper>
-      <div className={"dashList"}>
-        <div className={"subTitle"}>Collectives</div>
+      <div className={'dashList'}>
+        <div className={'subTitle'}>Collectives</div>
         {collectives.map((collective, idx) => (
           <DashItem
             key={`profile_collective_${idx}`}
@@ -28,15 +28,15 @@ export default function ProfileDashboard(props: iProps) {
           />
         ))}
         <MotionButton
-          className={"moreBtn"}
-          onClick={() => onMore("collectives")}
+          className={'moreBtn'}
+          onClick={() => onMore('collectives')}
         >
           More
         </MotionButton>
       </div>
 
-      <div className={"dashList"}>
-        <div className={"subTitle"}>Projects</div>
+      <div className={'dashList'}>
+        <div className={'subTitle'}>Projects</div>
         {projects.map((project, idx) => (
           <DashItem
             key={`profile_collective_${idx}`}
@@ -45,10 +45,10 @@ export default function ProfileDashboard(props: iProps) {
             type={project.type}
           />
         ))}
-        <MotionButton className={"moreBtn"} onClick={() => onMore("projects")}>
+        <MotionButton className={'moreBtn'} onClick={() => onMore('projects')}>
           More
         </MotionButton>
       </div>
     </ProfileDashboardWrapper>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { dropdownProps } from "./types";
+import styled from 'styled-components'
+import { dropdownProps } from './types'
 
 export const StyledWrapper = styled.div<{ props: dropdownProps }>`
   display: flex;
@@ -7,7 +7,7 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
   row-gap: 6px;
   position: relative;
   cursor: ${({ props }) =>
-    props.type === "disabled" ? "not-allowed" : "pointer"};
+    props.type === 'disabled' ? 'not-allowed' : 'pointer'};
 
   .label {
     font-size: 18px;
@@ -30,7 +30,7 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
     border: 1px solid #d0d5dd;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     background-color: ${({ props }) =>
-      props.type === "disabled" ? "#F9FAFB" : "#FFFFFF"};
+      props.type === 'disabled' ? '#F9FAFB' : '#FFFFFF'};
     padding-left: 16px;
     padding-right: 16px;
 
@@ -54,7 +54,7 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
     }
 
     input {
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       outline: none;
       border: none;
       flex: 1 1 auto;
@@ -68,10 +68,10 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
       line-height: 20px;
       color: #101828;
       cursor: ${({ props }) =>
-        props.type === "disabled" ? "not-allowed" : "pointer"};
+        props.type === 'disabled' ? 'not-allowed' : 'pointer'};
 
       &::placeholder {
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-weight: 500;
         font-size: 16px;
         line-height: 24px;
@@ -94,7 +94,7 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
     position: absolute;
     left: 0;
     right: 0;
-    top: ${({ props }) => (props.label ? "72px" : "45px")};
+    top: ${({ props }) => (props.label ? '72px' : '45px')};
     z-index: 1000;
 
     .dropdown-item {
@@ -118,4 +118,4 @@ export const StyledWrapper = styled.div<{ props: dropdownProps }>`
       }
     }
   }
-`;
+`

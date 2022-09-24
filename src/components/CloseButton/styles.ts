@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CloseButtonWrapper = styled.div`
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   border-radius: 50%;
   width: 35px;
   height: 35px;
-  border: 2px solid #D0D5DD;
+  border: 2px solid #d0d5dd;
   box-sizing: border-box;
   cursor: pointer;
   svg {
@@ -20,4 +20,4 @@ export const CloseButtonWrapper = styled.div`
       color: rgba(18, 183, 106, 0.8);
     }
   }
-`;
+`

@@ -1,1 +1,1 @@
-export { default as NewCollectives } from "./NewCollectives";
+export { default as NewCollectives } from './NewCollectives'

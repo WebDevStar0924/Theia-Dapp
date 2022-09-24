@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const MagicContainter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   .heading {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 48px;
@@ -28,4 +28,4 @@ export const MagicContainter = styled.div`
     align-items: stretch;
     grid-gap: 32px;
   }
-`;
+`

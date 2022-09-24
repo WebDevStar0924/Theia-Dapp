@@ -1,19 +1,19 @@
-import React from "react";
-import Text from "../../components/Text/Text";
-import LinkExternal from "../../components/Link/LinkExternal";
-import Flex from "../../components/Flex/Flex";
-import { Modal } from "../Modal";
-import CopyToClipboard from "./CopyToClipboard";
-import { localStorageKey } from "./config";
-import { StyledModalTitle } from "../Modal/styles";
-import { AutoColumn } from "../../components/Layout/Column";
-import { MotionButton } from "../../components/MotionButton/styles";
-import { hoverTxtBoxShadow } from "../../utils/Animations";
+import React from 'react'
+import Text from '../../components/Text/Text'
+import LinkExternal from '../../components/Link/LinkExternal'
+import Flex from '../../components/Flex/Flex'
+import { Modal } from '../Modal'
+import CopyToClipboard from './CopyToClipboard'
+import { localStorageKey } from './config'
+import { StyledModalTitle } from '../Modal/styles'
+import { AutoColumn } from '../../components/Layout/Column'
+import { MotionButton } from '../../components/MotionButton/styles'
+import { hoverTxtBoxShadow } from '../../utils/Animations'
 
 interface Props {
-  account?: string;
-  logout: () => void;
-  onDismiss?: () => void;
+  account?: string
+  logout: () => void
+  onDismiss?: () => void
 }
 
 const AccountModal: React.FC<Props> = ({
@@ -22,15 +22,15 @@ const AccountModal: React.FC<Props> = ({
   onDismiss = () => null,
 }) => (
   <Modal title="" onDismiss={onDismiss}>
-    <AutoColumn gap={"12px"}>
+    <AutoColumn gap={'12px'}>
       <StyledModalTitle>Your wallet</StyledModalTitle>
       <Text
         fontSize="18px"
         style={{
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          marginBottom: "8px",
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          marginBottom: '8px',
         }}
       >
         {account}
@@ -40,7 +40,7 @@ const AccountModal: React.FC<Props> = ({
           small
           href={`https://testnet.snowtrace.io/address/${account}`}
           mr="16px"
-          color={"link"}
+          color={'link'}
           bold
         >
           View on Explorer
@@ -50,25 +50,25 @@ const AccountModal: React.FC<Props> = ({
       <Flex justifyContent="center">
         <MotionButton
           whileHover={hoverTxtBoxShadow}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           onClick={() => {
-            logout();
-            window.localStorage.removeItem(localStorageKey);
-            onDismiss();
-            window.location.reload();
+            logout()
+            window.localStorage.removeItem(localStorageKey)
+            onDismiss()
+            window.location.reload()
           }}
-          bgColor={"rgba(255, 255, 255, 0.2)"}
+          bgColor={'rgba(255, 255, 255, 0.2)'}
         >
           Logout
         </MotionButton>
       </Flex>
     </AutoColumn>
   </Modal>
-);
+)
 
 AccountModal.defaultProps = {
   account: undefined,
   onDismiss: () => null,
-};
+}
 
-export default AccountModal;
+export default AccountModal

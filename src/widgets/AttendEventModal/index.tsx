@@ -1,59 +1,71 @@
-import { Modal } from "../Modal";
-import { Handler } from "../Modal/types";
-import { Text } from "components/Text"
-import { AttendEventModalWrapper } from "./style"
-import { Flex } from "components/Flex";
-import { FiCalendar } from "react-icons/fi";
-import EventImage from "../../assets/image/eventBg.png";
-
+import { Flex } from 'components/Flex'
+import { Text } from 'components/Text'
+import { FiCalendar } from 'react-icons/fi'
+import EventImage from '../../assets/image/eventBg.png'
+import { Modal } from '../Modal'
+import { AttendEventModalWrapper } from './style'
 interface iProps {
-  onDismiss?: Handler;
-  params?: {
-  }
+  eventData?: any
 }
-
 export default function AttendEventModal(props: iProps) {
+  const { eventData } = props;
+  function getMonth(string) {
+    const data = new Date(string).toDateString();
+    const array = data.split(" ");
+    const returnDate = array[1] + ' ' + array[2];
+    return returnDate
+  }
   return (
     <Modal
-      title={""}
+      title={''}
       hideCloseButton={true}
-      bodyPadding={"32px 40px"}
-      width={"680px"}
-      borderRadius={"16px"}
+      bodyPadding={'32px 40px'}
+      width={'680px'}
+      borderRadius={'16px'}
       onDismiss={() => {
-        alert();
+        alert()
       }}
     >
       <AttendEventModalWrapper>
         <Flex>
-          <Text className={"modalTitle"}>YOU'RE GOING</Text>
+          <Text className={'modalTitle'}>YOU'RE GOING</Text>
         </Flex>
 
-        <Flex flexDirection={"column"} style={{ gap: "17px", marginTop: "40px" }}>
-          <Flex>
-            <Text className="placeHolder">PLACE HOLDER</Text>
-            <Text className="virtualTag" style={{ marginLeft: "16px" }}>VIRTUAL</Text>
-            {/* <Text className="irlTag" style={{ marginLeft: "16px" }}>IRL</Text> */}
+        <Flex
+          flexDirection={'column'}
+          style={{ gap: '17px', marginTop: '40px' }}
+        >
+          <Flex style={{ alignItems: "center" }}>
+            <Text className="placeHolder">{eventData?.event_title.toUpperCase()}</Text>
+            {eventData?.location_type === 'VIRTUAL' ? (
+              <Text className="virtualTag" style={{ marginLeft: '16px' }}>
+                VIRTUAL
+              </Text>) : (
+              <Text className="irlTag" style={{ marginLeft: "16px" }}>IRL</Text>
+            )}
           </Flex>
-          <Flex alignItems={"center"}>
+          <Flex alignItems={'center'}>
             <FiCalendar size={22} color="#101828" />
-            <Text className="eventDate" style={{ marginLeft: "10px" }}>SEP 16</Text>
-            <Text className="eventTime" style={{ marginLeft: "16px" }}>6.00PM - 8.00PM EDT</Text>
+            <Text className="eventDate" style={{ marginLeft: '10px' }}>
+              {getMonth(eventData?.event_date).toUpperCase()}
+            </Text>
+            <Text className="eventTime" style={{ marginLeft: '16px' }}>
+              {eventData?.starttime} - {eventData?.endtime} {eventData?.timezone}
+            </Text>
           </Flex>
           <Flex>
             <Text className="eventDescription">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              {eventData?.description}
             </Text>
           </Flex>
-          <Flex style={{ marginTop: "24px" }}>
+          <Flex style={{ marginTop: '24px' }}>
             <img className="eventImage" src={EventImage} alt="event" />
           </Flex>
-          <Flex className={"addToCalendarButton"} style={{ marginTop: "32px" }}>
+          <Flex className={'addToCalendarButton'} style={{ marginTop: '32px' }}>
             ADD TO CALENDAR
           </Flex>
         </Flex>
-
       </AttendEventModalWrapper>
     </Modal>
-  );
+  )
 }

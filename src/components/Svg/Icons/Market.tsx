@@ -1,10 +1,10 @@
-import React from "react";
-import Svg from "../Svg";
-import { SvgProps } from "../types";
+import React from 'react'
+import Svg from '../Svg'
+import { SvgProps } from '../types'
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
-    <Svg viewBox="0 0 31 31" {...props} fill={"none"}>
+    <Svg viewBox="0 0 31 31" {...props} fill={'none'}>
       <path
         d="M3.5813 15.7329C3.5813 23.0979 9.46201 29.0685 16.7162 29.0685C23.9705 29.0685 29.8512 23.0979 29.8512 15.7329C29.8512 8.36778 23.9705 2.39722 16.7162 2.39722C11.3678 2.39722 6.76601 5.64275 4.71722 10.2998"
         stroke={props.stroke}
@@ -59,7 +59,7 @@ const Icon: React.FC<SvgProps> = (props) => {
         strokeWidth="1.5"
       />
     </Svg>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

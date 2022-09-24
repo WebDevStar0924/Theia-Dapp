@@ -1,13 +1,13 @@
-import Carousel, { ResponsiveType } from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { ReactNode } from "react";
+import Carousel, { ResponsiveType } from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
+import { ReactNode } from 'react'
 
 interface iProps {
-  items: ReactNode[];
-  responsive: ResponsiveType;
+  items: ReactNode[]
+  responsive: ResponsiveType
 }
 export default function CustomCarousel(props: iProps) {
-  const { items, responsive } = props;
+  const { items, responsive } = props
   return (
     <Carousel
       additionalTransfrom={0}
@@ -39,5 +39,5 @@ export default function CustomCarousel(props: iProps) {
     >
       {items}
     </Carousel>
-  );
+  )
 }

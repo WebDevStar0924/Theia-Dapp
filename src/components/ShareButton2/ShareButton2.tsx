@@ -1,11 +1,11 @@
-import { ShareIcon } from "components/Svg";
-import { ShareButton2Wrapper } from "./styles";
+import { ShareIcon } from 'components/Svg'
+import { ShareButton2Wrapper } from './styles'
 
 interface iProps {
-  onClick: (e) => void;
+  onClick: (e) => void
 }
 export default function ShareButton2(props: iProps) {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <ShareButton2Wrapper onClick={onClick}>
       <ShareIcon
@@ -16,5 +16,5 @@ export default function ShareButton2(props: iProps) {
         fill="none"
       />
     </ShareButton2Wrapper>
-  );
+  )
 }

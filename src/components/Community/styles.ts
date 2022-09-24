@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CommunityWrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const CommunityWrapper = styled.div`
     width: 488px;
     height: 488px;
   }
-`;
+`
 
 export const CommunityLeftWrapper = styled.div`
   display: flex;
@@ -40,4 +40,4 @@ export const CommunityLeftWrapper = styled.div`
       text-transform: uppercase;
     }
   }
-`;
+`

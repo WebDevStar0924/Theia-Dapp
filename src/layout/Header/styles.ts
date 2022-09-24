@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const HeaderWrapper = styled.div<{ bgColor: string }>`
   background: ${({ bgColor }) => bgColor};
@@ -26,7 +26,7 @@ export const HeaderWrapper = styled.div<{ bgColor: string }>`
     box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 200px;
 
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -45,7 +45,7 @@ export const HeaderWrapper = styled.div<{ bgColor: string }>`
     max-height: 50%;
 
     .keywordHeader {
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -81,7 +81,7 @@ export const HeaderWrapper = styled.div<{ bgColor: string }>`
       flex: 1;
       outline: 0;
       border: none;
-      font-family: "Montserrat", serif;
+      font-family: 'Montserrat', serif;
       font-style: normal;
       font-weight: 600;
       font-size: 12px;
@@ -120,7 +120,7 @@ export const HeaderWrapper = styled.div<{ bgColor: string }>`
       }
     }
   }
-`;
+`
 
 export const HeaderLeftWrapper = styled.div`
   display: flex;
@@ -134,7 +134,7 @@ export const HeaderLeftWrapper = styled.div`
     line-height: 20px;
     color: ${({ theme }) => theme.colors.link};
   }
-`;
+`
 
 export const KeywordCollectiveItem = styled.div`
   display: flex;
@@ -151,11 +151,11 @@ export const KeywordCollectiveItem = styled.div`
   }
 
   .collectiveName {
-    font-family: "Montserrat", serif;
+    font-family: 'Montserrat', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
     color: #000;
   }
-`;
+`

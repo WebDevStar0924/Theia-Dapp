@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const BannerWrapper = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ export const BannerWrapper = styled.div`
       .bannerText {
         margin-top: 20px;
         margin-left: 16px;
-        font-family: "Montserrat", serif;
+        font-family: 'Montserrat', serif;
         font-style: normal;
         font-weight: 200;
         font-size: 36px;
@@ -76,7 +76,7 @@ export const BannerWrapper = styled.div`
       border: 0.5px solid white;
       border-radius: 40px;
       padding: 10px 18px;
-      font-family: "Montserrat";
+      font-family: 'Montserrat';
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
@@ -88,4 +88,4 @@ export const BannerWrapper = styled.div`
 
   .bannerSlider {
   }
-`;
+`

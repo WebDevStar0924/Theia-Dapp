@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const FilterBarWrapper = styled.div`
   background: #ffffff;
@@ -10,6 +10,7 @@ export const FilterBarWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   grid-gap: 24px;
+  max-width: 720px;
 
   .saveBtn {
     cursor: pointer;
@@ -59,4 +60,4 @@ export const FilterBarWrapper = styled.div`
       }
     }
   }
-`;
+`

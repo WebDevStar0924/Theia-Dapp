@@ -1,1 +1,1 @@
-export { default as CrownButton } from "./CrownButton";
+export { default as CrownButton } from './CrownButton'
