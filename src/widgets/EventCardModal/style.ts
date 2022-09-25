@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 export const EventCardWrapper = styled.div`
-  width: 768px;
-  height: 658px;
+  width: 100%;
   background: #ffffff;
   border: 1px solid #e4e7ec;
   border-radius: 16px;

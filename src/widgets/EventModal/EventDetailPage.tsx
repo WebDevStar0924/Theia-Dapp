@@ -22,15 +22,17 @@ import { convertToRaw, EditorState } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useSelector } from 'react-redux'
-interface iProps {
+export type eventDetailsPageProps = {
   collectiveID?: any,
+  closeModal: (arg: boolean, show: boolean) => void
 }
 
 
-export default function EventDetailPage(this: any, props: iProps) {
+const EventDetailPage: React.FC<eventDetailsPageProps> = ({
+  collectiveID,
+  closeModal,
+}) => {
   const { account } = useActiveWeb3React()
-  const { collectiveID } = props
-
   const editorState = EditorState.createEmpty();
   const photoRef = useRef<HTMLInputElement>(null)
   const [photoFile, setPhotoFile] = useState(null)
@@ -42,6 +44,8 @@ export default function EventDetailPage(this: any, props: iProps) {
 
   const [isActiveButton, activePostButton] = useState(false)
   const eventData = useSelector((state: State) => state.event.data)
+
+
   const photoChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0]
@@ -57,6 +61,7 @@ export default function EventDetailPage(this: any, props: iProps) {
 
   function createEvent() {
     const data = draftToMarkdown(convertToRaw(details.getCurrentContent())).toString();
+
     API.createEvent(
       eventData.title,
       eventData.location,
@@ -71,10 +76,15 @@ export default function EventDetailPage(this: any, props: iProps) {
       eventData.timezone,
     ).then((res) => {
       if (res.data.success === true) {
+
         toastSuccess("event created successfully", '');
+        closeModal(true, res.data.event_id)
       } else {
         toastWarning(res.data.msg, '');
+        closeModal(false, false);
       }
+
+
     })
   }
   function validationCheck() {
@@ -197,7 +207,7 @@ export default function EventDetailPage(this: any, props: iProps) {
             className="postButton"
             disabled={!isActiveButton}
             onClick={() => {
-              createEvent()
+              createEvent();
             }}
           >
             POST
@@ -207,3 +217,4 @@ export default function EventDetailPage(this: any, props: iProps) {
     </ModalBodyWrapper>
   )
 }
+export default EventDetailPage

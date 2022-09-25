@@ -21,6 +21,7 @@ interface iProps {
   galleries: any[]
   addNewForum: (newForum: any) => void
   addNewGallery: (newGallery: any) => void
+
 }
 export default function CollectiveSidebar(props: iProps) {
   const dispatch = useDispatch()
@@ -34,13 +35,18 @@ export default function CollectiveSidebar(props: iProps) {
   // const { onPresentEventCardModal } = useEventCardModal();
 
   const { onPresentForumModal } = useForumModal()
-  const { onPresentEventCreateModal } = useEventCreateModal()
+  const { onPresentEventCreateModal } = useEventCreateModal(callback)
   const { onPresentShareArtModal } = useShareArtModal(
     galleries,
     addNewGallery,
     collectiveInfo,
   )
   const navigate = useNavigate()
+  function callback(event_id) {
+    // console.log("eventid got");
+    // console.log(event_id)
+    navigate(`/collective/${cname}/events/eventdetails/` + event_id);
+  }
   useEffect(() => {
     switch (location.pathname) {
       case `/collective/${cname}`:

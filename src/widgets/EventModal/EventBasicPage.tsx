@@ -18,12 +18,12 @@ import { updateEvent } from 'state/event'
 import { useSelector } from 'react-redux'
 import { State } from 'state/types'
 
-export type eventDetailsPageProps = {
+export type eventBasicPageProps = {
   isActiveSaveButton: boolean
   updateDetailsData: (arg: boolean) => void
 }
 
-const EventDetailPage: React.FC<eventDetailsPageProps> = ({
+const EventBasicPage: React.FC<eventBasicPageProps> = ({
   isActiveSaveButton,
   updateDetailsData,
 }) => {
@@ -330,10 +330,10 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
           disabled={!isActive}
           onClick={() => updateDetailsData(true)}
         >
-          SAVE
+          NEXT
         </Button>
       </Flex>
     </ModalBodyWrapper>
   )
 }
-export default EventDetailPage
+export default EventBasicPage
