@@ -13,7 +13,7 @@ export default function ShareArtMemberModal(props: iProps) {
   const { onDismiss } = props
   const { cname } = useParams()
   const onBecomeMember = () => {
-    window.open('https://opensea.io/collection/theia-genesis', '_blank')
+    window.open('https://opensea.io/collection/moonrunnersnft', '_blank')
     onDismiss && onDismiss()
   }
   return (

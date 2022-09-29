@@ -28,14 +28,16 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
   updateDetailsData,
 }) => {
   const eventData = useSelector((state: State) => state.event.data)
-  const [activeLocationItem, setActiveLocationItem] = useState(eventData.location_type.toLowerCase())
-  const [title, setTitle] = useState("")
-  const [starttime, setStartTime] = useState("")
-  const [endtime, setEndTime] = useState("")
-  const [timezone, setTimezone] = useState("")
-  const [location, setLocation] = useState("")
-  const [enddate, setEnddate] = useState("")
-  const [defdate, setDefaultDate] = useState("")
+  const [activeLocationItem, setActiveLocationItem] = useState(
+    eventData.location_type.toLowerCase(),
+  )
+  const [title, setTitle] = useState('')
+  const [starttime, setStartTime] = useState('')
+  const [endtime, setEndTime] = useState('')
+  const [timezone, setTimezone] = useState('')
+  const [location, setLocation] = useState('')
+  const [enddate, setEnddate] = useState('')
+  const [defdate, setDefaultDate] = useState('')
   const [isShowCalendar, showCalendar] = useState(false)
   const dispatch = useDispatch()
 
@@ -57,7 +59,6 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
         owneraddress: '',
         timezone: timezone,
         image: '',
-
       }),
     )
   }
@@ -67,64 +68,51 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
   }, [isActiveSaveButton])
 
   function disableSaveButton() {
-    setActiveSaveButton(false);
+    setActiveSaveButton(false)
   }
   function validationCheck() {
-    let validation = true;
-    if (title === "") validation = false;
-    if (location === "") validation = false;
-    if (enddate === "") validation = false;
-    if (starttime === "") validation = false;
-    if (endtime === "") validation = false;
-    if (timezone === "") validation = false;
-    setActiveSaveButton(validation);
+    let validation = true
+    if (title === '') validation = false
+    if (location === '') validation = false
+    if (enddate === '') validation = false
+    if (starttime === '') validation = false
+    if (endtime === '') validation = false
+    if (timezone === '') validation = false
+    setActiveSaveButton(validation)
   }
   useOutsideAlerter(wrapperRef)
   useEffect(() => {
-    updateEventData();
-    if (title === "")
-      disableSaveButton();
-    else validationCheck();
+    updateEventData()
+    if (title === '') disableSaveButton()
+    else validationCheck()
   }, [title])
 
   useEffect(() => {
-    updateEventData();
-    if (location === "")
-      disableSaveButton();
-    else validationCheck();
-
+    updateEventData()
+    if (location === '') disableSaveButton()
+    else validationCheck()
   }, [location])
 
   useEffect(() => {
-    updateEventData();
-    if (enddate === "")
-      disableSaveButton();
-    else validationCheck();
-
+    updateEventData()
+    if (enddate === '') disableSaveButton()
+    else validationCheck()
   }, [enddate])
   useEffect(() => {
-    updateEventData();
-    if (timezone === "")
-      disableSaveButton();
-    else validationCheck();
-
+    updateEventData()
+    if (timezone === '') disableSaveButton()
+    else validationCheck()
   }, [timezone])
   useEffect(() => {
-    updateEventData();
-    if (starttime === "")
-      disableSaveButton();
-    else validationCheck();
-
+    updateEventData()
+    if (starttime === '') disableSaveButton()
+    else validationCheck()
   }, [starttime])
   useEffect(() => {
-    updateEventData();
-    if (endtime === "")
-      disableSaveButton();
-    else validationCheck();
-
+    updateEventData()
+    if (endtime === '') disableSaveButton()
+    else validationCheck()
   }, [endtime])
-
-
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -218,8 +206,10 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
             <GooglePlacesAutocomplete
               apiKey="AIzaSyASu_m7VIHuekxu4UrZL4buQRi2ipE1DH8"
               selectProps={{
-                location,
-                onChange: (val) => { setLocation(val.label) },
+                value: location,
+                onChange: (val) => {
+                  setLocation(val)
+                },
               }}
             />
           )}
@@ -252,7 +242,7 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
                 endIcon={<img src={CalendarSvg} alt="calendar" />}
                 onFocus={() => showCalendar(true)}
                 onClick={() => showCalendar(true)}
-              // onBlur={() => showCalendar(false)}
+                // onBlur={() => showCalendar(false)}
               />
             </Flex>
           </div>
@@ -265,7 +255,7 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
                 className={'timeZoneInput'}
                 activeItem={{
                   label: timezone,
-                  value: timezone
+                  value: timezone,
                 }}
                 placeholder={'Time zone`'}
                 key="timezone"
@@ -287,7 +277,7 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
                 className={'timeZoneInput'}
                 activeItem={{
                   label: starttime,
-                  value: starttime
+                  value: starttime,
                 }}
                 placeholder={'Start time'}
                 onChange={(item) => {
@@ -307,7 +297,7 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
                 className={'timeZoneInput'}
                 activeItem={{
                   label: endtime,
-                  value: endtime
+                  value: endtime,
                 }}
                 placeholder={'End time'}
                 onChange={(item) => {

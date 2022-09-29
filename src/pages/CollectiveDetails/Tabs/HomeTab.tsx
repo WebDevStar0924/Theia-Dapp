@@ -2,50 +2,48 @@ import classnames from 'classnames'
 import { ExpandableView } from 'components/ExpandableView'
 import { FilterBar } from 'components/FilterBar'
 import { Flex } from 'components/Flex'
+import SearchSvg from '../../../assets/svg/Search.svg'
 import { ForumCard } from 'components/ForumCard'
 import { GalleryCard } from 'components/GalleryCard'
 import { ImageCard } from 'components/ImageCard/ImageCard'
 import { TagList } from 'components/TagList'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-import { useNavigate, useOutletContext } from 'react-router-dom'
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
+import { useMembership } from 'hooks/useMembership'
 import {
   ResponsiveContainer,
   StackedCarousel,
 } from 'react-stacked-center-carousel'
 import { formatBlockchainAddress } from 'utils'
 import EventCardModal from 'widgets/EventCardModal'
+import { useArtDetailModal } from 'widgets/GalleryModal/useShareArtModal'
 import stackedBg from '../../../assets/image/stackedBg.png'
 import { galleryImages } from '../data'
 import { HomeTabWrapper, StackedCarouselWrapper } from '../styles'
+import ExternalInput from 'components/ExternalInput'
 
 export default function HomeTab() {
   const [activeSlideNum, setActiveSlideNum] = useState(0)
+  const [memberUsers, setMemberUsers] = useState<any[]>()
+  const [adminUsers, setAdminUsers] = useState<any[]>()
+  const [searchMemberText, setSearchMember] = useState("")
   const ref = useRef<any>(null)
   const navigate = useNavigate()
-  const { account } = useActiveWeb3React()
+  const onMemberShipCheck = useMembership()
 
-  const tags = [
-    'announcements',
-    'suggestions',
-    'whitelist',
-    'product bugs',
-    'memes',
-    'new drop',
-    'fan art',
-    'events',
-    'ethereum merge',
-    'airdrop',
-  ]
+  const { account } = useActiveWeb3React()
+  const { cname, post_id } = useParams()
 
   const {
     forums,
     galleries,
     mixedData,
     collectiveInfo,
+    events,
     setForums,
     setMixedData,
     setGalleries,
@@ -54,13 +52,16 @@ export default function HomeTab() {
     filter,
     updateFilter,
     members,
+    topics,
+    updateTopics,
   } = useOutletContext<CollectiveContextProps>()
+
+  const { onPresentArtDetailModal } = useArtDetailModal(collectiveInfo)
 
   const onUpdateGallery = (idx: number, gallery: any) => {
     const newGalleries = [...galleries]
     newGalleries[idx] = gallery
     setGalleries(newGalleries)
-
     const newMixedData = [...mixedData]
     setMixedData(
       newMixedData.map((item) => {
@@ -70,6 +71,15 @@ export default function HomeTab() {
         return item
       }),
     )
+  }
+  const filterMemberUser = () => {
+
+    const filterMemberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member")
+    setMemberUsers(filterMemberUsers);
+  }
+  const filterAdminUser = () => {
+    const filterAdminUsers = members.filter(item => item.creator != null && item.creator[0].role == "admin")
+    setAdminUsers(filterAdminUsers);
   }
 
   const onUpdateForum = (idx: number, forum: any) => {
@@ -87,19 +97,64 @@ export default function HomeTab() {
       }),
     )
   }
+  // const onUpdateEvent = (idx: number, event: any) => {
+  //   const newEvents = [...events]
+  //   newEvents[idx] = event
+  //   setForums(newEvents)
+
+  //   const newMixedData = [...mixedData]
+  //   setMixedData(
+  //     newMixedData.map((item) => {
+  //       if (item.event_id === event.event_id) {
+  //         return event
+  //       }
+  //       return item
+  //     }),
+  //   )
+  // }
 
   const filterData = useMemo(() => {
     let newData = mixedData
     if (filter.onlySaved) {
-      newData = mixedData.filter(
-        (item) => localStorage.getItem(`forum_${item.forum_id}`) === 'true',
-      )
+      newData = newData.filter((item) => Number(item.is_saved) === 1)
     }
     if (filter.onlyMyPosts) {
       newData = newData.filter((item) => item.owneraddress === account)
     }
+    if (topics.filter((t) => t.selected).length > 0) {
+      newData = newData.filter((item) => item.tags && item.tags.length > 0)
+    }
     return newData
-  }, [filter, mixedData])
+  }, [filter, mixedData, topics])
+
+  useEffect(() => {
+    if (post_id && collectiveInfo) {
+      onPresentArtDetailModal({
+        gallery_id: post_id,
+        callback: () => navigate(`/collective/${cname}`),
+      })
+    }
+  }, [post_id, collectiveInfo])
+
+  useEffect(() => {
+    if (searchMemberText == "") {
+      filterMemberUser();
+      filterAdminUser();
+    } else {
+      const filterMemberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member" && (item.creator[0].name.indexOf(searchMemberText) != -1 || item.creator[0].username.indexOf(searchMemberText) != -1))
+      const filterAdminUsers = members.filter(item => item.creator != null && item.creator[0].role == "admin" && (item.creator[0].name.indexOf(searchMemberText) != -1 || item.creator[0].username.indexOf(searchMemberText) != -1))
+      setMemberUsers(filterMemberUsers);
+      setAdminUsers(filterAdminUsers);
+    }
+    // const memberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member")
+
+  }, [searchMemberText])
+
+  useEffect(() => {
+    filterMemberUser();
+    filterAdminUser();
+  }, [members])
+
 
   return (
     <HomeTabWrapper>
@@ -110,7 +165,7 @@ export default function HomeTab() {
           filter={filter}
           updateFilter={updateFilter}
         />
-        <EventCardModal></EventCardModal>
+        {/* <EventCardModal></EventCardModal> */}
         {filterData.map((item, idx) => (
           <div
             key={`mixdata_${idx}`}
@@ -133,6 +188,23 @@ export default function HomeTab() {
                 sort={sort}
               />
             )}
+            {item.cardType === 'event' && (
+              <div
+                className={'eventCard'}
+                onClick={() => {
+                  onMemberShipCheck(collectiveInfo.collective_id, account, () =>
+                    navigate(
+                      `/collective/${collectiveInfo.name}/events/eventdetails/${item.owneraddress}/${item.event_id}/home`,
+                    ),
+                  )
+                  // navigate(
+                  //   `/collective/${collectiveInfo.name}/events/eventdetails/${item.owneraddress}/${item.event_id}/home`,
+                  // )
+                }}
+              >
+                <EventCardModal key={`mixdata_${idx}`} data={item} />
+              </div>
+            )}
             {item.cardType === 'gallery' && (
               <GalleryCard
                 data={item}
@@ -153,7 +225,7 @@ export default function HomeTab() {
       <div className="rightPart">
         <ExpandableView
           header={<div>TOPICS</div>}
-          content={<TagList tags={tags} />}
+          content={<TagList tags={topics} updateTopics={updateTopics} />}
         />
 
         <ExpandableView
@@ -168,31 +240,105 @@ export default function HomeTab() {
                 overflow: 'scroll',
               }}
             >
-              {members.map((member, idx) => (
+
+              <ExternalInput
+                label=""
+                value={searchMemberText}
+                className={"searchMemberInput"}
+
+                type="active"
+                startIcon={<img src={SearchSvg} alt="calendar" />}
+                placeholder="search members"
+                onUserInput={(val) => setSearchMember(val)}
+              />
+              {/* <StyledInput
+                value={searchMember}
+                onChange={(event) => { setSearchMember(event.target.value) }}
+                autoComplete={'off'}
+                autoCorrect={'off'}
+                type={'text'}
+                placeholder={'Search members'}
+                fontSize={'12px'}
+                style={{
+                  backgroundColor: '#FFFFFF10',
+                  padding: '20px 16px',
+                  borderRadius: '20px',
+                  lineHeight: '32px',
+                  width: '100%',
+                  border: 'solid 2px #E4E7EC',
+                  fontFamily: 'Montserrat',
+                  fontStyle: 'normal',
+                  fontWeight: '500',
+                }}
+              /> */}
+              <div className={"userTypeText"}>TEAM</div>
+              {adminUsers && adminUsers.map((member, idx) => (
                 <Flex
-                  flexDirection={'column'}
-                  alignItems="flex-start"
+                  flexDirection={'row'}
+                  alignItems="center"
                   style={{ gridGap: '5px' }}
+                  marginLeft={"10px"}
                   key={`user_${idx}`}
                 >
-                  {member.creator && member.creator[0].avatar ? (
-                    <img
-                      className="ellipse80"
-                      src={member.creator[0].avatar}
-                      alt={member.creator[0].name}
-                    />
-                  ) : (
-                    <Jazzicon
-                      diameter={80}
-                      seed={jsNumberForAddress(member.member_address)}
-                    />
-                  )}
-                  <div className="userName">
-                    {member.creator
-                      ? member.creator[0].name
-                      : formatBlockchainAddress(member.member_address, 2, 2)}
-                  </div>
-                  <div className="userTag">MEMBER</div>
+
+                  <Flex flexDirection={'column'} alignItems={"center"}>
+                    {member.creator[0].avatar ? (
+                      <img
+                        className="ellipse60"
+                        src={member.creator[0].avatar}
+                        alt={member.creator[0].name}
+                      />
+                    ) : (
+                      <Jazzicon
+                        diameter={60}
+                        seed={jsNumberForAddress(member.member_address)}
+                      />
+                    )}
+                    <div className="adminTag" style={{ marginTop: "4px" }}>Admin</div>
+                  </Flex>
+                  <Flex flexDirection={'column'} marginLeft={"22.5px"} alignItems="flex-start">
+                    <div className="memberName">
+                      {member.creator[0].name}
+                    </div>
+                    <div className="userName">
+                      @{member.creator[0].username}
+                    </div>
+                  </Flex>
+                </Flex>
+              ))}
+              <div className={"userTypeText"} style={{ marginTop: "10px" }}>MEMBERS</div>
+              {memberUsers && memberUsers.map((member, idx) => (
+                <Flex
+                  flexDirection={'row'}
+                  alignItems="center"
+                  style={{ gridGap: '5px' }}
+                  key={`user_${idx}`}
+                  marginLeft={"10px"}
+                >
+
+                  <Flex flexDirection={'column'} alignItems={"center"}>
+                    {member.creator[0].avatar ? (
+                      <img
+                        className="ellipse60"
+                        src={member.creator[0].avatar}
+                        alt={member.creator[0].name}
+                      />
+                    ) : (
+                      <Jazzicon
+                        diameter={60}
+                        seed={jsNumberForAddress(member.member_address)}
+                      />
+                    )}
+                    <div className="memberTag" style={{ marginTop: "4px" }}>MEMBER</div>
+                  </Flex>
+                  <Flex flexDirection={'column'} marginLeft={"22.5px"} alignItems="flex-start">
+                    <div className="memberName">
+                      {member.creator[0].name}
+                    </div>
+                    <div className="userName">
+                      @{member.creator[0].username}
+                    </div>
+                  </Flex>
                 </Flex>
               ))}
             </Flex>

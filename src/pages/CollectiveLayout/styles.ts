@@ -10,6 +10,9 @@ export const CollectiveLayoutWrapper = styled.div`
     flex-direction: column;
     flex: 1;
     grid-gap: 24px;
+
+    max-height: calc(100vh - 96px);
+    overflow-y: scroll;
   }
 `
 
@@ -134,7 +137,7 @@ export const CollectiveSidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 16px;
+  padding: 24px 6px;
   gap: 40px;
   background: #ffffff;
   border: 2px solid #e4e7ec;
@@ -145,7 +148,14 @@ export const CollectiveSidebarWrapper = styled.div`
     width: 150px;
     height: 150px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
-    border-radius: 30px;
+    clip-path: path(
+      'M63 10.9892C70.4256 6.70205 79.5744 6.70205 87 10.9892L127.952
+        34.6328C135.378 38.92 139.952 46.8431 139.952 55.4174V102.705C139.952
+        111.279 135.378 119.202 127.952 123.489L87 147.133C79.5744 151.42
+        70.4256 151.42 63 147.133L22.0481 123.489C14.6225 119.202 10.0481
+        111.279 10.0481 102.705L10.0481 55.4174C10.0481 46.8431 14.6225 38.92
+        22.0481 34.6328L63 10.9892Z'
+    );
   }
 
   .createBtns {

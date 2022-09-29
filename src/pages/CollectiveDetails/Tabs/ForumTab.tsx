@@ -2,12 +2,15 @@ import { Card } from 'components/Card'
 import { ExpandableView } from 'components/ExpandableView'
 import { FilterBar } from 'components/FilterBar'
 import { ForumCard } from 'components/ForumCard'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
+import { useMemo } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { ForumTabWrapper } from '../styles'
 
 export default function ForumTab() {
   const navigate = useNavigate()
+  const { account } = useActiveWeb3React()
   const {
     forums,
     setForums,
@@ -23,6 +26,17 @@ export default function ForumTab() {
     newForums[idx] = forum
     setForums(newForums)
   }
+
+  const filterData = useMemo(() => {
+    let newData = forums
+    if (filter.onlySaved) {
+      newData = newData.filter((item) => Number(item.is_saved) === 1)
+    }
+    if (filter.onlyMyPosts) {
+      newData = newData.filter((item) => item.owneraddress === account)
+    }
+    return newData
+  }, [filter, forums])
 
   const guidelines = [
     {
@@ -73,22 +87,21 @@ export default function ForumTab() {
           filter={filter}
           updateFilter={updateFilter}
         />
-        {forums &&
-          forums.map((item, idx) => (
-            <div id={`forum_${item.forum_id}`}>
-              <ForumCard
-                data={item}
-                key={`forum_${item.forum_id}`}
-                onCardClick={() => {
-                  navigate(
-                    `/collective/${collectiveInfo.name}/details/${item.forum_id}/forum`,
-                  )
-                }}
-                onUpdateForum={(forum) => onUpdateForum(idx, forum)}
-                sort={sort}
-              />
-            </div>
-          ))}
+        {filterData.map((item, idx) => (
+          <div id={`forum_${item.forum_id}`}>
+            <ForumCard
+              data={item}
+              key={`forum_${item.forum_id}`}
+              onCardClick={() => {
+                navigate(
+                  `/collective/${collectiveInfo.name}/details/${item.forum_id}/forum`,
+                )
+              }}
+              onUpdateForum={(forum) => onUpdateForum(idx, forum)}
+              sort={sort}
+            />
+          </div>
+        ))}
       </div>
       <div className="rightSection">
         <Card

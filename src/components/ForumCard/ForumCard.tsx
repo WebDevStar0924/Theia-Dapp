@@ -52,6 +52,7 @@ const ForumCard: React.FC<ForumCardProps> = ({
   const onMemberShipCheck = useMembership()
   const { cname } = useParams()
   const { toastSuccess } = useToast()
+  const [loading, setLoading] = useState(false)
   const { onPresentConnectModal } = useWalletModal(
     login,
     logout,
@@ -65,16 +66,22 @@ const ForumCard: React.FC<ForumCardProps> = ({
 
   const handleVote = (action) => {
     if (account) {
+      setLoading(true)
       API.updateVote(forum_id, 'forum', action, account).then((res: any) => {
         if (res.data.success) {
           onUpdateForum({
             ...data,
-            votes: action === 'up' ? Number(votes) + 1 : Number(votes) - 1,
+            votes: Number(votes) + Number(res.data.updateCnt),
             votes_count:
               action === 'up'
-                ? Number(votes_count) + 1
-                : Number(votes_count) - 1,
+                ? votes_count === 1
+                  ? 0
+                  : 1
+                : votes_count === -1
+                ? 0
+                : -1,
           })
+          setLoading(false)
         }
       })
     } else {
@@ -103,6 +110,15 @@ const ForumCard: React.FC<ForumCardProps> = ({
     })
   }
 
+  const handleSaveItem = () => {
+    API.updateSaveItem('forum', forum_id, account, is_saved).then(() => {
+      onUpdateForum({
+        ...data,
+        is_saved: Number(is_saved) === 1 ? 0 : 1,
+      })
+    })
+  }
+
   return (
     <>
       {creator && (
@@ -111,12 +127,14 @@ const ForumCard: React.FC<ForumCardProps> = ({
             <VoteBar
               onVoteUp={(e) => {
                 e.stopPropagation()
+                if (loading) return
                 onMemberShipCheck(data.collective_id, account, () =>
                   handleVote('up'),
                 )
               }}
               onVoteDown={(e) => {
                 e.stopPropagation()
+                if (loading) return
                 onMemberShipCheck(data.collective_id, account, () =>
                   handleVote('down'),
                 )
@@ -304,11 +322,11 @@ const ForumCard: React.FC<ForumCardProps> = ({
                     }}
                   />
                 </Flex>
-
                 <Flex style={{ gridGap: '20px' }}>
                   <SaveButton
                     onClick={(e) => {
                       e.stopPropagation()
+                      handleSaveItem()
                     }}
                     isSaved={Number(is_saved) > 0}
                   />

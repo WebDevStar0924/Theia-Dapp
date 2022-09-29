@@ -97,19 +97,44 @@ export const onlineUsers: UserInfo[] = [
 
 export const galleryImages = [
   {
-    cover:
-      'https://theia.mypinata.cloud/ipfs/QmdVUrHSdExtfuq64D7ehPREA1roRHYH4mrGKW7XLgkTCc',
-    title: 'Bepop',
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/1.png',
+    title: 'MoonrunnersNFT',
   },
   {
-    cover:
-      'https://theia.mypinata.cloud/ipfs/QmTSMeg1N2jUTtyBn2tyXKWHwH9A9F5M1TjtutF4wwryAE',
-    title: 'Arrakis',
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/2.png',
+    title: 'MoonrunnersNFT',
   },
   {
-    cover:
-      'https://theia.mypinata.cloud/ipfs/QmdUdkcuJYe2MsiFzgJMbEG9Qtap9x92qyY4kgowsD4DoX',
-    title: 'Wanderers',
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/3.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/4.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/5.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/6.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/7.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/8.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/9.png',
+    title: 'MoonrunnersNFT',
+  },
+  {
+    cover: 'https://storage.googleapis.com/theiastorage/MoonrunnersNFT/10.png',
+    title: 'MoonrunnersNFT',
   },
 ]
 

@@ -218,6 +218,11 @@ export const ModalBodyWrapper = styled.div`
     line-height: 18px;
     color: #d0d5dd;
   }
+  .timeZoneInput {
+    .dropdown-item {
+      font-size: 14px !important;
+    }
+  }
   .eventDescription {
     border: 1px solid #d0d5dd;
     padding: 10px 14px;

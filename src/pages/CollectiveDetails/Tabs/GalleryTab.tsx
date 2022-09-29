@@ -1,13 +1,14 @@
 import API from 'api/api'
 import { useMembership } from 'hooks/useMembership'
 import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
-import { useState } from 'react'
-import { useNavigate, useOutletContext } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { checkVideoUrl, getImageLinkFromMetadata } from 'utils'
 import defaultProjectIcon from '../../../assets/image/defaultProjectIcon.png'
 import { FavouriteIcon } from '../../../components/Svg'
 import useActiveWeb3React from '../../../hooks/useActiveWeb3React'
 import {
+  useArtDetailModal,
   useRemoveArtModal,
   useShareArtModal,
 } from '../../../widgets/GalleryModal/useShareArtModal'
@@ -89,6 +90,8 @@ export default function GalleryTab() {
     useOutletContext<CollectiveContextProps>()
   const { account, chainId } = useActiveWeb3React()
   const onMemberShipCheck = useMembership()
+  const { cname, post_id } = useParams()
+  const { onPresentArtDetailModal } = useArtDetailModal(collectiveInfo)
 
   const [sharedNfts, setSharedNfts] = useState<any[]>(galleries)
   const navigate = useNavigate()
@@ -155,6 +158,15 @@ export default function GalleryTab() {
     })
   }
 
+  useEffect(() => {
+    if (post_id && collectiveInfo) {
+      onPresentArtDetailModal({
+        gallery_id: post_id,
+        callback: () => navigate(`/collective/${cname}/gallery`),
+      })
+    }
+  }, [post_id, collectiveInfo])
+
   return (
     <GalleryWrapper>
       <div
@@ -165,7 +177,7 @@ export default function GalleryTab() {
           )
         }}
       >
-        "SHARE YOUR ART"
+        SHARE YOUR ART
       </div>
       {sharedNfts.length > 0 && (
         <div

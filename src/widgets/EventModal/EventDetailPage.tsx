@@ -5,7 +5,7 @@ import { TextView } from 'components/TextView'
 import { useEffect, useRef, useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
 // import { EditorState, convertToRaw } from 'draft-js';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { State } from 'state/types'
 import UploadSvg from '../../assets/svg/upload.svg'
 import { useToast } from '../../hooks/useToast'
@@ -18,22 +18,22 @@ import orderedSvg from './wysiwyg/ordered.svg'
 import subscriptSvg from './wysiwyg/subscript.svg'
 import superscriptSvg from './wysiwyg/superscript.svg'
 import unorderedSvg from './wysiwyg/unordered.svg'
-import { convertToRaw, EditorState } from 'draft-js';
-import draftToMarkdown from 'draftjs-to-markdown';
+import { convertToRaw, EditorState } from 'draft-js'
+import draftToMarkdown from 'draftjs-to-markdown'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useSelector } from 'react-redux'
+import draftToHtml from 'draftjs-to-html'
 export type eventDetailsPageProps = {
-  collectiveID?: any,
+  collectiveID?: any
   closeModal: (arg: boolean, show: boolean) => void
 }
-
 
 const EventDetailPage: React.FC<eventDetailsPageProps> = ({
   collectiveID,
   closeModal,
 }) => {
   const { account } = useActiveWeb3React()
-  const editorState = EditorState.createEmpty();
+  const editorState = EditorState.createEmpty()
   const photoRef = useRef<HTMLInputElement>(null)
   const [photoFile, setPhotoFile] = useState(null)
   const [photoImg, setPhotoImg] = useState<any>()
@@ -41,10 +41,9 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
   const [summary, setSummary] = useState('')
   const [details, setDetails] = useState(editorState)
   const { toastSuccess } = useToast()
-
+  const [imageUrl, setImageUrl] = useState('')
   const [isActiveButton, activePostButton] = useState(false)
   const eventData = useSelector((state: State) => state.event.data)
-
 
   const photoChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -55,12 +54,25 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
       } else {
         setPhotoImg(URL.createObjectURL(file))
         setPhotoFile(file)
+        uploadImage(file)
       }
     }
   }
 
+  async function uploadImage(file: any) {
+    const formData = new FormData()
+    if (file !== null) {
+      formData.append('files', file)
+      const imageRes = await API.uploadFiles(formData)
+      if (imageRes.data.success) {
+        setImageUrl(imageRes.data.urls[0])
+      }
+    }
+  }
   function createEvent() {
-    const data = draftToMarkdown(convertToRaw(details.getCurrentContent())).toString();
+    const data = draftToHtml(
+      convertToRaw(details.getCurrentContent()),
+    ).toString()
 
     API.createEvent(
       eventData.title,
@@ -74,38 +86,41 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
       collectiveID,
       account,
       eventData.timezone,
+      imageUrl,
     ).then((res) => {
       if (res.data.success === true) {
-
-        toastSuccess("event created successfully", '');
-        closeModal(true, res.data.event_id)
+        toastSuccess('event created successfully', '')
+        closeModal(true, res.data.event)
       } else {
-        toastWarning(res.data.msg, '');
-        closeModal(false, false);
+        toastWarning(res.data.msg, '')
       }
-
-
     })
   }
   function validationCheck() {
     let validation = true
-    if (summary === "") validation = false
-    const data = draftToMarkdown(convertToRaw(details.getCurrentContent())).toString();
+    if (summary === '') validation = false
+    const data = draftToMarkdown(
+      convertToRaw(details.getCurrentContent()),
+    ).toString()
 
     if (data.toString().length === 1) {
       validation = false
-
     }
+    if (imageUrl === '') validation = false
     activePostButton(validation)
   }
 
   useEffect(() => {
-
     validationCheck()
   }, [summary])
+
   useEffect(() => {
     validationCheck()
   }, [details])
+
+  useEffect(() => {
+    validationCheck()
+  }, [imageUrl])
 
   return (
     <ModalBodyWrapper>
@@ -177,7 +192,7 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
             editorState={details}
             wrapperClassName="demo-wrapper"
             editorClassName="demo-editor"
-            editorStyle={{ height: "100px", overflow: "scroll" }}
+            editorStyle={{ height: '100px', overflow: 'scroll' }}
             onEditorStateChange={setDetails}
             placeholder={'Write a short description of the event.'}
             toolbar={{
@@ -207,7 +222,7 @@ const EventDetailPage: React.FC<eventDetailsPageProps> = ({
             className="postButton"
             disabled={!isActiveButton}
             onClick={() => {
-              createEvent();
+              createEvent()
             }}
           >
             POST

@@ -31,7 +31,11 @@ export const HomeTabWrapper = styled.div`
   flex-direction: row;
   grid-gap: 30px;
   justify-content: center;
-
+  .eventCard {
+    &:hover {
+      cursor: pointer;
+    }
+  }
   .inputWrapper {
     input {
       font-size: 13px !important;
@@ -61,21 +65,11 @@ export const HomeTabWrapper = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     border-radius: 100%;
   }
-
-  .horizontalScroll {
-    overflow: scroll;
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
+  .ellipse60 {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
   }
 
   .roleName {
@@ -110,6 +104,81 @@ export const HomeTabWrapper = styled.div`
     padding: 1px 12px;
     background: #a4bcfd;
     border-radius: 16px;
+  }
+  .userTypeText{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+  .adminTag{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    width: 73px;
+    height: 18px;
+    align-items: center;
+    color: #ffffff;
+    background: #101828;
+    justify-content: center;
+    border-radius: 16px;
+  }
+  .memberTag{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    width: 73px;
+    height: 18px;
+    align-items: center;
+    color: #ffffff;
+    background: #475467;
+    justify-content: center;
+    border-radius: 16px;
+  }
+  .memberName {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #101828;
+  }
+  .userName{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    color: #101828;
+  }
+  .searchMemberInput{
+    .inputWrapper{
+      border: 2px solid #E4E7EC;
+      border-radius: 20px;
+      box-shadow: none;
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      color: #101828;
+    }
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 0px;
   }
 `
 
@@ -437,8 +506,32 @@ export const EventsTabWrapper = styled.div`
   flex-direction: column;
   padding: 24px 0;
   grid-gap: 16px;
-
   .mainPart {
+    .eventFilterSwitch {
+      .switchItem {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 5px 20px;
+      }
+    }
+    .eventGridList {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 16px;
+      flex: 1;
+
+      .subTitle {
+        font-family: 'Montserrat', serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        color: #101828;
+      }
+    }
     .sideContent {
       display: flex;
       flex-direction: column;

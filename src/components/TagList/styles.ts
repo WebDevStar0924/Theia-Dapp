@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const TagItemWrapper = styled.div`
+export const TagItemWrapper = styled.div<{ active: boolean }>`
   cursor: pointer;
   padding: 5px 16px;
 
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background: #f2f4f7;
+  background: ${({ active }) => (active ? '#6f7277' : '#f2f4f7')};
   border-radius: 20px;
 
   font-style: normal;

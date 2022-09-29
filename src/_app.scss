@@ -41,6 +41,7 @@ hr {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(359deg);
   }
@@ -209,7 +210,7 @@ hr {
 }
 
 /* ckeditor5-image/theme/imagecaption.css */
-.ck-content .image > figcaption {
+.ck-content .image>figcaption {
   display: table-caption;
   caption-side: bottom;
   word-break: break-word;
@@ -233,7 +234,7 @@ hr {
 }
 
 /* ckeditor5-image/theme/imageresize.css */
-.ck-content .image.image_resized > figcaption {
+.ck-content .image.image_resized>figcaption {
   display: block;
 }
 
@@ -287,9 +288,9 @@ hr {
 }
 
 /* ckeditor5-image/theme/imagestyle.css */
-.ck-content p + .image-style-align-left,
-.ck-content p + .image-style-align-right,
-.ck-content p + .image-style-side {
+.ck-content p+.image-style-align-left,
+.ck-content p+.image-style-align-right,
+.ck-content p+.image-style-side {
   margin-top: 0;
 }
 
@@ -326,7 +327,7 @@ hr {
 }
 
 /* ckeditor5-list/theme/todolist.css */
-.ck-content .todo-list .todo-list__label > input {
+.ck-content .todo-list .todo-list__label>input {
   -webkit-appearance: none;
   display: inline-block;
   position: relative;
@@ -341,7 +342,7 @@ hr {
 }
 
 /* ckeditor5-list/theme/todolist.css */
-.ck-content .todo-list .todo-list__label > input::before {
+.ck-content .todo-list .todo-list__label>input::before {
   display: block;
   position: absolute;
   box-sizing: border-box;
@@ -354,7 +355,7 @@ hr {
 }
 
 /* ckeditor5-list/theme/todolist.css */
-.ck-content .todo-list .todo-list__label > input::after {
+.ck-content .todo-list .todo-list__label>input::after {
   display: block;
   position: absolute;
   box-sizing: content-box;
@@ -371,13 +372,13 @@ hr {
 }
 
 /* ckeditor5-list/theme/todolist.css */
-.ck-content .todo-list .todo-list__label > input[checked]::before {
+.ck-content .todo-list .todo-list__label>input[checked]::before {
   background: hsl(126, 64%, 41%);
   border-color: hsl(126, 64%, 41%);
 }
 
 /* ckeditor5-list/theme/todolist.css */
-.ck-content .todo-list .todo-list__label > input[checked]::after {
+.ck-content .todo-list .todo-list__label>input[checked]::after {
   border-color: hsl(0, 0%, 100%);
 }
 
@@ -478,7 +479,7 @@ hr {
 }
 
 /* ckeditor5-table/theme/tablecaption.css */
-.ck-content .table > figcaption {
+.ck-content .table>figcaption {
   display: table-caption;
   caption-side: top;
   word-break: break-word;
@@ -527,10 +528,12 @@ hr {
 }
 
 @media print {
+
   /* ckeditor5-page-break/theme/pagebreak.css */
   .ck-content .page-break {
     padding: 0;
   }
+
   /* ckeditor5-page-break/theme/pagebreak.css */
   .ck-content .page-break::after {
     display: none;
@@ -679,6 +682,7 @@ hr {
         display: flex;
         flex-direction: row;
         align-items: center;
+
         .theia-username {
           margin-right: 8px;
           text-align: start;
@@ -692,12 +696,14 @@ hr {
           color: #999;
         }
       }
+
       .theia-userid {
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         color: #667085;
       }
+
       .theia-message {
         margin-top: 12px;
         font-weight: 500;

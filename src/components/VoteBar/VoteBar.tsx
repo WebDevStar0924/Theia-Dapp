@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { HiOutlineChevronDown, HiOutlineChevronUp } from 'react-icons/all'
+import { VoteDown, VoteUp } from 'components/Svg'
 import { VoteBarWrapper } from './styles'
 
 interface iProps {
@@ -17,7 +17,7 @@ export default function VoteBar(props: iProps) {
           active: parseInt(votes_count) === 1,
         })}
       >
-        <HiOutlineChevronUp size={24} onClick={onVoteUp} />
+        <VoteUp width={32} onClick={onVoteUp} />
       </div>
       <div className="votes">{votes}</div>
       <div
@@ -25,7 +25,7 @@ export default function VoteBar(props: iProps) {
           active: parseInt(votes_count) === -1,
         })}
       >
-        <HiOutlineChevronDown size={24} onClick={onVoteDown} />
+        <VoteDown width={32} onClick={onVoteDown} />
       </div>
     </VoteBarWrapper>
   )

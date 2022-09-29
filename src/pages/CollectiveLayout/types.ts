@@ -3,6 +3,7 @@ export interface CollectiveContextProps {
   galleries: any
   events: any[]
   mixedData: any[]
+  setEvents: (data: any[]) => void
   setForums: (data: any[]) => void
   setGalleries: (data: any[]) => void
   setMixedData: (data: any[]) => void
@@ -12,4 +13,6 @@ export interface CollectiveContextProps {
   filter: any
   updateFilter: (data: any) => void
   members: any[]
+  topics: any[]
+  updateTopics: (data: any) => void
 }

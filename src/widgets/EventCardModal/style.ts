@@ -122,6 +122,7 @@ export const EventCardModalBodyWrapper = styled.div`
     width: 100%;
     height: 300px;
     border-radius: 16px;
+    object-fit: contain;
   }
 `
 export const EventCardModalHeaderWrapper = styled.div`
@@ -156,5 +157,46 @@ export const EventCardModalHeaderWrapper = styled.div`
     display: flex;
     align-items: center;
     color: #ffffff;
+  }
+  .forumCardHeader {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+
+    .creatorAvatar {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 100%;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .userTag {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      padding: 1px 12px;
+      background: #a4bcfd;
+      border-radius: 16px;
+    }
+    .createTime {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      color: #98a2b3;
+      text-transform: uppercase;
+    }
   }
 `

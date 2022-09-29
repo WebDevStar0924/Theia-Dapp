@@ -1,98 +1,47 @@
 import { Flex } from 'components/Flex'
-import { signInToGoogle, initClient, getSignedInUserEmail, signOutFromGoogle, publishTheCalenderEvent } from 'api/api';
 import { Text } from 'components/Text'
 import { FiCalendar } from 'react-icons/fi'
 import EventImage from '../../assets/image/eventBg.png'
 import { Modal } from '../Modal'
 import { AttendEventModalWrapper } from './style'
-import { useEffect, useState } from 'react';
-import { useToast } from '../../hooks/useToast'
-
-import { Handler } from 'widgets/Modal/types';
+import { Handler } from 'widgets/Modal/types'
+import { atcb_init } from 'add-to-calendar-button'
+import 'add-to-calendar-button/assets/css/atcb.css'
+import React from 'react'
 interface iProps {
   eventData?: any
   onDismiss?: Handler
 }
 export default function AttendEventModal(props: iProps) {
-  const { onDismiss, eventData } = props;
-  const [signedin, setSignedIn] = useState(false);
-  const [googleAuthedEmail, setgoogleAuthedEmail] = useState("");
-  const [description, setDescription] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const { toastWarning } = useToast()
-
+  const { eventData } = props
   function getMonth(string) {
-    const data = new Date(string).toDateString();
-    const array = data.split(" ");
-    const returnDate = array[1] + ' ' + array[2];
+    const data = new Date(string).toDateString()
+    const array = data.split(' ')
+    const returnDate = array[1] + ' ' + array[2]
     return returnDate
   }
-  useEffect(() => {
-    initClient((success) => {
-      if (success) {
-        getGoogleAuthorizedEmail();
-      } else {
-        toastWarning("Initialize failed", '');
-      }
-    });
-  }, []);
-  const getGoogleAuthorizedEmail = async () => {
-    const email = await getSignedInUserEmail();
-    if (email) {
-      setSignedIn(true)
-      setgoogleAuthedEmail(email)
-    } else {
-      toastWarning("Get authorized email failed", '');
-      getAuthToGoogle();
+  const AddToCalendar = () => {
+    React.useEffect(atcb_init, [])
+    let location = ''
+    try {
+      location = JSON.parse(eventData?.location).label
+    } catch {
+      location = eventData?.location
     }
-  };
-  const getAuthToGoogle = async () => {
-    const successfull = await signInToGoogle();
-    if (successfull) {
-      getGoogleAuthorizedEmail();
-    } else {
-      toastWarning("Get auth to google failed", '');
-    }
-  };
-  const _signOutFromGoogle = () => {
-    const status = signOutFromGoogle();
-    if (status) {
-      setSignedIn(false);
-      setgoogleAuthedEmail("");
-    } else {
-      toastWarning("Sign out from google failed", '');
-    }
-  };
-  const addEventToCalendar = () => {
-    const event = {
-      'summary': eventData?.event_title,
-      'location': eventData?.location,
-      'description': eventData?.description,
-      'start': {
-        'dateTime': eventData?.event_date + "-" + eventData?.starttime,
-        'timeZone': eventData?.timezone,
-      },
-      'end': {
-        'dateTime': eventData?.event_date + "-" + eventData?.endtime,
-        'timeZone': eventData?.timezone,
-      },
-      'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=2'
-      ],
-      'attendees': [
-        { 'email': 'sbrin@example.com' }
-      ],
-      'reminders': {
-        'useDefault': false,
-        'overrides': [
-          { 'method': 'email', 'minutes': 24 * 60 },
-          { 'method': 'popup', 'minutes': 10 }
-        ]
-      }
-    }
-    publishTheCalenderEvent(event);
-
+    return (
+      <div className="atcb">
+        {'{'}
+        "name":"{eventData?.event_title}", "description":"
+        {eventData?.description}", "startDate":"{eventData?.event_date}",
+        "endDate":"{eventData?.event_date}", "startTime":"{eventData?.starttime}
+        ", "endTime":"{eventData?.endtime}", "location":"{location}",
+        "label":"ADD TO CALENDAR", "options":[ "Google", "iCal", "Microsoft365",
+        "Outlook.com", "Yahoo" ],
+        {/* "timeZone":"{eventData?.timezone}", */}
+        "iCalFileName":"Reminder-Event", "trigger": "click"
+        {'}'}
+      </div>
+    )
   }
   return (
     <Modal
@@ -114,13 +63,18 @@ export default function AttendEventModal(props: iProps) {
           flexDirection={'column'}
           style={{ gap: '17px', marginTop: '40px' }}
         >
-          <Flex style={{ alignItems: "center" }}>
-            <Text className="placeHolder">{eventData?.event_title.toUpperCase()}</Text>
+          <Flex style={{ alignItems: 'center' }}>
+            <Text className="placeHolder">
+              {eventData?.event_title.toUpperCase()}
+            </Text>
             {eventData?.location_type === 'VIRTUAL' ? (
               <Text className="virtualTag" style={{ marginLeft: '16px' }}>
                 VIRTUAL
-              </Text>) : (
-              <Text className="irlTag" style={{ marginLeft: "16px" }}>IRL</Text>
+              </Text>
+            ) : (
+              <Text className="irlTag" style={{ marginLeft: '16px' }}>
+                IRL
+              </Text>
             )}
           </Flex>
           <Flex alignItems={'center'}>
@@ -129,26 +83,35 @@ export default function AttendEventModal(props: iProps) {
               {getMonth(eventData?.event_date).toUpperCase()}
             </Text>
             <Text className="eventTime" style={{ marginLeft: '16px' }}>
-              {eventData?.starttime} - {eventData?.endtime} {eventData?.timezone}
+              {eventData?.starttime} - {eventData?.endtime}{' '}
+              {eventData?.timezone}
             </Text>
           </Flex>
           <Flex>
-            <Text className="eventDescription">
-              {eventData?.description}
-            </Text>
+            <Text className="eventDescription">{eventData?.description}</Text>
           </Flex>
           <Flex style={{ marginTop: '24px' }}>
-            <img className="eventImage" src={EventImage} alt="event" />
+            {eventData?.event_image !== null ? (
+              <img
+                className="eventImage"
+                src={eventData?.event_image}
+                alt="event"
+                style={{
+                  borderTopLeftRadius: '16px',
+                  width: '600px',
+                  height: '300px',
+                  objectFit: 'contain',
+                }}
+              />
+            ) : (
+              <img className="eventImage" src={EventImage} alt="event" />
+            )}
           </Flex>
-          <Flex className={'addToCalendarButton'} style={{ marginTop: '32px' }} onClick={() => {
-            addEventToCalendar();
-            onDismiss && onDismiss()
-          }}>
-            ADD TO CALENDAR
+          <Flex className={'addToCalendarButton'} style={{ marginTop: '32px' }}>
+            <AddToCalendar />
           </Flex>
         </Flex>
       </AttendEventModalWrapper>
     </Modal>
   )
 }
-

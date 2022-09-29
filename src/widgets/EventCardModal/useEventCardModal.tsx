@@ -1,8 +1,10 @@
 import { useModal } from '../Modal'
 import EventCardModal from './index'
 
-const useEventCardModal = () => {
-  const [onPresentEventCardModal] = useModal(<EventCardModal />)
+const useEventCardModal = (eventData?: any) => {
+  const [onPresentEventCardModal] = useModal(
+    <EventCardModal data={eventData} />,
+  )
   return { onPresentEventCardModal }
 }
 

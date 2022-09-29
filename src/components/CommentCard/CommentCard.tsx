@@ -1,14 +1,13 @@
 import API from 'api/api'
+import { CommentButton } from 'components/CommentButton'
 import { Flex } from 'components/Flex'
 import { ForumCommentWrapper } from 'components/ForumCard/styles'
-import { HeartButton } from 'components/HeartButton'
 import { TextView } from 'components/TextView'
 import { VoteBar } from 'components/VoteBar'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useMembership } from 'hooks/useMembership'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
-import { BiMessageRounded } from 'react-icons/all'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { useSelector } from 'react-redux'
 import { State } from 'state/types'
@@ -54,40 +53,6 @@ export default function CommentCard(props: iProps) {
       }
     })
   }
-
-  const handleFavorite = (comment_id, action, idx) => {
-    API.updateFavorite(comment_id, 'comment', action, account).then((res) => {
-      if (res.data.success) {
-        const newComments = [...comments]
-        newComments[idx] = {
-          ...newComments[idx],
-          favorites:
-            action === 'up'
-              ? Number(newComments[idx].favorites) + 1
-              : Number(newComments[idx].favorites) - 1,
-          favorite_count: action === 'up' ? 1 : 0,
-        }
-        onUpdateComments(newComments, false)
-      }
-    })
-  }
-
-  // const handleCrown = (comment_id, action, idx) => {
-  //   API.updateCrown(comment_id, "comment", action, account).then((res) => {
-  //     if (res.data.success) {
-  //       const newComments = [...comments];
-  //       newComments[idx] = {
-  //         ...newComments[idx],
-  //         crowns:
-  //           action === "up"
-  //             ? Number(newComments[idx].crowns) + 1
-  //             : Number(newComments[idx].crowns) - 1,
-  //         crown_count: action === "up" ? 1 : 0,
-  //       };
-  //       onUpdateComments(newComments, false);
-  //     }
-  //   });
-  // };
 
   const showComment = (comment) => {
     comment.show = !comment.show
@@ -160,31 +125,14 @@ export default function CommentCard(props: iProps) {
                 <span>{comment.text}</span>
               </div>
               <div className="commentActions">
-                <HeartButton
-                  count={comment.favorites}
-                  active={comment.favorite_count > 0}
-                  size="sm"
-                  onClick={() => {
-                    onMemberShipCheck(collectiveID, account, () =>
-                      handleFavorite(
-                        comment.comment_id,
-                        comment.favorite_count > 0 ? 'down' : 'up',
-                        idx,
-                      ),
-                    )
-                  }}
-                />
-                <div
-                  className="circleBtn reply"
-                  onClick={() => {
+                <CommentButton
+                  count={comment.count}
+                  onClick={() =>
                     onMemberShipCheck(collectiveID, account, () =>
                       showComment(comment),
                     )
-                  }}
-                >
-                  <BiMessageRounded size={20} />
-                  <span>Reply</span>
-                </div>
+                  }
+                />
               </div>
             </div>
           </CommentCardWrapper>

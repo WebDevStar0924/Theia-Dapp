@@ -57,7 +57,7 @@ function App() {
     <AppContainer bgColor={isDark ? '#100C18' : '#F9FAFB'}>
       <Layout>
         <Routes>
-          <Route path="/" element={<Navigate to="/collective/THEIA" />} />
+          <Route path="/" element={<Navigate to="/collective/Moonrunners" />} />
           {/* <Route path="/home" element={<Navigate to="/collective/THEIA" />} /> */}
           <Route path="/home" element={<Home />} />
           <Route path="/mint" element={<Mint />} />
@@ -66,18 +66,19 @@ function App() {
           <Route path={'/collective'} element={<CollectiveLayout />}>
             <Route path=":cname" element={<HomeTab />} />
             <Route path=":cname/home" element={<HomeTab />} />
+            <Route path=":cname/home/:post_id" element={<HomeTab />} />
             <Route path=":cname/forum" element={<ForumTab />} />
             <Route path=":cname/gallery" element={<GalleryTab />} />
+            <Route path=":cname/gallery/:post_id" element={<GalleryTab />} />
             <Route path=":cname/events" element={<EventsTab />} />
             <Route
               path=":cname/details/:post_id/:prev_tab"
               element={<ForumDetails />}
             />
             <Route
-              path=":cname/events/eventdetails/:event_id"
+              path=":cname/events/eventdetails/:owneraddress/:event_id/:prev_tab"
               element={<EventDetails />}
             />
-
           </Route>
           <Route path={'/member/:membername'} element={<SupporterProfile />} />
           <Route path={'/profile/supporter'} element={<SupporterProfile />} />

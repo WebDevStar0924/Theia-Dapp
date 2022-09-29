@@ -5,9 +5,10 @@ export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
   flex-direction: column;
   align-items: center;
   grid-gap: 10px;
-  padding: 8px 4px;
+  padding: 4px 0px;
   background-color: ${({ bgColor }) => bgColor ?? 'initial'};
   width: 40px;
+  border-radius: 8px 0 0 8px;
 
   .votes {
     font-family: 'Montserrat';
@@ -20,21 +21,37 @@ export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
     color: #101828;
   }
   .voteUp {
-    padding: 3px 5px;
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid transparent;
     transition: all ease 0.3s;
+
+    svg {
+      path {
+        stroke: url(#vote_up_path_not_hover);
+      }
+      rect {
+        stroke: url(#vote_up_rect_not_hover);
+      }
+    }
     &:hover {
       svg {
-        color: #38a169;
+        path {
+          stroke: url(#vote_up_path_hover);
+        }
+        rect {
+          stroke: url(#vote_up_rect_hover);
+        }
       }
-      border: 1px solid #d0d5dd;
     }
     &.active {
-      border: 2px solid #38a169;
       svg {
-        color: #38a169;
+        path {
+          stroke: url(#vote_up_path_hover);
+        }
+        rect {
+          stroke: url(#vote_up_rect_not_hover);
+        }
       }
     }
   }
@@ -43,17 +60,33 @@ export const VoteBarWrapper = styled.div<{ bgColor?: string }>`
     border-radius: 5px;
     border: 1px solid transparent;
     transition: all ease 0.3s;
-    padding: 3px 5px;
+
+    svg {
+      path {
+        stroke: url(#vote_down_path_not_active);
+      }
+      rect {
+        stroke: url(#vote_down_rect_stable);
+      }
+    }
     &:hover {
-      border: 1px solid #d0d5dd;
       svg {
-        color: #f42829;
+        path {
+          stroke: url(#vote_down_path_hover);
+        }
+        rect {
+          stroke: url(#vote_down_rect_hover);
+        }
       }
     }
     &.active {
-      border: 2px solid #f42829;
       svg {
-        color: #f42829;
+        path {
+          stroke: url(#vote_down_path_hover);
+        }
+        rect {
+          stroke: url(#vote_down_rect_stable);
+        }
       }
     }
   }

@@ -13,6 +13,22 @@ export const ForumModalWrapper = styled.div`
     color: #000000;
   }
 
+  .fieldLabel {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #475467;
+
+    .fieldLabelOption {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+      color: #98a2b3;
+    }
+  }
+
   .drag_drop {
     background: #ffffff;
     border: 1px solid #d0d5dd;
@@ -84,7 +100,9 @@ export const ForumModalWrapper = styled.div`
   .forumActions {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     padding-top: 10px;
+    button {
+      width: 100%;
+    }
   }
 `

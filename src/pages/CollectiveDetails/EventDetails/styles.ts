@@ -27,6 +27,15 @@ position: relative;
   margin-top: 24px;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
+  .atcb-dropdown-anchor {
+    width: 200px;
+  }
+  .virtualLink{
+    &:hover {
+      text-decoration: underline;
+      color: blue;
+    }
+  }
   .date{
     font-family: Montserrat;
     font-size: 18px;
@@ -75,8 +84,8 @@ position: relative;
     color: #FFFFFF;
   }
   
-  .placeHolder{
-    width: 159px;
+  .eventTitle{
+    width: 100%;
     height: 22px;
     font-family: 'Montserrat';
     font-style: normal;
@@ -85,6 +94,7 @@ position: relative;
     line-height: 22px;
     text-align: left;
     color: #101828;
+
   }
   .attendButton{
     width: 240px
@@ -158,6 +168,16 @@ position: relative;
       width: 12px;
       height: 13px;
     }
+    .atcb-button{
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: white;
+      font-size: 8px;
+      border: none;
+      box-shadow:none;
+      min-width: auto;      
+    }    
   }
 
   .location {
@@ -191,6 +211,120 @@ position: relative;
       cursor: pointer;  
     }
   }
+  .detailComments {
+    border-radius: 15px;
+    .commentList {
+      border-bottom: 1px solid #e4e7ec;
+      border-top: 1px solid #e4e7ec;
+      padding: 10px 24px;
+      max-height: 300px;
+      overflow: scroll;
+    }
+    .commentReply {
+      display: flex;
+      align-items: center;
+      padding: 10px 24px;
+
+      &.subComment {
+        border-radius: 15px;
+        border: 1px solid #e4e7ec;
+        margin-top: 5px;
+      }
+
+      .userImage {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+      }
+      .userDefaultImage {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
+        border: 2px solid #e4e7ec;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      }
+      .commentInput {
+        flex-grow: 1;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 0 4px 0 24px;
+        padding: 8px 6px;
+        border: unset;
+      }
+      .replyAction {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        color: #667085;
+        cursor: pointer;
+      }
+    }
+    &.noneComments {
+      .commentList {
+        border: none;
+      }
+      .commentReply {
+        border-radius: 15px;
+        border: 1px solid #e4e7ec;
+      }
+    }
+  }
+  .commentReply {
+    display: flex;
+    align-items: center;
+    padding: 10px 24px;    
+    border-top: 1px solid #e4e7ec;
+
+    .inputWrapper {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      .input {
+        font-family: 'Montserrat', sans-serif;
+        outline: none;
+        border: none;
+      }
+    }
+
+    &.subComment {
+      border-radius: 15px;
+      border: 1px solid #e4e7ec;
+      margin-top: 5px;
+    }
+
+    .userImage {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+    .userDefaultImage {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
+      border: 2px solid #e4e7ec;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+    .commentInput {
+      flex-grow: 1;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0 4px 0 24px;
+      padding: 8px 6px;
+      border: none;
+      outline: none;
+    }
+    .replyAction {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+      color: #667085;
+      cursor: pointer;
+    }
+  }
 
 `
 export const ReplyItemWrapper = styled.div`
@@ -217,7 +351,7 @@ export const ReplyItemWrapper = styled.div`
     .replyHeader {
       display: flex;
       align-items: center;
-      padding: 8px 0;
+      padding: 5px 0;
       .replyOwner {
         flex-grow: 1;
         display: flex;
@@ -234,7 +368,7 @@ export const ReplyItemWrapper = styled.div`
           font-weight: 600;
           font-size: 14px;
           line-height: 20px;
-          margin-left: 14px;
+          margin-left: 10px;
           color: rgba(0, 0, 0, 0.8);
         }
         .memberTag{
@@ -303,7 +437,7 @@ export const ReplyItemWrapper = styled.div`
   }
 
   .userType {
-    margin-left: 14px;
+    margin-left: 10px;
     font-weight: 500;
     font-size: 12px;
     line-height: 18px;
@@ -315,6 +449,9 @@ export const ReplyItemWrapper = styled.div`
 
   .adminTag {
     background-color: #2d31a6;
+  }
+  .userTag {
+    background-color: #8098f9;
   }
 
   .coreTag {
@@ -339,6 +476,20 @@ export const ReplyItemWrapper = styled.div`
     padding-left:18px
     color: #98A2B3;
     margin-left: 8px;
+  }
+  .createTime {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #98a2b3;
+    text-transform: uppercase;
+    @media (max-width: 1024px) {
+      font-size: 10px;
+    }
   }
 `
 export const EventGoingWrapper = styled.div`

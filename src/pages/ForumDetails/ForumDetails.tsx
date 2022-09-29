@@ -4,7 +4,6 @@ import { default as classnames } from 'classnames'
 import { Card } from 'components/Card'
 import { CommentButton } from 'components/CommentButton'
 import { CommentCard } from 'components/CommentCard'
-import { CrownButton } from 'components/CrownButton'
 import { ExpandableView } from 'components/ExpandableView'
 import { Flex } from 'components/Flex'
 import {
@@ -13,7 +12,6 @@ import {
   ForumCardWrapper,
   ForumCommentWrapper,
 } from 'components/ForumCard/styles'
-import { HeartButton } from 'components/HeartButton'
 import { ImageCard } from 'components/ImageCard/ImageCard'
 import { ReadMore } from 'components/ReadMore'
 import { ShareButton } from 'components/ShareButton'
@@ -51,6 +49,7 @@ export default function ForumDetails() {
   const { cname, prev_tab, post_id: forum_id } = useParams()
 
   const { collectiveInfo } = useOutletContext<CollectiveContextProps>()
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const { account } = useActiveWeb3React()
@@ -100,20 +99,24 @@ export default function ForumDetails() {
   }, [account])
 
   const handleVote = (action) => {
+    if (loading) return
     if (account) {
+      setLoading(true)
       API.updateVote(forum_id, 'forum', action, account).then((res: any) => {
         if (res.data.success) {
           setForumData({
             ...forumData,
-            votes:
-              action === 'up'
-                ? Number(forumData.votes) + 1
-                : Number(forumData.votes) - 1,
+            votes: Number(forumData.votes) + Number(res.data.updateCnt),
             votes_count:
               action === 'up'
-                ? Number(forumData.votes_count) + 1
-                : Number(forumData.votes_count) - 1,
+                ? forumData.votes_count === 1
+                  ? 0
+                  : 1
+                : forumData.votes_count === -1
+                ? 0
+                : -1,
           })
+          setLoading(false)
         }
       })
     } else {
@@ -133,45 +136,6 @@ export default function ForumDetails() {
         updatePollVotes(newPollVotes)
       },
     )
-  }
-  const handleLike = (action) => {
-    if (account) {
-      API.updateFavorite(forum_id, 'forum', action, account).then(
-        (res: any) => {
-          if (res.data.success) {
-            setForumData({
-              ...forumData,
-              favorites:
-                action === 'up'
-                  ? Number(forumData.favorites) + 1
-                  : Number(forumData.favorites) - 1,
-              favorite_count: action === 'up' ? 1 : 0,
-            })
-          }
-        },
-      )
-    } else {
-      onPresentConnectModal()
-    }
-  }
-
-  const handleCrown = (action) => {
-    if (account) {
-      API.updateCrown(forum_id, 'forum', action, account).then((res: any) => {
-        if (res.data.success) {
-          setForumData({
-            ...forumData,
-            crown:
-              action === 'up'
-                ? Number(forumData.crown) + 1
-                : Number(forumData.crown) - 1,
-            crown_count: action === 'up' ? 1 : 0,
-          })
-        }
-      })
-    } else {
-      onPresentConnectModal()
-    }
   }
   const handleReply = () => {
     API.replyComment(forum_id, null, 'forum', commentText, account).then(
@@ -429,40 +393,6 @@ export default function ForumDetails() {
 
                           <div className="forumActions">
                             <Flex style={{ gridGap: '20px' }}>
-                              <HeartButton
-                                active={forumData.favorite_count > 0}
-                                count={forumData.favorites}
-                                size="lg"
-                                onClick={() => {
-                                  onMemberShipCheck(
-                                    forumData.collective_id,
-                                    account,
-                                    () =>
-                                      handleLike(
-                                        forumData.favorite_count > 0
-                                          ? 'down'
-                                          : 'up',
-                                      ),
-                                  )
-                                }}
-                              />
-                              <CrownButton
-                                active={forumData.crown_count > 0}
-                                count={forumData.crown}
-                                size={'lg'}
-                                onClick={() => {
-                                  onMemberShipCheck(
-                                    forumData.collective_id,
-                                    account,
-                                    () =>
-                                      handleCrown(
-                                        forumData.crown_count > 0
-                                          ? 'down'
-                                          : 'up',
-                                      ),
-                                  )
-                                }}
-                              />
                               <CommentButton
                                 count={forumData.commentscount}
                                 onClick={setCommentBox}

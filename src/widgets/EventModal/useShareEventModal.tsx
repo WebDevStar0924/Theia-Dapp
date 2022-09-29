@@ -1,10 +1,8 @@
 import { useModal } from '../Modal'
 import EventCreateModal from './EventCreateModal'
 
-const useEventCreateModal = (callback): {
-  onPresentEventCreateModal: (params: any) => void
-} => {
-  const [onPresentEventCreateModal] = useModal(<EventCreateModal callback={callback} />)
+const useEventCreateModal = () => {
+  const [onPresentEventCreateModal] = useModal(<EventCreateModal />)
   return { onPresentEventCreateModal }
 }
 

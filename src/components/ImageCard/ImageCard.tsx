@@ -16,7 +16,8 @@ export const ImageCard = memo(function (props: iProps) {
       key={`carousel_${dataIndex}`}
       className="my-slide-component"
     >
-      <video
+      <img src={cover} width="100%" height="100%" />
+      {/* <video
         style={{
           height: '100%',
           width: '100%',
@@ -28,7 +29,7 @@ export const ImageCard = memo(function (props: iProps) {
         autoPlay
         muted
         loop
-      />
+      /> */}
     </div>
   )
 })

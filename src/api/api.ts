@@ -1,108 +1,10 @@
-import axios from 'axios';
-const gapi = window.gapi;
-const GAPI_KEY = 'AIzaSyAiK1PWbCUhzSOV-op_oVid0Js48WFSw9M';
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-const CLIENT_ID = '410546094128-8p5cae7mlh2hcvqhpfd4cui9lkb3oa96.apps.googleusercontent.com';
-const SCOPES = "https://www.googleapis.com/auth/calendar.events";
-
-export function initClient(callback) {
-
-  gapi.load('client:auth2', () => {
-    try {
-
-      gapi.client.init({
-        apiKey: GAPI_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES,
-      }).then(function () {
-
-        if (typeof (callback) === 'function') {
-          callback(true)
-        }
-      }, function (error) {
-        console.log(error);
-        console.log("error initialize", '');
-        console.log(error.msg, '');
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}
-export const checkSignInStatus = async () => {
-  try {
-    const status = await gapi.auth2.getAuthInstance().isSignedIn.get();
-    return status;
-  } catch (error) {
-    console.log("error check signin status", '');
-
-    console.log(error);
-  }
-}
-
-export const signInToGoogle = async () => {
-  try {
-    console.log("now calling sign in to google");
-    const googleuser = await gapi.auth2.getAuthInstance().signIn({ prompt: 'consent' });
-    if (googleuser) {
-      return true;
-    }
-  } catch (error) {
-    console.log("error signin to google", '');
-    console.log(error)
-  }
-}
-export const signOutFromGoogle = () => {
-  try {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      auth2.disconnect();
-    });
-    return true;
-  } catch (error) {
-    console.log("error check signout from google", '');
-    console.log(error)
-  }
-}
-
-export const getSignedInUserEmail = async () => {
-  try {
-    const status = await checkSignInStatus();
-    if (status) {
-      const auth2 = gapi.auth2.getAuthInstance();
-      const profile = auth2.currentUser.get().getBasicProfile();
-      return profile.getEmail()
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log("error get signedin user email", '');
-    console.log(error)
-  }
-}
-
-export const publishTheCalenderEvent = (event) => {
-  try {
-    gapi.client.load('calendar', 'v3', () => {
-      const request = gapi.client['calendar'].events.insert({
-        'calendarId': 'primary',
-        'resource': event
-      });
-      request.execute(function (event) {
-        console.log('Event created: ' + event.htmlLink);
-      });
-    })
-
-  } catch (error) {
-    console.log("error to create event", '');
-    console.log(error)
-  }
-}
+import axios from 'axios'
 
 export default class API {
   static getAvailbleTokens(chainId) {
-    return axios.get(`${process.env.BRIDGE_SERVER_URL}/v2/serverInfo/${chainId}`)
+    return axios.get(
+      `${process.env.BRIDGE_SERVER_URL}/v2/serverInfo/${chainId}`,
+    )
   }
 
   static getProjectDetails() {
@@ -440,6 +342,14 @@ export default class API {
     })
   }
 
+  static getEventLast36(collectiveID) {
+    return axios.get(`${process.env.REACT_APP_API_URL}/events/last36`, {
+      params: {
+        collectiveID,
+      },
+    })
+  }
+
   static voteForumPoll(forum_poll_id, address, forum_id) {
     return axios.post(`${process.env.REACT_APP_API_URL}/forum/poll/vote`, {
       forum_poll_id,
@@ -463,7 +373,8 @@ export default class API {
     details,
     collective_id,
     owneraddress,
-    timezone
+    timezone,
+    event_image,
   ) {
     return axios.post(`${process.env.REACT_APP_API_URL}/events/create`, {
       title,
@@ -476,18 +387,30 @@ export default class API {
       details,
       collective_id,
       owneraddress,
-      timezone
+      timezone,
+      event_image,
     })
   }
 
-  static getEventList(collective_id) {
+  static getEventList(collective_id, address) {
     return axios.post(`${process.env.REACT_APP_API_URL}/events/list`, {
       collective_id,
+      address,
     })
   }
-  static getEventById(event_id) {
+  static getEventById(event_id, address) {
     return axios.post(`${process.env.REACT_APP_API_URL}/events/getById`, {
       event_id,
+      address,
+    })
+  }
+
+  static updateSaveItem(item_type, item_id, owneraddress, is_saved) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/saved/update`, {
+      item_type,
+      item_id,
+      owneraddress,
+      is_saved,
     })
   }
 }

@@ -36,14 +36,14 @@ export default function CollectiveHeader(props: iProps) {
           <div className={'shortDescription'}>{collectiveInfo.tagline}</div>
         </div>
         <div className={'detailMore'}>
-          <div className="stats">
+          {/* <div className="stats">
             <span className="stats_value">10.0k</span>
             <span className="stats_label">items</span>
           </div>
           <div className="stats">
             <span className="stats_value">3.6k</span>
             <span className="stats_label">members</span>
-          </div>
+          </div> */}
           <MotionButton
             className={'detailMoreBtn2'}
             borderColor={'#D0D5DD'}

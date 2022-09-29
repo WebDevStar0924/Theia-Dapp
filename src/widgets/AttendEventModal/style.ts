@@ -95,10 +95,6 @@ export const AttendEventModalWrapper = styled.div`
     align-items: center;
     padding: 16px 24px;
     gap: 12px;
-    height: 40px;
-    background: linear-gradient(107.62deg, #1e84e3 0%, #5c26d3 100%);
-    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-    border-radius: 8px;
     align-self: stretch;
     font-family: 'Montserrat';
     font-style: normal;
@@ -106,10 +102,17 @@ export const AttendEventModalWrapper = styled.div`
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
+    .atcb-button {
+      background: linear-gradient(107.62deg, #1e84e3 0%, #5c26d3 100%);
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+      border-radius: 8px;
+      color: white;
+    }
   }
   .eventImage {
     width: 100%;
     height: 300px;
     border-radius: 16px;
+    object-fit: contain;
   }
 `

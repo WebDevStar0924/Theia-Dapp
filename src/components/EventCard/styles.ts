@@ -1,20 +1,5 @@
 import styled from 'styled-components'
 
-export const Card = styled.div`
-  background: #ffffff;
-  border-radius: 16px;
-  width: 360px;
-  // padding: 1px;
-  &:hover {
-    //   background: linear-gradient(90deg, #013ada, #65e3f2, #fccb42, #d350e2);
-    //   padding: 3px;
-    cursor: pointer;
-    //   & > div {
-    //     padding: 0 0;
-    //   }
-  }
-`
-
 export const EventCardWrapper = styled.div`
   border-radius: 16px;
   display: flex;
@@ -22,7 +7,9 @@ export const EventCardWrapper = styled.div`
   overflow: hidden;
   background: #ffffff;
   border: 2px solid #e4e7ec;
-  width: 360px;
+  border-radius: 16px;
+  max-width: 360px;
+  cursor: pointer;
   padding: 0;
 
   &:hover {
@@ -87,8 +74,15 @@ export const EventCardWrapper = styled.div`
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
-      line-height: 16px;
+      line-height: 20px;
       color: #101828;
+      height: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .eventDate {
@@ -104,7 +98,15 @@ export const EventCardWrapper = styled.div`
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
+      line-height: 20px;
       color: #475467;
+      height: 40px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .calendarContainer {
       display: flex;
@@ -116,6 +118,16 @@ export const EventCardWrapper = styled.div`
       background: #101828;
       &:hover {
         cursor: pointer;
+      }
+      .actb-button {
+        max-width: fit-content;
+        min-width: fit-content;
+        padding: 5px;
+        border-radius: 50%;
+        box-shadow: none;
+        background: black;
+        color: white;
+        z-index: 1111111;
       }
     }
   }

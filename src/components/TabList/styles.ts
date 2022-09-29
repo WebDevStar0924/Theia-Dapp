@@ -20,16 +20,16 @@ export const TabListWrapper = styled.div<{
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     color: #101828;
     display: flex;
     flex-direction: row;
     align-items: center;
     grid-gap: 12px;
     height: 40px;
-    min-width: ${({ minWidth }) => minWidth ?? 'inherit'};
-    flex: 1;
+    width: ${({ minWidth }) => minWidth ?? 'inherit'};
+    // flex: 1;
 
     .tabContent {
       display: flex;

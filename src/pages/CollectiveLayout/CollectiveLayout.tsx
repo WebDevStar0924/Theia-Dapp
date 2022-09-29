@@ -27,6 +27,12 @@ export default function CollectiveLayout() {
     onlyMyPosts: false,
   })
 
+  const [topics, updateTopics] = useState([])
+
+  useEffect(() => {
+    setIsMixed(false)
+  }, [sortOption])
+
   useEffect(() => {
     API.getCollectiveByName(cname, account).then((res) => {
       if (res.data.success) {
@@ -36,25 +42,49 @@ export default function CollectiveLayout() {
   }, [cname, account])
 
   const addNewForum = (newForum) => {
-    const newForums = [...forums]
-    newForums.unshift(newForum)
-    setForums(newForums)
+    if (newForum) {
+      const newForums = [...forums]
+      newForums.unshift(newForum)
+      setForums(newForums)
 
-    const newMixedData = mixedData.map((item) => {
-      if (item.cardType === 'gallery') {
-        return item
-      }
-      return {
-        ...item,
-        fIdx: item.fIdx + 1,
-      }
-    })
-    newMixedData.unshift({
-      ...newForum,
-      cardType: 'forum',
-      fIdx: 0,
-    })
-    setMixedData(newMixedData)
+      const newMixedData = mixedData.map((item) => {
+        if (item.cardType === 'gallery') {
+          return item
+        }
+        return {
+          ...item,
+          fIdx: item.fIdx + 1,
+        }
+      })
+      newMixedData.unshift({
+        ...newForum,
+        cardType: 'forum',
+        fIdx: 0,
+      })
+      setMixedData(newMixedData)
+    }
+  }
+  const addNewEvent = (newEvent) => {
+    if (newEvent) {
+      const newEvents = [...events]
+      newEvents.unshift(newEvent)
+      setEvents(newEvents)
+      const newMixedData = mixedData.map((item) => {
+        if (item.cardType === 'event') {
+          return item
+        }
+        return {
+          ...item,
+          fIdx: item.eIdx + 1,
+        }
+      })
+      newMixedData.unshift({
+        ...newEvent,
+        cardType: 'event',
+        eIdx: 0,
+      })
+      setMixedData(newMixedData)
+    }
   }
 
   const addNewGallery = (shared) => {
@@ -83,14 +113,24 @@ export default function CollectiveLayout() {
     const galleryLast36 = await API.getGalleryLast36(
       collectiveInfo.collective_id,
     )
+    const eventLast36 = await API.getEventLast36(collectiveInfo.collective_id)
     let forumIdx = 0
     let galleryIdx = 0
+    let eventIdx = 0
     const sumWeight =
-      Number(forumLast36.data.count) + Number(galleryLast36.data.count)
+      Number(forumLast36.data.count) +
+      Number(galleryLast36.data.count) +
+      Number(eventLast36.data.count)
     const forumWeight =
       sumWeight === 0 ? 1 : Number(forumLast36.data.count) / sumWeight
+    const galleryWeight =
+      sumWeight === 0 ? 1 : Number(galleryLast36.data.count) / sumWeight
     const mixedData: any[] = []
-    while (forumIdx < forums.length || galleryIdx < galleries.length) {
+    while (
+      forumIdx < forums.length ||
+      galleryIdx < galleries.length ||
+      eventIdx < events.length
+    ) {
       const rand = Math.random()
       if (rand < forumWeight && forumIdx < forums.length) {
         mixedData.push({
@@ -100,26 +140,46 @@ export default function CollectiveLayout() {
         })
         forumIdx++
       } else {
-        if (galleryIdx < galleries.length) {
+        if (
+          rand < forumWeight + galleryWeight &&
+          galleryIdx < galleries.length
+        ) {
           mixedData.push({
             ...galleries[galleryIdx],
             cardType: 'gallery',
             gIdx: galleryIdx,
           })
           galleryIdx++
-        } else if (forumIdx < forums.length) {
-          mixedData.push({
-            ...forums[forumIdx],
-            cardType: 'forum',
-            fIdx: forumIdx,
-          })
-          forumIdx++
+        } else {
+          if (eventIdx < events.length) {
+            mixedData.push({
+              ...events[eventIdx],
+              cardType: 'event',
+              eIdx: eventIdx,
+            })
+            eventIdx++
+          } else if (forumIdx < forums.length) {
+            mixedData.push({
+              ...forums[forumIdx],
+              cardType: 'forum',
+              fIdx: forumIdx,
+            })
+            forumIdx++
+          } else if (galleryIdx < galleries.length) {
+            mixedData.push({
+              ...galleries[galleryIdx],
+              cardType: 'gallery',
+              gIdx: galleryIdx,
+            })
+            galleryIdx++
+          }
         }
       }
     }
+
     setMixedData(mixedData)
     setIsMixed(true)
-  }, [forums, galleries])
+  }, [forums, galleries, events])
 
   useEffect(() => {
     if (forums.length > 0 || galleries.length > 0) {
@@ -127,10 +187,11 @@ export default function CollectiveLayout() {
         loadMixDatas()
       }
     }
-  }, [forums, galleries, isMixed])
+  }, [forums, galleries, events, isMixed, sortOption])
 
   useEffect(() => {
-    if (collectiveInfo) {
+    if (collectiveInfo && account) {
+      updateTopics(collectiveInfo.topics ?? [])
       API.getForums(
         collectiveInfo.collective_id,
         'forum',
@@ -146,6 +207,14 @@ export default function CollectiveLayout() {
           setGalleries(galleries)
         },
       )
+    }
+  }, [account, sortOption, collectiveInfo])
+
+  useEffect(() => {
+    if (collectiveInfo && account) {
+      API.getEventList(collectiveInfo.collective_id, account).then((res) => {
+        setEvents(res.data.events)
+      })
 
       API.getMembers(collectiveInfo.collective_id).then((res) => {
         if (res.data.success) {
@@ -153,7 +222,7 @@ export default function CollectiveLayout() {
         }
       })
     }
-  }, [account, sortOption, collectiveInfo])
+  }, [collectiveInfo, account])
 
   useEffect(() => {
     if (!document) {
@@ -166,7 +235,7 @@ export default function CollectiveLayout() {
 
     setTimeout(() => {
       const element_id = `forum_${(location.state as LocationState).forum_id}`
-      const componentView = document.getElementById('componentsView')
+      const componentView = document.getElementById('collectiveDetails')
       const element = document.getElementById(element_id)
       componentView?.scrollTo(
         0,
@@ -174,16 +243,6 @@ export default function CollectiveLayout() {
       )
     }, 2000)
   }, [location])
-
-  useEffect(() => {
-    if (collectiveInfo) {
-      API.getEventList(collectiveInfo.collective_id).then((res) => {
-        // console.log("***************************");
-        // console.log(res.data);
-        setEvents(res.data.events)
-      })
-    }
-  }, [collectiveInfo])
 
   const handleFilter = (newFilter) => {
     updateFilter(newFilter)
@@ -197,8 +256,9 @@ export default function CollectiveLayout() {
             galleries={galleries}
             addNewForum={addNewForum}
             addNewGallery={addNewGallery}
+            addNewEvent={addNewEvent}
           />
-          <div className="collectiveDetails">
+          <div className="collectiveDetails" id="collectiveDetails">
             <CollectiveHeader
               collectiveInfo={collectiveInfo}
               updateCollectiveInfo={(data) => setCollectiveInfo(data)}
@@ -219,6 +279,8 @@ export default function CollectiveLayout() {
                 filter,
                 updateFilter: handleFilter,
                 members,
+                topics,
+                updateTopics,
               }}
             />
           </div>

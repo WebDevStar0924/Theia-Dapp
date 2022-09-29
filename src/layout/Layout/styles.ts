@@ -5,10 +5,10 @@ export const LayoutWrapper = styled.div<{ bgColor: string }>`
   flex-direction: column;
   height: 100vh;
   background: ${({ bgColor }) => bgColor};
-  overflow: scroll;
+  overflow-y: scroll;
   .contentView {
     display: flex;
-    padding: 20px 24px;
+    padding: 20px 24px 0 24px;
     height: 100%;
     overflow: hidden;
     max-width: 1440px;

@@ -13,7 +13,7 @@ export const SaveButtonWrapper = styled.div<{ active: boolean }>`
   color: #667085;
   cursor: pointer;
   svg {
-    fill: ${({ active }) => (active ? '#3538CD' : 'none')};
+    color: ${({ active }) => (active ? '#3538CD' : '#667085')};
   }
 
   &:hover {

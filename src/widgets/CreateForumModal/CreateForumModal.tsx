@@ -16,6 +16,9 @@ import { FiEdit3, FiImage, FiLink } from 'react-icons/fi'
 import { HiOutlineUpload } from 'react-icons/hi'
 import { IoGrid } from 'react-icons/io5'
 import { RiAddLine } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
+import Select from 'react-select'
+import { State } from 'state/types'
 import { Modal } from 'widgets/Modal'
 import { ForumModalWrapper } from './styles'
 
@@ -30,12 +33,14 @@ export default function CreateForumModal(props: iProps) {
   const [forumDesc, setForumDesc] = useState('')
   const [forumUrl, setForumUrl] = useState('')
   const [pollOptions, setPollOptions] = useState<string[]>(['', '', ''])
+  const profileData = useSelector((state: State) => state.profile.data)
   const [imageFiles, setImageFiles] = useState([])
   const { account } = useActiveWeb3React()
   const { toastError } = useToast()
   const [activeHour, setHourItem] = useState<dropdownItem | null>(null)
   const [activeMin, setMinItem] = useState<dropdownItem | null>(null)
   const [activeDay, setDayItem] = useState<dropdownItem | null>(null)
+  const [selectedTags, updateSelectedTags] = useState<any[]>([])
 
   const daysDropdownList: dropdownItem[] = []
   const hoursDropdownList: dropdownItem[] = []
@@ -74,6 +79,7 @@ export default function CreateForumModal(props: iProps) {
       type: activeTab,
       ownerAddress: account,
       collectiveID: params.collectiveID,
+      tags: selectedTags.map((v) => v.value),
     }
     if (activeTab === 'IMAGE') {
       const formData = new FormData()
@@ -98,6 +104,7 @@ export default function CreateForumModal(props: iProps) {
         mins: activeMin?.value ?? 0,
       }
     }
+
     API.createForum(data).then((res) => {
       if (res.data.success) {
         onDismiss && onDismiss()
@@ -114,7 +121,12 @@ export default function CreateForumModal(props: iProps) {
     setPollOptions(newPollOptions)
   }
   return (
-    <Modal title={''} onDismiss={onDismiss} width="760px" bodyPadding="48px">
+    <Modal
+      title={''}
+      onDismiss={onDismiss}
+      width="776px"
+      bodyPadding="40px 60px"
+    >
       <ForumModalWrapper>
         <div className="title">Create Post</div>
         <TabList
@@ -127,7 +139,7 @@ export default function CreateForumModal(props: iProps) {
             },
             {
               icon: <FiImage size={18} />,
-              text: 'IMAGE',
+              text: 'IMAGE & VIDEO',
               value: 'IMAGE',
             },
             {
@@ -148,38 +160,50 @@ export default function CreateForumModal(props: iProps) {
 
         {activeTab === 'POST' && (
           <>
-            <ExternalInput
-              label="Title"
-              value={forumTitle}
-              type="active"
-              placeholder="Add title"
-              onUserInput={(val) => setForumTitle(val)}
-            />
+            <div>
+              <div className="fieldLabel">Title</div>
+              <ExternalInput
+                value={forumTitle}
+                type="active"
+                placeholder="Add title"
+                onUserInput={(val) => setForumTitle(val)}
+              />
+            </div>
 
-            <TextView
-              value={forumDesc}
-              rows={5}
-              label="Text(optional)"
-              onUserInput={(val) => setForumDesc(val)}
-            />
+            <div>
+              <div className="fieldLabel">
+                Text <span className="fieldLabelOption">OPTIONAL</span>
+              </div>
+              <TextView
+                value={forumDesc}
+                rows={5}
+                onUserInput={(val) => setForumDesc(val)}
+              />
+            </div>
           </>
         )}
         {activeTab === 'IMAGE' && (
           <>
-            <ExternalInput
-              label="Title"
-              value={forumTitle}
-              type="active"
-              placeholder="Add title"
-              onUserInput={(val) => setForumTitle(val)}
-            />
+            <div>
+              <div className="fieldLabel">Title</div>
+              <ExternalInput
+                value={forumTitle}
+                type="active"
+                placeholder="Add title"
+                onUserInput={(val) => setForumTitle(val)}
+              />
+            </div>
 
-            <TextView
-              value={forumDesc}
-              rows={5}
-              label="Text(optional)"
-              onUserInput={(val) => setForumDesc(val)}
-            />
+            <div>
+              <div className="fieldLabel">
+                Text <span className="fieldLabelOption">OPTIONAL</span>
+              </div>
+              <TextView
+                value={forumDesc}
+                rows={5}
+                onUserInput={(val) => setForumDesc(val)}
+              />
+            </div>
 
             <FileUploader
               handleChange={onImageChange}
@@ -213,45 +237,59 @@ export default function CreateForumModal(props: iProps) {
         )}
         {activeTab === 'LINK' && (
           <>
-            <ExternalInput
-              label="Title"
-              value={forumTitle}
-              type="active"
-              placeholder="Add title"
-              onUserInput={(val) => setForumTitle(val)}
-            />
+            <div>
+              <div className="fieldLabel">Title</div>
+              <ExternalInput
+                value={forumTitle}
+                type="active"
+                placeholder="Add title"
+                onUserInput={(val) => setForumTitle(val)}
+              />
+            </div>
 
-            <TextView
-              value={forumDesc}
-              rows={5}
-              label="Text(optional)"
-              onUserInput={(val) => setForumDesc(val)}
-            />
+            <div>
+              <div className="fieldLabel">
+                Text <span className="fieldLabelOption">OPTIONAL</span>
+              </div>
+              <TextView
+                value={forumDesc}
+                rows={5}
+                onUserInput={(val) => setForumDesc(val)}
+              />
+            </div>
 
-            <ExternalInput
-              label="URL"
-              value={forumUrl}
-              type="active"
-              onUserInput={(val) => setForumUrl(val)}
-            />
+            <div>
+              <div className="fieldLabel">URL</div>
+              <ExternalInput
+                value={forumUrl}
+                type="active"
+                onUserInput={(val) => setForumUrl(val)}
+              />
+            </div>
           </>
         )}
         {activeTab === 'POLL' && (
           <>
-            <ExternalInput
-              label="Title"
-              value={forumTitle}
-              type="active"
-              placeholder="Add title"
-              onUserInput={(val) => setForumTitle(val)}
-            />
+            <div>
+              <div className="fieldLabel">Title</div>
+              <ExternalInput
+                value={forumTitle}
+                type="active"
+                placeholder="Add title"
+                onUserInput={(val) => setForumTitle(val)}
+              />
+            </div>
 
-            <TextView
-              value={forumDesc}
-              rows={5}
-              label="Text(optional)"
-              onUserInput={(val) => setForumDesc(val)}
-            />
+            <div>
+              <div className="fieldLabel">
+                Text <span className="fieldLabelOption">OPTIONAL</span>
+              </div>
+              <TextView
+                value={forumDesc}
+                rows={5}
+                onUserInput={(val) => setForumDesc(val)}
+              />
+            </div>
             <div className="pollOptions">
               <div className="pollTitle">Poll Options</div>
               {pollOptions.map((pollOption, idx) => (
@@ -322,6 +360,32 @@ export default function CreateForumModal(props: iProps) {
               </Flex>
             </div>
           </>
+        )}
+
+        {profileData.role === 'admin' && (
+          <div>
+            <div className="fieldLabel">
+              <span className="fieldLabelOption">OPTIONAL</span>
+            </div>
+            <Select
+              isMulti
+              name="colors"
+              options={params?.topics.map((tag) => ({
+                value: tag.tag_id,
+                label: tag.tag_name,
+                color: '#00B8D9',
+              }))}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              placeholder="CHOOSE TOPIC"
+              components={{
+                IndicatorSeparator: null,
+              }}
+              onChange={(value: any) => {
+                updateSelectedTags(value)
+              }}
+            />
+          </div>
         )}
 
         <div className="forumActions">

@@ -1,6 +1,6 @@
 import { CloseButton } from 'components/CloseButton'
 import { Flex } from 'components/Flex'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { Modal } from '../Modal'
 import { Handler } from '../Modal/types'
@@ -11,20 +11,19 @@ import { ModalHeaderWrapper, TabtWrapper } from './styles'
 interface iProps {
   onDismiss?: Handler
   params?: any
-  callback: (event_id: any) => void
 }
 
 export default function EventCreateModal(props: iProps) {
-  const { onDismiss, params, callback } = props
+  const { onDismiss, params } = props
 
   const [isBasic, setBasic] = useState<boolean>(true)
   const updateDetailsData = (): void => {
     setBasic(false)
   }
-  const closeModal = (closeModal, event_id): void => {
+  const closeModal = (closeModal, newEvent): void => {
     if (closeModal == true) {
       onDismiss && onDismiss()
-      callback(event_id);
+      params?.callback(newEvent)
     }
   }
 
@@ -60,7 +59,7 @@ export default function EventCreateModal(props: iProps) {
           <div className="bottomBar"></div>
         </TabtWrapper>
 
-        <TabtWrapper active={!isBasic} >
+        <TabtWrapper active={!isBasic}>
           <p className="title">DETAILS</p>
           <div className="bottomBar"></div>
         </TabtWrapper>
@@ -72,7 +71,10 @@ export default function EventCreateModal(props: iProps) {
         ></EventBasicPage>
       </div>
       <div hidden={isBasic}>
-        <EventDetailPage collectiveID={params.collectiveID} closeModal={closeModal}></EventDetailPage>
+        <EventDetailPage
+          collectiveID={params?.collectiveID}
+          closeModal={closeModal}
+        ></EventDetailPage>
       </div>
       {/* <Button className="saveButton" disabled={isBasic} >SAVE</Button> */}
 
@@ -85,6 +87,6 @@ export default function EventCreateModal(props: iProps) {
           </div>
         </Flex>
       </ModalFooterWrapper> */}
-    </Modal >
+    </Modal>
   )
 }
