@@ -3,7 +3,7 @@ import { Text } from 'components/Text'
 import { FiMap } from 'react-icons/all'
 import { Label } from 'theme-ui'
 import EventDetailBg from '../../../assets/image/eventDetailBg.png'
-import { atcb_init } from 'add-to-calendar-button'
+import { atcb_action } from 'add-to-calendar-button'
 import 'add-to-calendar-button/assets/css/atcb.css'
 import API from 'api/api'
 import { SaveButton } from 'components/SaveButton'
@@ -24,6 +24,7 @@ import ExternalInput from 'components/ExternalInput'
 import { useMembership } from 'hooks/useMembership'
 import { State } from 'state/types'
 import { useSelector } from 'react-redux'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 export default function EventDetails() {
   const { events, setEvents, collectiveInfo } =
@@ -43,12 +44,17 @@ export default function EventDetails() {
   const profileData = useSelector((state: State) => state.profile.data)
   const navigate = useNavigate()
   const { account } = useActiveWeb3React()
+  const [replyId, setReplyId] = useState<number | null>(null)
   const { cname, event_id, prev_tab } = useParams()
   const [message, setMessage] = useState('')
   const [eventData, setEventData] = useState<any>()
+  const [commentCreator, setCommentCreatorName] = useState('')
+  const [commentCreatorAvatar, setCommentCreatorAvatar] = useState('')
   const [showComment, setShowComment] = useState(true)
   const [commentData, setCommentData] = useState<any[]>([])
   const { onPresentAttendEventModal } = useAttendEventModal(eventData)
+  const [commentCreatorAddress, setCommentCreatorAddress] = useState('')
+
   const { toastSuccess } = useToast()
   function formatDate(string) {
     const data = new Date(string).toDateString()
@@ -69,13 +75,21 @@ export default function EventDetails() {
     if (account) {
       API.getEventById(event_id, account).then((res) => {
         setEventData(res.data.event)
-        // console.log(res.data.event)
       })
       API.getComments(event_id, 'event', account, 'trending').then((res) => {
         setCommentData(res.data.comments)
       })
     }
   }, [account])
+
+  useEffect(() => {
+    const filterComment = commentData.filter(
+      (item) => item.comment_id == replyId,
+    )
+    setCommentCreatorName('@' + filterComment[0]?.creator[0]?.username)
+    setCommentCreatorAvatar(filterComment[0]?.creator[0]?.avatar)
+    setCommentCreatorAddress(filterComment[0]?.creator[0]?.walletaddress)
+  }, [replyId])
 
   useEffect(() => {
     API.getComments(event_id, 'event', account, 'trending').then((res) => {
@@ -85,20 +99,33 @@ export default function EventDetails() {
     })
   }, [])
 
+  // let getUserCommentUserName :(replyId:number) => any = function(replyId:number) {
+  //   const filterComment = eventData.comments.filter(
+  //     (item) => item.id == replyId,
+  //   );
+  //   return filterComment;
+  // }
+
   const AddToCalendar = () => {
-    React.useEffect(atcb_init, [])
+    const starttime = eventData.starttime.toString().substring(0, 5)
+    const endtime = eventData.endtime.toString().substring(0, 5)
     return (
-      <div className="atcb">
-        {'{'}
-        "name":"{eventData.event_title}", "description":"
-        {eventData.description}", "startDate":"{eventData.event_date}",
-        "endDate":"{eventData.event_date}", "startTime":"{eventData.starttime}
-        ", "endTime":"{eventData.endtime}", "location":"{eventData.location}",
-        "label":"ADD TO CALENDAR", "options":[ "Google", "iCal", "Microsoft365",
-        "Outlook.com", "Yahoo" ],
-        {/* "timeZone":"{eventData.timezone}", */}
-        "iCalFileName":"Reminder-Event", "trigger": "click"
-        {'}'}
+      <div
+        onClick={() => {
+          atcb_action({
+            name: eventData.event_title,
+            startDate: eventData.event_date,
+            startTime: starttime,
+            endTime: endtime,
+            endDate: eventData.event_date,
+            options: ['Apple', 'Google', 'Outlook.com', 'Yahoo'],
+            location: eventData.location,
+            timeZone: 'Europe/Berlin',
+            iCalFileName: 'Reminder-Event',
+          })
+        }}
+      >
+        ADD TO CALENDAR
       </div>
     )
   }
@@ -129,29 +156,30 @@ export default function EventDetails() {
     })
   }
 
-
   const onReply = useCallback(() => {
     if (message === '') {
       return
     }
     API.replyComment(
       eventData.event_id,
-      null,
+      replyId,
       'event',
       message,
       account,
     ).then((res) => {
-      const newComment = res.data.comment
-      newComment.subComments = []
-      const newComments = [...commentData]
-      newComments.unshift(newComment)
-      setCommentData(newComments)
-      setEventData({
-        ...eventData,
-        commentscount: Number(eventData.commentscount) + 1,
+      API.getComments(event_id, 'event', account, 'trending').then((res) => {
+        if (res.data.success) {
+          setCommentData(res.data.comments)
+
+          setEventData({
+            ...eventData,
+            commentscount: Number(eventData.commentscount) + 1,
+          })
+          setMessage('')
+          setShowComment(true)
+          setReplyId(null)
+        }
       })
-      setMessage('')
-      setShowComment(true)
     })
   }, [message])
   return (
@@ -239,6 +267,70 @@ export default function EventDetails() {
                 </Flex>
               </Flex>
             </Flex>
+            <Flex
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              style={{
+                padding: '22px 22px',
+                borderBottom: '1px solid #E4E7EC',
+              }}
+              className="bottom-border-line"
+            >
+              <Flex flexDirection="row">
+                <Flex alignItems="center" style={{ marginRight: '20px' }}>
+                  <HeartButton
+                    active={eventData.favorite_count > 0}
+                    count={eventData.favorites}
+                    size={'lg'}
+                    onClick={() => {
+                      onMemberShipCheck(
+                        collectiveInfo.collective_id,
+                        account,
+                        onFavourite(),
+                      )
+                      // onFavourite()
+                    }}
+                  />
+                </Flex>
+                <Flex alignItems="center">
+                  <CommentButton
+                    count={eventData.commentscount}
+                    // onClick={onComment}
+                  />
+                </Flex>
+              </Flex>
+              <Flex flexDirection="row">
+                <Flex alignItems="center" style={{ gap: '10px' }}>
+                  <SaveButton
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSaveItem()
+                    }}
+                    isSaved={Number(eventData.is_saved) > 0}
+                  />
+                  <ShareButton
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (typeof window !== 'undefined') {
+                        const shareLink =
+                          window.location.protocol +
+                          '//' +
+                          window.location.host +
+                          `/collective/${cname}/events/eventdetails/${eventData.event_id}`
+                        navigator.clipboard.writeText(shareLink.toString())
+                        document.execCommand(
+                          'copy',
+                          false,
+                          `${shareLink.toString()}`,
+                        )
+                        toastSuccess('Share link is copied', '')
+                      }
+                    }}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
 
             <Flex
               flexDirection="row"
@@ -311,7 +403,7 @@ export default function EventDetails() {
 
                     <a
                       target="_blank"
-                      style={{ wordBreak: 'break-word' }}
+                      style={{ wordBreak: 'break-word', color: 'blue' }}
                       href={eventData.location}
                       rel="noreferrer"
                       className={'virtualLink'}
@@ -333,162 +425,80 @@ export default function EventDetails() {
               </Flex> */}
               </Flex>
             </Flex>
-            <Flex
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-              style={{
-                padding: '22px 22px',
-                borderBottom: '1px solid #E4E7EC',
-              }}
-              className="bottom-border-line"
-            >
-              <Flex flexDirection="row">
-                <Flex alignItems="center" style={{ marginRight: '20px' }}>
-                  <HeartButton
-                    active={eventData.favorite_count > 0}
-                    count={eventData.favorites}
-                    size={'lg'}
-                    onClick={() => {
-                      // onMemberShipCheck(
-                      //   collectiveInfo.collective_id,
-                      //   account,
-                      //   onFavourite()
-                      // )
-                      onFavourite()
-                    }}
-                  />
-                </Flex>
-                <Flex alignItems="center">
-                  <CommentButton
-                    count={eventData.commentscount}
-                    onClick={onComment}
-                  />
-                </Flex>
-              </Flex>
-              <Flex flexDirection="row">
-                <Flex alignItems="center" style={{ gap: '10px' }}>
-                  <SaveButton
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleSaveItem()
-                    }}
-                    isSaved={Number(eventData.is_saved) > 0}
-                  />
-                  <ShareButton
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      if (typeof window !== 'undefined') {
-                        const shareLink =
-                          window.location.protocol +
-                          '//' +
-                          window.location.host +
-                          `/collective/${cname}/events/eventdetails/${eventData.event_id}`
-                        navigator.clipboard.writeText(shareLink.toString())
-                        document.execCommand(
-                          'copy',
-                          false,
-                          `${shareLink.toString()}`,
-                        )
-                        toastSuccess('Share link is copied', '')
+
+            <div className={'commentReply'}>
+              {replyId && commentCreatorAvatar != null && (
+                <img
+                  className={'userImage'}
+                  src={commentCreatorAvatar}
+                  alt="user_image"
+                />
+              )}
+              {replyId && commentCreatorAvatar == null && (
+                <Jazzicon
+                  diameter={40}
+                  seed={jsNumberForAddress(commentCreatorAddress ?? '')}
+                />
+              )}
+
+              {!replyId && profileData.avatar != null && (
+                <img
+                  className={'userImage'}
+                  src={profileData.avatar}
+                  alt="user_image"
+                />
+              )}
+              {!replyId && profileData.avatar == null && (
+                <Jazzicon
+                  diameter={40}
+                  seed={jsNumberForAddress(profileData.avatar ?? '')}
+                />
+              )}
+              <div className={'userName'}>{replyId ? commentCreator : ''}</div>
+              <ExternalInput
+                label=""
+                value={message}
+                type="active"
+                placeholder="Add a comment"
+                onUserInput={(val) => setMessage(val)}
+                noborder={true}
+              />
+              <div
+                className={'replyAction'}
+                onClick={
+                  () =>
+                    onMemberShipCheck(
+                      collectiveInfo.collective_id,
+                      account,
+                      () => onReply(),
+                    )
+                  // onReply()
+                }
+              >
+                Post
+              </div>
+            </div>
+            {showComment && (
+              <div className="detailComments">
+                <div className={'commentList'}>
+                  <EventCommentCard
+                    comments={commentData}
+                    depth={0}
+                    collectiveID={collectiveInfo.collective_id}
+                    setReplyId={setReplyId}
+                    onUpdateComments={(newComments, isAdding) => {
+                      setCommentData(newComments)
+                      if (isAdding) {
+                        setEventData({
+                          ...eventData,
+                          commentscount: Number(eventData.commentscount) + 1,
+                        })
                       }
                     }}
                   />
-                </Flex>
-              </Flex>
-            </Flex>
-
-            {/* {!showComment && (
-              <div className={'commentReply'}>
-                {profileData?.avatar ? (
-                  <img
-                    className={'userImage'}
-                    src={profileData?.avatar}
-                    alt="user_image"
-                  />
-                ) : (
-                  <div className={'userDefaultImage'} />
-                )}
-                <ExternalInput
-                  label=""
-                  value={message}
-                  type="active"
-                  placeholder="Add a comment"
-                  onUserInput={(val) => setMessage(val)}
-                  noborder={true}
-                />
-                <div
-                  className={'replyAction'}
-                  onClick={() =>
-                    // onMemberShipCheck(
-                    //   collectiveInfo.collective_id,
-                    //   account,
-                    //   () => onReply(),
-                    // )
-
-                    onReply()
-
-                  }
-                >
-                  Post
                 </div>
               </div>
-            )} */}
-
-
-            <div
-              className={
-                'detailComments' + (commentData.length ? '' : 'noneComments')
-              }
-            >
-              <div className={'commentReply'}>
-                {profileData?.avatar ? (
-                  <img
-                    className={'userImage'}
-                    src={profileData?.avatar}
-                    alt="user_image"
-                  />
-                ) : (
-                  <div className={'userDefaultImage'} />
-                )}
-                <ExternalInput
-                  label=""
-                  value={message}
-                  type="active"
-                  placeholder="Add a comment"
-                  onUserInput={(val) => setMessage(val)}
-                />
-                <div
-                  className={'replyAction'}
-                  onClick={() =>
-                    // onMemberShipCheck(
-                    //   collectiveInfo.collective_id,
-                    //   account,
-                    //   () => onReply(),
-                    // )
-                    onReply()
-                  }
-                >
-                  Post
-                </div>
-              </div>
-              {!showComment && (<div className={'commentList'}>
-                <EventCommentCard
-                  comments={commentData}
-                  depth={0}
-                  collectiveID={collectiveInfo.collective_id}
-                  onUpdateComments={(newComments, isAdding) => {
-                    setCommentData(newComments)
-                    if (isAdding) {
-                      setEventData({
-                        ...eventData,
-                        commentscount: Number(eventData.commentscount) + 1,
-                      })
-                    }
-                  }}
-                />
-              </div>)}
-            </div>
+            )}
           </Flex>
         </EventDetailsWrapper>
       )}

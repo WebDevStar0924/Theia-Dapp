@@ -5,6 +5,7 @@ const useAttendEventModal = (data?: any) => {
   const [onPresentAttendEventModal] = useModal(
     <AttendEventModal eventData={data} />,
   )
+  console.log(data)
 
   return { onPresentAttendEventModal }
 }

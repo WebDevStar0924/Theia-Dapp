@@ -176,7 +176,7 @@ export function goToScan(
   address: string,
   type = 'address',
 ) {
-  if (!chainId) return
+  if (!chainId) return ''
 
   let scanUrl = ''
   if (type === 'tx') {
@@ -187,7 +187,7 @@ export function goToScan(
   } else {
     scanUrl = `${CHAIN_PARAMS[chainId].blockExplorerUrls[0]}/address/${address}`
   }
-  window.open(scanUrl, '_blank')
+  return scanUrl
 }
 
 export function goToOpenSea(

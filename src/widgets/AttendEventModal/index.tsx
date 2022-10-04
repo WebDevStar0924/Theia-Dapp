@@ -61,7 +61,7 @@ export default function AttendEventModal(props: iProps) {
 
         <Flex
           flexDirection={'column'}
-          style={{ gap: '17px', marginTop: '40px' }}
+          style={{ gap: '17px', marginTop: '20px' }}
         >
           <Flex style={{ alignItems: 'center' }}>
             <Text className="placeHolder">

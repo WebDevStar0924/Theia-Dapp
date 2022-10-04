@@ -190,7 +190,7 @@ export default function CollectiveLayout() {
   }, [forums, galleries, events, isMixed, sortOption])
 
   useEffect(() => {
-    if (collectiveInfo && account) {
+    if (collectiveInfo) {
       updateTopics(collectiveInfo.topics ?? [])
       API.getForums(
         collectiveInfo.collective_id,
@@ -211,7 +211,7 @@ export default function CollectiveLayout() {
   }, [account, sortOption, collectiveInfo])
 
   useEffect(() => {
-    if (collectiveInfo && account) {
+    if (collectiveInfo) {
       API.getEventList(collectiveInfo.collective_id, account).then((res) => {
         setEvents(res.data.events)
       })

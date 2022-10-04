@@ -18,7 +18,6 @@ import {
   ResponsiveContainer,
   StackedCarousel,
 } from 'react-stacked-center-carousel'
-import { formatBlockchainAddress } from 'utils'
 import EventCardModal from 'widgets/EventCardModal'
 import { useArtDetailModal } from 'widgets/GalleryModal/useShareArtModal'
 import stackedBg from '../../../assets/image/stackedBg.png'
@@ -30,7 +29,7 @@ export default function HomeTab() {
   const [activeSlideNum, setActiveSlideNum] = useState(0)
   const [memberUsers, setMemberUsers] = useState<any[]>()
   const [adminUsers, setAdminUsers] = useState<any[]>()
-  const [searchMemberText, setSearchMember] = useState("")
+  const [searchMemberText, setSearchMember] = useState('')
   const ref = useRef<any>(null)
   const navigate = useNavigate()
   const onMemberShipCheck = useMembership()
@@ -47,6 +46,7 @@ export default function HomeTab() {
     setForums,
     setMixedData,
     setGalleries,
+    setEvents,
     sort,
     updateSort,
     filter,
@@ -72,14 +72,33 @@ export default function HomeTab() {
       }),
     )
   }
+  const onUpdateEvent = (idx: number, event: any) => {
+    const newEvents = [...events]
+    newEvents[idx] = event
+    setEvents(newEvents)
+    const newMixedData = [...mixedData]
+    setMixedData(
+      newMixedData.map((item) => {
+        if (item.event_id === event.event_id) {
+          return event
+        }
+        return item
+      }),
+    )
+  }
   const filterMemberUser = () => {
-
-    const filterMemberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member")
-    setMemberUsers(filterMemberUsers);
+    const filterMemberUsers = members.filter(
+      (item) =>
+        item.creator != null &&
+        (item.creator[0].role == 'member' || item.creator[0].role == null),
+    )
+    setMemberUsers(filterMemberUsers)
   }
   const filterAdminUser = () => {
-    const filterAdminUsers = members.filter(item => item.creator != null && item.creator[0].role == "admin")
-    setAdminUsers(filterAdminUsers);
+    const filterAdminUsers = members.filter(
+      (item) => item.creator != null && item.creator[0].role == 'admin',
+    )
+    setAdminUsers(filterAdminUsers)
   }
 
   const onUpdateForum = (idx: number, forum: any) => {
@@ -137,24 +156,56 @@ export default function HomeTab() {
   }, [post_id, collectiveInfo])
 
   useEffect(() => {
-    if (searchMemberText == "") {
-      filterMemberUser();
-      filterAdminUser();
+    if (searchMemberText == '') {
+      filterMemberUser()
+      filterAdminUser()
     } else {
-      const filterMemberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member" && (item.creator[0].name.indexOf(searchMemberText) != -1 || item.creator[0].username.indexOf(searchMemberText) != -1))
-      const filterAdminUsers = members.filter(item => item.creator != null && item.creator[0].role == "admin" && (item.creator[0].name.indexOf(searchMemberText) != -1 || item.creator[0].username.indexOf(searchMemberText) != -1))
-      setMemberUsers(filterMemberUsers);
-      setAdminUsers(filterAdminUsers);
+      if (memberUsers != null) {
+        const filterMemberUsers = memberUsers.filter(
+          (item) =>
+            (item.creator[0].name &&
+              String(item.creator[0].name.toLowerCase()).indexOf(
+                searchMemberText.toLocaleLowerCase(),
+              ) != -1) ||
+            (item.creator[0].username &&
+              String(item.creator[0].username.toLocaleLowerCase()).indexOf(
+                searchMemberText.toLocaleLowerCase(),
+              ) != -1) ||
+            (item.member_address &&
+              item.member_address
+                .toLowerCase()
+                .indexOf(searchMemberText.toLocaleLowerCase()) != -1),
+        )
+        setMemberUsers(filterMemberUsers)
+      }
+      if (adminUsers != null) {
+        const filterAdminUsers = adminUsers.filter(
+          (item) =>
+            (item.creator[0].name &&
+              String(item.creator[0].name.toLowerCase()).indexOf(
+                searchMemberText.toLocaleLowerCase(),
+              ) != -1) ||
+            (item.creator[0].username &&
+              String(item.creator[0].username.toLocaleLowerCase()).indexOf(
+                searchMemberText.toLocaleLowerCase(),
+              ) != -1) ||
+            (item.member_address &&
+              item.member_address
+                .toLowerCase()
+                .indexOf(searchMemberText.toLocaleLowerCase()) != -1),
+        )
+        setAdminUsers(filterAdminUsers)
+      }
+
+      // }
     }
     // const memberUsers = members.filter(item => item.creator != null && item.creator[0].role == "member")
-
   }, [searchMemberText])
 
   useEffect(() => {
-    filterMemberUser();
-    filterAdminUser();
+    filterMemberUser()
+    filterAdminUser()
   }, [members])
-
 
   return (
     <HomeTabWrapper>
@@ -202,7 +253,22 @@ export default function HomeTab() {
                   // )
                 }}
               >
-                <EventCardModal key={`mixdata_${idx}`} data={item} />
+                <EventCardModal
+                  key={`mixdata_${idx}`}
+                  data={item}
+                  onUpdateEvent={(event) => onUpdateEvent(event.fIdx, event)}
+                  onClick={() => {
+                    onMemberShipCheck(
+                      collectiveInfo.collective_id,
+                      account,
+                      () => {
+                        navigate(
+                          `eventdetails/${item.owneraddress}/${item.event_id}/events`,
+                        )
+                      },
+                    )
+                  }}
+                />
               </div>
             )}
             {item.cardType === 'gallery' && (
@@ -240,12 +306,10 @@ export default function HomeTab() {
                 overflow: 'scroll',
               }}
             >
-
               <ExternalInput
                 label=""
                 value={searchMemberText}
-                className={"searchMemberInput"}
-
+                className={'searchMemberInput'}
                 type="active"
                 startIcon={<img src={SearchSvg} alt="calendar" />}
                 placeholder="search members"
@@ -271,76 +335,91 @@ export default function HomeTab() {
                   fontWeight: '500',
                 }}
               /> */}
-              <div className={"userTypeText"}>TEAM</div>
-              {adminUsers && adminUsers.map((member, idx) => (
-                <Flex
-                  flexDirection={'row'}
-                  alignItems="center"
-                  style={{ gridGap: '5px' }}
-                  marginLeft={"10px"}
-                  key={`user_${idx}`}
-                >
-
-                  <Flex flexDirection={'column'} alignItems={"center"}>
-                    {member.creator[0].avatar ? (
-                      <img
-                        className="ellipse60"
-                        src={member.creator[0].avatar}
-                        alt={member.creator[0].name}
-                      />
-                    ) : (
-                      <Jazzicon
-                        diameter={60}
-                        seed={jsNumberForAddress(member.member_address)}
-                      />
-                    )}
-                    <div className="adminTag" style={{ marginTop: "4px" }}>Admin</div>
+              {adminUsers && adminUsers.length != 0 && (
+                <div className={'userTypeText'}>TEAM</div>
+              )}
+              {adminUsers &&
+                adminUsers.map((member, idx) => (
+                  <Flex
+                    flexDirection={'row'}
+                    alignItems="center"
+                    style={{ gridGap: '5px' }}
+                    marginLeft={'10px'}
+                    key={`user_${idx}`}
+                  >
+                    <Flex flexDirection={'column'} alignItems={'center'}>
+                      {member.creator[0].avatar ? (
+                        <img
+                          className="ellipse60"
+                          src={member.creator[0].avatar}
+                          alt={member.creator[0].name}
+                        />
+                      ) : (
+                        <Jazzicon
+                          diameter={60}
+                          seed={jsNumberForAddress(member.member_address)}
+                        />
+                      )}
+                      <div className="adminTag" style={{ marginTop: '4px' }}>
+                        ADMIN
+                      </div>
+                    </Flex>
+                    <Flex
+                      flexDirection={'column'}
+                      marginLeft={'22.5px'}
+                      alignItems="flex-start"
+                    >
+                      <div className="memberName">{member.creator[0].name}</div>
+                      <div className="userName">
+                        @{member.creator[0].username}
+                      </div>
+                    </Flex>
                   </Flex>
-                  <Flex flexDirection={'column'} marginLeft={"22.5px"} alignItems="flex-start">
-                    <div className="memberName">
-                      {member.creator[0].name}
-                    </div>
-                    <div className="userName">
-                      @{member.creator[0].username}
-                    </div>
+                ))}
+              {memberUsers && memberUsers.length != 0 && (
+                <div className={'userTypeText'} style={{ marginTop: '10px' }}>
+                  MEMBERS
+                </div>
+              )}
+              {memberUsers &&
+                memberUsers.map((member, idx) => (
+                  <Flex
+                    flexDirection={'row'}
+                    alignItems="center"
+                    style={{ gridGap: '5px' }}
+                    key={`user_${idx}`}
+                    marginLeft={'10px'}
+                  >
+                    <Flex flexDirection={'column'} alignItems={'center'}>
+                      {member.creator[0].avatar != null &&
+                      member.creator[0].avatar != 'null' ? (
+                        <img
+                          className="ellipse60"
+                          src={member.creator[0].avatar}
+                          alt={member.creator[0].name}
+                        />
+                      ) : (
+                        <Jazzicon
+                          diameter={60}
+                          seed={jsNumberForAddress(member.member_address)}
+                        />
+                      )}
+                      <div className="memberTag" style={{ marginTop: '4px' }}>
+                        MEMBER
+                      </div>
+                    </Flex>
+                    <Flex
+                      flexDirection={'column'}
+                      marginLeft={'22.5px'}
+                      alignItems="flex-start"
+                    >
+                      <div className="memberName">{member.creator[0].name}</div>
+                      <div className="userName">
+                        @{member.creator[0].username}
+                      </div>
+                    </Flex>
                   </Flex>
-                </Flex>
-              ))}
-              <div className={"userTypeText"} style={{ marginTop: "10px" }}>MEMBERS</div>
-              {memberUsers && memberUsers.map((member, idx) => (
-                <Flex
-                  flexDirection={'row'}
-                  alignItems="center"
-                  style={{ gridGap: '5px' }}
-                  key={`user_${idx}`}
-                  marginLeft={"10px"}
-                >
-
-                  <Flex flexDirection={'column'} alignItems={"center"}>
-                    {member.creator[0].avatar ? (
-                      <img
-                        className="ellipse60"
-                        src={member.creator[0].avatar}
-                        alt={member.creator[0].name}
-                      />
-                    ) : (
-                      <Jazzicon
-                        diameter={60}
-                        seed={jsNumberForAddress(member.member_address)}
-                      />
-                    )}
-                    <div className="memberTag" style={{ marginTop: "4px" }}>MEMBER</div>
-                  </Flex>
-                  <Flex flexDirection={'column'} marginLeft={"22.5px"} alignItems="flex-start">
-                    <div className="memberName">
-                      {member.creator[0].name}
-                    </div>
-                    <div className="userName">
-                      @{member.creator[0].username}
-                    </div>
-                  </Flex>
-                </Flex>
-              ))}
+                ))}
             </Flex>
           }
         />

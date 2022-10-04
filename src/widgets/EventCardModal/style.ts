@@ -1,11 +1,24 @@
 import styled from 'styled-components'
+export const Card = styled.div`
+  background: #e4e7ec;
+  border-radius: 16px;
+  padding: 3px;
+  &:hover {
+    background: linear-gradient(90deg, #013ada, #65e3f2, #fccb42, #d350e2);
+    padding: 3px;
+    cursor: pointer;
+    & > div {
+      // padding: 0 0;
+      outline: 0;
+    }
+  }
+`
 export const EventCardWrapper = styled.div`
   width: 100%;
   background: #ffffff;
-  border: 1px solid #e4e7ec;
   border-radius: 16px;
-  padding: 1px;
-  }
+  padding: 1px;  
+  outline: 2px solid white;
   .socialButton {
     &: hover{
       cursor: pointer;  
@@ -120,13 +133,12 @@ export const EventCardModalBodyWrapper = styled.div`
   }
   .eventImage {
     width: 100%;
-    height: 300px;
     border-radius: 16px;
-    object-fit: contain;
+    object-fit: cover;
   }
 `
 export const EventCardModalHeaderWrapper = styled.div`
-  padding: 16px 16px;
+  padding: 0px 16px;
   .logoImage {
     width: 48px;
     height: 48px;

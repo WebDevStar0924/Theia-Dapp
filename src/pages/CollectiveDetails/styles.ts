@@ -105,7 +105,7 @@ export const HomeTabWrapper = styled.div`
     background: #a4bcfd;
     border-radius: 16px;
   }
-  .userTypeText{
+  .userTypeText {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
@@ -113,7 +113,7 @@ export const HomeTabWrapper = styled.div`
     line-height: 24px;
     color: #000000;
   }
-  .adminTag{
+  .adminTag {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
@@ -128,7 +128,7 @@ export const HomeTabWrapper = styled.div`
     justify-content: center;
     border-radius: 16px;
   }
-  .memberTag{
+  .memberTag {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
@@ -152,7 +152,7 @@ export const HomeTabWrapper = styled.div`
     text-align: center;
     color: #101828;
   }
-  .userName{
+  .userName {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
@@ -161,9 +161,9 @@ export const HomeTabWrapper = styled.div`
     text-align: center;
     color: #101828;
   }
-  .searchMemberInput{
-    .inputWrapper{
-      border: 2px solid #E4E7EC;
+  .searchMemberInput {
+    .inputWrapper {
+      border: 2px solid #e4e7ec;
       border-radius: 20px;
       box-shadow: none;
       font-family: 'Montserrat';
@@ -601,6 +601,7 @@ export const GalleryWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     grid-gap: 56px;
+    justify-content: space-around;
 
     .artItem {
       position: relative;

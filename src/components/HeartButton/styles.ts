@@ -15,7 +15,7 @@ export const HeartButtonWrapper = styled.div<{ active: boolean; size: string }>`
   svg {
     width: ${({ size }) => (size === 'sm' ? '16px' : '20px')};
     height: ${({ size }) => (size === 'sm' ? '16px' : '20px')};
-    color: ${({ active }) => (active ? '#D92D20' : '#667085')};
+    fill: ${({ active }) => (active ? '#D92D20' : 'transparent')};
   }
 
   &:hover {

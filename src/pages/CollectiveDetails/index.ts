@@ -1,1 +1,1 @@
-export { default as CollectiveDetails } from "./CollectiveDetails";
+export { default as CollectiveDetails } from './CollectiveDetails'

@@ -1,14 +1,16 @@
 import styled, { DefaultTheme } from 'styled-components'
 import { space } from 'styled-system'
-import getFontFamily from '../../utils/getFontFamily'
-import getColor from '../../utils/getColor'
-import { ButtonProps, ButtonThemeVariant, variants } from './types'
+import { BaseButtonProps, ButtonThemeVariant, variants } from './types'
 
-type ThemedProps = {
+interface ThemedButtonProps extends BaseButtonProps {
   theme: DefaultTheme
-} & ButtonProps
+}
 
-const getDisabledStyles = ({ isLoading, theme }: ThemedProps) => {
+interface TransientButtonProps extends ThemedButtonProps {
+  $isLoading?: boolean
+}
+
+const getDisabledStyles = ({ isLoading, theme }: TransientButtonProps) => {
   if (isLoading === true) {
     return `
       &:disabled,
@@ -30,7 +32,7 @@ const getDisabledStyles = ({ isLoading, theme }: ThemedProps) => {
   `
 }
 
-const removePointerEvents = ({ disabled, as }: ThemedProps) => {
+const removePointerEvents = ({ disabled, as }: TransientButtonProps) => {
   if (disabled && as && as !== 'button') {
     return `
       pointer-events: none;
@@ -42,48 +44,40 @@ const removePointerEvents = ({ disabled, as }: ThemedProps) => {
 
 const getButtonVariantProp =
   (prop: keyof ButtonThemeVariant) =>
-  ({ theme, variant = variants.PRIMARY }: ThemedProps) => {
+  ({ theme, variant = variants.PRIMARY }: TransientButtonProps) => {
     return theme.button[variant][prop]
   }
 
-const StyledButton = styled.button<ButtonProps>`
+const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
+  return $isLoading ? '.5' : '1'
+}
+
+const StyledButton = styled.button<BaseButtonProps>`
   align-items: center;
-  background-color: ${getButtonVariantProp('background')};
-  border: ${getButtonVariantProp('border')};
-  border-radius: 8px;
-  font-weight: 700;
-  box-shadow: ${getButtonVariantProp('boxShadow')};
-  color: ${({ color, theme }) =>
-    color ? getColor(color, theme) : getButtonVariantProp('color')};
+  border: 0;
+  box-shadow: 0px -1px 0px 0px rgba(14, 14, 44, 0.4) inset;
   cursor: pointer;
   display: inline-flex;
-  font-family: ${({ fontFamily, theme }) =>
-    fontFamily && getFontFamily(fontFamily, theme)};
+  font-family: inherit;
   font-size: ${({ fontSize }) => fontSize || '16px'};
-  /* max-content instead of auto for Safari fix */
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'max-content')};
-  height: ${({ size }) => (size === 'sm' ? '28px' : '48px')};
-  line-height: 1;
-  letter-spacing: 0.03em;
+  font-weight: 600;
   justify-content: center;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  opacity: ${getOpacity};
   outline: 0;
-  padding: ${({ size }) => (size === 'sm' ? '0 16px' : '0 24px')};
-  transition: background-color 0.2s;
-  opacity: ${({ isLoading }) => (isLoading ? 0.5 : 1)};
+  transition: background-color 0.2s, opacity 0.2s;
 
-  &:hover:not(:disabled):not(.button--disabled):not(:active) {
-    background-color: ${getButtonVariantProp('backgroundHover')};
-    border-color: ${getButtonVariantProp('borderColorHover')};
+  &:hover:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled):not(:active) {
+    opacity: 0.65;
   }
 
-  &:focus:not(:active) {
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.text};
+  &:active:not(:disabled):not(.pancake-button--disabled):not(.pancake-button--disabled) {
+    opacity: 0.85;
+    transform: translateY(1px);
+    box-shadow: none;
   }
-
-  &:active {
-    background-color: ${getButtonVariantProp('backgroundActive')};
-    box-shadow: ${getButtonVariantProp('boxShadowActive')};
-  }
+  border-radius: ${({ borderRadius }) => borderRadius || '5px'};
 
   ${getDisabledStyles}
   ${removePointerEvents}
@@ -91,7 +85,6 @@ const StyledButton = styled.button<ButtonProps>`
 `
 
 StyledButton.defaultProps = {
-  fullWidth: false,
   type: 'button',
 }
 

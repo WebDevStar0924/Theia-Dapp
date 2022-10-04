@@ -113,6 +113,6 @@ export const AttendEventModalWrapper = styled.div`
     width: 100%;
     height: 300px;
     border-radius: 16px;
-    object-fit: contain;
+    object-fit: cover;
   }
 `

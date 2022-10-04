@@ -85,7 +85,7 @@ position: relative;
   }
   
   .eventTitle{
-    width: 100%;
+    width: 159px;
     height: 22px;
     font-family: 'Montserrat';
     font-style: normal;
@@ -94,7 +94,7 @@ position: relative;
     line-height: 22px;
     text-align: left;
     color: #101828;
-
+    word-break: break-all;
   }
   .attendButton{
     width: 240px
@@ -175,7 +175,6 @@ position: relative;
       color: white;
       font-size: 8px;
       border: none;
-      box-shadow:none;
       min-width: auto;      
     }    
   }
@@ -211,71 +210,12 @@ position: relative;
       cursor: pointer;  
     }
   }
-  .detailComments {
-    border-radius: 15px;
-    .commentList {
-      border-bottom: 1px solid #e4e7ec;
-      border-top: 1px solid #e4e7ec;
-      padding: 10px 24px;
-      max-height: 300px;
-      overflow: scroll;
-    }
-    .commentReply {
-      display: flex;
-      align-items: center;
-      padding: 10px 24px;
-
-      &.subComment {
-        border-radius: 15px;
-        border: 1px solid #e4e7ec;
-        margin-top: 5px;
-      }
-
-      .userImage {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-      }
-      .userDefaultImage {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
-        border: 2px solid #e4e7ec;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-      }
-      .commentInput {
-        flex-grow: 1;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        margin: 0 4px 0 24px;
-        padding: 8px 6px;
-        border: unset;
-      }
-      .replyAction {
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 20px;
-        color: #667085;
-        cursor: pointer;
-      }
-    }
-    &.noneComments {
-      .commentList {
-        border: none;
-      }
-      .commentReply {
-        border-radius: 15px;
-        border: 1px solid #e4e7ec;
-      }
-    }
-  }
   .commentReply {
     display: flex;
     align-items: center;
-    padding: 10px 24px;    
+    padding: 10px 24px;
     border-top: 1px solid #e4e7ec;
+    border-bottom: 1px solid #e4e7ec;
 
     .inputWrapper {
       border: none;
@@ -298,6 +238,15 @@ position: relative;
       width: 40px;
       height: 40px;
       border-radius: 20px;
+    }
+    .userName {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: black;
+      margin-left: 5px;
     }
     .userDefaultImage {
       width: 40px;
@@ -326,6 +275,62 @@ position: relative;
     }
   }
 
+  .detailComments {
+    border-radius: 15px;
+    max-height: 400px;
+    overflow-y: scroll;
+    .commentList {
+      padding: 0px 8px;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-start;
+    grid-gap: 40px;
+    padding: 20px 76px;
+    justify-content: center;
+    .detailLeft {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      .artImage {
+        width: 360px;
+        border-radius: 16px;
+        border: none;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .userType {
+      margin-left: 14px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      text-align: center;
+      padding: 1px 12px;
+      border-radius: 16px;
+      color: #ffffff;
+    }
+
+    .adminTag {
+      background-color: #2d31a6;
+    }
+
+    .coreTag {
+      background-color: #8098f9;
+    }
+
+    .whaleTag {
+      background-color: #a4bcfd;
+    }
+
+    .memberTag {
+      background-color: #a4bcfd;
+    }
+  }
 `
 export const ReplyItemWrapper = styled.div`
   display: flex;
@@ -333,6 +338,11 @@ export const ReplyItemWrapper = styled.div`
   align-items: flex-start;
 
   .userImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 22px;
+  }
+  .creatorAvatar {
     width: 40px;
     height: 40px;
     border-radius: 22px;
@@ -345,59 +355,25 @@ export const ReplyItemWrapper = styled.div`
     border: 2px solid #e4e7ec;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   }
+  
   .replyContent {
     flex-grow: 1;
     width: 100%;
-    .replyHeader {
-      display: flex;
-      align-items: center;
-      padding: 5px 0;
-      .replyOwner {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        .userDefaultImage {
-          width: 40px;
-          height: 40px;
-          border-radius: 22px;
-          background: linear-gradient(90deg, #89edfa 0%, #7b8af9 100%);
-          border: 2px solid #e4e7ec;
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-        }
-        .userName {
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 20px;
-          margin-left: 10px;
-          color: rgba(0, 0, 0, 0.8);
-        }
-        .memberTag{
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          padding: 0px 8px;
-          background: #475467;
-          border-radius: 16px;
-        }
-        .replyTime {
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 18px;
-          color: #98A2B3;
-        }
-      }
-      .favouriteAction {
-        padding: 0 10px;
-        cursor: pointer;
-      }
-    }
     .replyMessage {
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;
       margin-left: 50px;
-      color: black;
+    }
+  }
+  .replyContent {
+    flex-grow: 1;
+    width: 100%;
+    .replyMessage {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      margin-left: 50px;
     }
   }
 
@@ -437,7 +413,7 @@ export const ReplyItemWrapper = styled.div`
   }
 
   .userType {
-    margin-left: 10px;
+    margin-left: 14px;
     font-weight: 500;
     font-size: 12px;
     line-height: 18px;
@@ -449,9 +425,6 @@ export const ReplyItemWrapper = styled.div`
 
   .adminTag {
     background-color: #2d31a6;
-  }
-  .userTag {
-    background-color: #8098f9;
   }
 
   .coreTag {
@@ -476,20 +449,6 @@ export const ReplyItemWrapper = styled.div`
     padding-left:18px
     color: #98A2B3;
     margin-left: 8px;
-  }
-  .createTime {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 20px;
-    display: flex;
-    align-items: center;
-    color: #98a2b3;
-    text-transform: uppercase;
-    @media (max-width: 1024px) {
-      font-size: 10px;
-    }
   }
 `
 export const EventGoingWrapper = styled.div`

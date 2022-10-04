@@ -1,12 +1,12 @@
-import { FiHeart, FiBookmark } from "react-icons/all";
-import { BookmarkWrapper } from "./styles";
-import { BookMarkIcon } from "components/Svg";
+import { FiHeart, FiBookmark } from 'react-icons/all'
+import { BookmarkWrapper } from './styles'
+import { BookMarkIcon } from 'components/Svg'
 
 interface iProps {
-  onClick: (e) => void;
+  onClick: (e) => void
 }
 export default function BookmarkButton(props: iProps) {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <BookmarkWrapper onClick={onClick}>
       <BookMarkIcon
@@ -16,5 +16,5 @@ export default function BookmarkButton(props: iProps) {
         stroke-width="1px"
       />
     </BookmarkWrapper>
-  );
+  )
 }

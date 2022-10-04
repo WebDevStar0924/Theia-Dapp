@@ -164,19 +164,20 @@ export default function EventsTab() {
               <EventCard
                 data={item}
                 eventData={item}
-                onClick={() =>
-                  // onMemberShipCheck(
-                  //   collectiveInfo.collective_id,
-                  //   account,
-                  //   () => {
-                  //     navigate(
-                  //       `eventdetails/${item.owneraddress}/${item.event_id}/events`,
-                  //     )
-                  //   },
+                onClick={
+                  () =>
+                    onMemberShipCheck(
+                      collectiveInfo.collective_id,
+                      account,
+                      () => {
+                        navigate(
+                          `eventdetails/${item.owneraddress}/${item.event_id}/events`,
+                        )
+                      },
+                    )
+                  // navigate(
+                  //   `eventdetails/${item.owneraddress}/${item.event_id}/events`,
                   // )
-                  navigate(
-                    `eventdetails/${item.owneraddress}/${item.event_id}/events`,
-                  )
                 }
                 sort={sort}
                 key={idx}
@@ -208,20 +209,21 @@ export default function EventsTab() {
               <EventCard
                 data={item}
                 eventData={item}
-                onClick={() =>
-                  // onMemberShipCheck(
-                  //   collectiveInfo.collective_id,
-                  //   account,
-                  //   () => {
-                  //     navigate(
-                  //       `eventdetails/${item.owneraddress}/${item.event_id}/events`,
-                  //     )
-                  //   },
-                  // )
+                onClick={
+                  () =>
+                    onMemberShipCheck(
+                      collectiveInfo.collective_id,
+                      account,
+                      () => {
+                        navigate(
+                          `eventdetails/${item.owneraddress}/${item.event_id}/events`,
+                        )
+                      },
+                    )
 
-                  navigate(
-                    `eventdetails/${item.owneraddress}/${item.event_id}/events`,
-                  )
+                  // navigate(
+                  //   `eventdetails/${item.owneraddress}/${item.event_id}/events`,
+                  // )
                 }
                 sort={sort}
                 key={idx}
