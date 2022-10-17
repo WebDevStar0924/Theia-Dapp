@@ -15,7 +15,8 @@ import { CollectiveDetailsContainer } from './styles'
 import EventsTab from './Tabs/EventsTab'
 import ForumTab from './Tabs/ForumTab'
 import GalleryTab from './Tabs/GalleryTab'
-import HomeTab from './Tabs/HomeTab'
+// import HomeTab from './Tabs/HomeTab'
+import HomeTabV2 from './Tabs/HomeTabV2'
 
 interface LocationState {
   forum_id: string
@@ -23,16 +24,12 @@ interface LocationState {
 
 export default function CollectiveDetails() {
   const { cname, ctab, post_id, event_id } = useParams()
-  const { forums, galleries, setForums, setGalleries, collectiveInfo } =
-    useOutletContext<CollectiveContextProps>()
+  const { collectiveInfo } = useOutletContext<CollectiveContextProps>()
   const navigate = useNavigate()
-  const [sortOption, setSortOption] = useState('trending')
   const [members, setMembers] = useState<any[]>([])
   const { onPresentArtDetailModal } = useArtDetailModal(collectiveInfo)
   const dispatch = useDispatch()
   const location = useLocation()
-  console.log('ctab = ', ctab === undefined)
-  console.log('event_id:', event_id)
   useEffect(() => {
     if (post_id && collectiveInfo) {
       onPresentArtDetailModal({
@@ -78,7 +75,7 @@ export default function CollectiveDetails() {
       {collectiveInfo && (
         <CollectiveDetailsContainer>
           <div className={'detailsContent'}>
-            {(ctab === 'home' || ctab === undefined) && <HomeTab />}
+            {(ctab === 'home' || ctab === undefined) && <HomeTabV2 />}
             {ctab === 'forum' && <ForumTab />}
             {ctab === 'events' && event_id === undefined && <EventsTab />}
             {ctab === 'events' && event_id !== undefined && <EventDetails />}

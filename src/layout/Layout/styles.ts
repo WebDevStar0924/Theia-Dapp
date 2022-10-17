@@ -8,13 +8,13 @@ export const LayoutWrapper = styled.div<{ bgColor: string }>`
   overflow-y: scroll;
   .contentView {
     display: flex;
-    padding: 20px 24px 0 24px;
     height: 100%;
     overflow: hidden;
     max-width: 1440px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    background: white;
 
     .componentsView {
       height: 100%;

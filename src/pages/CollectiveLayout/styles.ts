@@ -3,35 +3,37 @@ import styled from 'styled-components'
 export const CollectiveLayoutWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  grid-gap: 22px;
-
+  
+  background: white;
   .collectiveDetails {
     display: flex;
     flex-direction: column;
     flex: 1;
-    grid-gap: 24px;
+  
 
     max-height: calc(100vh - 96px);
     overflow-y: scroll;
   }
+  .collectiveLayout {
+     display: flex;
+     flexDirection: row ;
+     border-left: solid 1px #e4e7ec;
 `
 
 export const CollectiveHeaderWrapper = styled.div`
   background: #ffffff;
-  border: 1px solid #e4e7ec;
-  border-radius: 30px;
   position: relative;
+  border: solid 1px #e4e7ec;
 
   .bannerImg {
     width: 100%;
-    height: 200px;
+    height: 160px;
     object-fit: cover;
-    border-radius: 30px 30px 0 0;
   }
 
   .avatarImg {
     position: absolute;
-    top: 120px;
+    top: 80px;
     left: 46px;
     width: 160px;
     height: 160px;
@@ -133,28 +135,200 @@ export const CollectiveHeaderWrapper = styled.div`
 `
 
 export const CollectiveSidebarWrapper = styled.div`
-  height: fit-content;
+  height: 100%;
   display: flex;
+  position: sticky;
+  top: 0px;
   flex-direction: column;
   align-items: center;
   padding: 24px 6px;
-  gap: 40px;
+  gap: 20px;
+  min-width: 200px;
+  border-right: 1px solid #e4e7ec;
   background: #ffffff;
-  border: 2px solid #e4e7ec;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 30px;
-
   .userNftAvatar {
     width: 150px;
     height: 150px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
-    clip-path: path(
-      'M63 10.9892C70.4256 6.70205 79.5744 6.70205 87 10.9892L127.952
-        34.6328C135.378 38.92 139.952 46.8431 139.952 55.4174V102.705C139.952
-        111.279 135.378 119.202 127.952 123.489L87 147.133C79.5744 151.42
-        70.4256 151.42 63 147.133L22.0481 123.489C14.6225 119.202 10.0481
-        111.279 10.0481 102.705L10.0481 55.4174C10.0481 46.8431 14.6225 38.92
-        22.0481 34.6328L63 10.9892Z'
+    clip-path: polygon(
+      45% 1.33975%,
+      46.5798% 0.60307%,
+      48.26352% 0.15192%,
+      50% 0%,
+      51.73648% 0.15192%,
+      53.4202% 0.60307%,
+      55% 1.33975%,
+      89.64102% 21.33975%,
+      91.06889% 22.33956%,
+      92.30146% 23.57212%,
+      93.30127% 25%,
+      94.03794% 26.5798%,
+      94.48909% 28.26352%,
+      94.64102% 30%,
+      94.64102% 70%,
+      94.48909% 71.73648%,
+      94.03794% 73.4202%,
+      93.30127% 75%,
+      92.30146% 76.42788%,
+      91.06889% 77.66044%,
+      89.64102% 78.66025%,
+      55% 98.66025%,
+      53.4202% 99.39693%,
+      51.73648% 99.84808%,
+      50% 100%,
+      48.26352% 99.84808%,
+      46.5798% 99.39693%,
+      45% 98.66025%,
+      10.35898% 78.66025%,
+      8.93111% 77.66044%,
+      7.69854% 76.42788%,
+      6.69873% 75%,
+      5.96206% 73.4202%,
+      5.51091% 71.73648%,
+      5.35898% 70%,
+      5.35898% 30%,
+      5.51091% 28.26352%,
+      5.96206% 26.5798%,
+      6.69873% 25%,
+      7.69854% 23.57212%,
+      8.93111% 22.33956%,
+      10.35898% 21.33975%
+    );
+  }
+
+  .createBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+
+    .eventToggleBtn {
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      background: #e4e7ec;
+      position: relative;
+
+      svg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &:hover {
+        background: #d0d5dd;
+      }
+
+      &.active {
+        background: #e0eaff;
+        svg {
+          color: #444ce7;
+        }
+      }
+    }
+
+    .eventBtn {
+      cursor: pointer;
+      width: 124px;
+      height: 48px;
+
+      border: 2px solid #e4e7ec;
+      border-radius: 200px;
+
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #101828;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      grid-gap: 8px;
+      padding: 0 20px;
+
+      &:hover {
+        border: 2px solid #8098f9;
+      }
+      span {
+        text-transform: uppercase;
+      }
+    }
+  }
+`
+
+export const CollectiveSidebarMinWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 8px;
+  margin: 24px;
+  position: sticky;
+  top: 24px;
+  width: 72px;
+  height: 390px;
+  background: #ffffff;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  .tabItem {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50%;
+    justify-content: center;
+  }
+  .userNftAvatar {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 30px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
+    clip-path: polygon(
+      45% 1.33975%,
+      46.5798% 0.60307%,
+      48.26352% 0.15192%,
+      50% 0%,
+      51.73648% 0.15192%,
+      53.4202% 0.60307%,
+      55% 1.33975%,
+      89.64102% 21.33975%,
+      91.06889% 22.33956%,
+      92.30146% 23.57212%,
+      93.30127% 25%,
+      94.03794% 26.5798%,
+      94.48909% 28.26352%,
+      94.64102% 30%,
+      94.64102% 70%,
+      94.48909% 71.73648%,
+      94.03794% 73.4202%,
+      93.30127% 75%,
+      92.30146% 76.42788%,
+      91.06889% 77.66044%,
+      89.64102% 78.66025%,
+      55% 98.66025%,
+      53.4202% 99.39693%,
+      51.73648% 99.84808%,
+      50% 100%,
+      48.26352% 99.84808%,
+      46.5798% 99.39693%,
+      45% 98.66025%,
+      10.35898% 78.66025%,
+      8.93111% 77.66044%,
+      7.69854% 76.42788%,
+      6.69873% 75%,
+      5.96206% 73.4202%,
+      5.51091% 71.73648%,
+      5.35898% 70%,
+      5.35898% 30%,
+      5.51091% 28.26352%,
+      5.96206% 26.5798%,
+      6.69873% 25%,
+      7.69854% 23.57212%,
+      8.93111% 22.33956%,
+      10.35898% 21.33975%
     );
   }
 

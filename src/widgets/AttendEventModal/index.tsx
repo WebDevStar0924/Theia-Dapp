@@ -8,6 +8,7 @@ import { Handler } from 'widgets/Modal/types'
 import { atcb_init } from 'add-to-calendar-button'
 import 'add-to-calendar-button/assets/css/atcb.css'
 import React from 'react'
+import moment from 'moment-timezone'
 interface iProps {
   eventData?: any
   onDismiss?: Handler
@@ -21,6 +22,18 @@ export default function AttendEventModal(props: iProps) {
     return returnDate
   }
   const AddToCalendar = () => {
+    const eventDate = moment(eventData.event_date).format('YYYY-MM-DD')
+    const timezone = moment().tz(eventData.timezone).format('z')
+    const start_timestamp = moment.tz(
+      `${eventDate} ${eventData.starttime} ${timezone}`,
+      'YYYY-MM-DD hh:mm A z',
+      eventData.timezone,
+    )
+    const end_timestamp = moment.tz(
+      `${eventDate} ${eventData.endtime} ${timezone}`,
+      'YYYY-MM-DD hh:mm A z',
+      eventData.timezone,
+    )
     React.useEffect(atcb_init, [])
     let location = ''
     try {
@@ -32,12 +45,11 @@ export default function AttendEventModal(props: iProps) {
       <div className="atcb">
         {'{'}
         "name":"{eventData?.event_title}", "description":"
-        {eventData?.description}", "startDate":"{eventData?.event_date}",
-        "endDate":"{eventData?.event_date}", "startTime":"{eventData?.starttime}
-        ", "endTime":"{eventData?.endtime}", "location":"{location}",
+        {eventData?.description}", "startDate":"{eventDate}", "endDate":"
+        {eventDate}", "startTime":"{start_timestamp.format('HH:mm')}
+        ", "endTime":"{end_timestamp.format('HH:mm')}", "location":"{location}",
         "label":"ADD TO CALENDAR", "options":[ "Google", "iCal", "Microsoft365",
-        "Outlook.com", "Yahoo" ],
-        {/* "timeZone":"{eventData?.timezone}", */}
+        "Outlook.com", "Yahoo" ], "timeZone":"{eventData?.timezone}",
         "iCalFileName":"Reminder-Event", "trigger": "click"
         {'}'}
       </div>
@@ -96,12 +108,6 @@ export default function AttendEventModal(props: iProps) {
                 className="eventImage"
                 src={eventData?.event_image}
                 alt="event"
-                style={{
-                  borderTopLeftRadius: '16px',
-                  width: '600px',
-                  height: '300px',
-                  objectFit: 'contain',
-                }}
               />
             ) : (
               <img className="eventImage" src={EventImage} alt="event" />

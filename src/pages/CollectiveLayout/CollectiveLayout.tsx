@@ -3,7 +3,8 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
 import CollectiveHeader from './CollectiveHeader'
-import CollectiveSidebar from './CollectiveSidebar'
+import CollectiveSidebarV2 from './CollectiveSidebarV2'
+import CollectiveSidebarMinV2 from './CollectiveSidebarMinV2'
 import { CollectiveLayoutWrapper } from './styles'
 interface LocationState {
   forum_id: string
@@ -26,7 +27,6 @@ export default function CollectiveLayout() {
     onlySaved: false,
     onlyMyPosts: false,
   })
-
   const [topics, updateTopics] = useState([])
 
   useEffect(() => {
@@ -251,38 +251,50 @@ export default function CollectiveLayout() {
     <>
       {collectiveInfo && (
         <CollectiveLayoutWrapper>
-          <CollectiveSidebar
-            collectiveInfo={collectiveInfo}
-            galleries={galleries}
-            addNewForum={addNewForum}
-            addNewGallery={addNewGallery}
-            addNewEvent={addNewEvent}
-          />
           <div className="collectiveDetails" id="collectiveDetails">
             <CollectiveHeader
               collectiveInfo={collectiveInfo}
               updateCollectiveInfo={(data) => setCollectiveInfo(data)}
             />
-            <Outlet
-              context={{
-                forums,
-                events,
-                galleries,
-                mixedData,
-                setForums,
-                setGalleries,
-                setMixedData,
-                setEvents,
-                collectiveInfo,
-                sort: sortOption,
-                updateSort: setSortOption,
-                filter,
-                updateFilter: handleFilter,
-                members,
-                topics,
-                updateTopics,
-              }}
-            />
+            <div className={'collectiveLayout'}>
+              {location.pathname.includes('/gallery') ? (
+                <CollectiveSidebarMinV2
+                  collectiveInfo={collectiveInfo}
+                  galleries={galleries}
+                  addNewForum={addNewForum}
+                  addNewGallery={addNewGallery}
+                  addNewEvent={addNewEvent}
+                />
+              ) : (
+                <CollectiveSidebarV2
+                  collectiveInfo={collectiveInfo}
+                  galleries={galleries}
+                  addNewForum={addNewForum}
+                  addNewGallery={addNewGallery}
+                  addNewEvent={addNewEvent}
+                />
+              )}
+              <Outlet
+                context={{
+                  forums,
+                  events,
+                  galleries,
+                  mixedData,
+                  setForums,
+                  setGalleries,
+                  setMixedData,
+                  setEvents,
+                  collectiveInfo,
+                  sort: sortOption,
+                  updateSort: setSortOption,
+                  filter,
+                  updateFilter: handleFilter,
+                  members,
+                  topics,
+                  updateTopics,
+                }}
+              />
+            </div>
           </div>
         </CollectiveLayoutWrapper>
       )}

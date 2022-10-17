@@ -132,7 +132,9 @@ export const EventCardModalBodyWrapper = styled.div`
     color: #ffffff;
   }
   .eventImage {
-    width: 100%;
+    width: 360px;
+    height: 360px;
+    margin: auto;
     border-radius: 16px;
     object-fit: cover;
   }

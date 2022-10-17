@@ -6,6 +6,7 @@ import EventsTab from 'pages/CollectiveDetails/Tabs/EventsTab'
 import ForumTab from 'pages/CollectiveDetails/Tabs/ForumTab'
 import GalleryTab from 'pages/CollectiveDetails/Tabs/GalleryTab'
 import HomeTab from 'pages/CollectiveDetails/Tabs/HomeTab'
+import HomeTabV2 from 'pages/CollectiveDetails/Tabs/HomeTabV2'
 import { CollectiveLayout } from 'pages/CollectiveLayout'
 import { Explore } from 'pages/Explore'
 import { ForumDetails } from 'pages/ForumDetails'
@@ -64,9 +65,9 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/acceptMobile" element={<AcceptMobileView />} />
           <Route path={'/collective'} element={<CollectiveLayout />}>
-            <Route path=":cname" element={<HomeTab />} />
-            <Route path=":cname/home" element={<HomeTab />} />
-            <Route path=":cname/home/:post_id" element={<HomeTab />} />
+            <Route path=":cname" element={<HomeTabV2 />} />
+            <Route path=":cname/home" element={<HomeTabV2 />} />
+            <Route path=":cname/home/:post_id" element={<HomeTabV2 />} />
             <Route path=":cname/forum" element={<ForumTab />} />
             <Route path=":cname/gallery" element={<GalleryTab />} />
             <Route path=":cname/gallery/:post_id" element={<GalleryTab />} />

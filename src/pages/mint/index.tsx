@@ -114,7 +114,6 @@ const Mint = () => {
       newMintItems[1].mintPrice = arrakisPrice
       newMintItems[2].mintPrice = wandererPrice
 
-      console.log('wandererPrice = ', wandererPrice)
       updateMintItems(newMintItems)
     }
     load()

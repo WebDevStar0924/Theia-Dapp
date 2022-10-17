@@ -25,7 +25,32 @@ export const TabWrapper = styled.div`
     margin-bottom: 24px;
   }
 `
-
+export const HomeTabV2Wrapper = styled.div`
+  .leftPart {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    max-width: 640px;
+    flex: 1;
+    .underLine {
+      height: 1px;
+      background: #e4e7ec;
+      margin-top: 1px;
+    }
+    .postList {
+      display: flex;
+      border-right: 1px solid #e4e7ec;
+      flex-direction: column;
+      grid-gap: 20px;
+    }
+  }
+  .rightPart {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 20px;
+    width: 440px;
+  }
+`
 export const HomeTabWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -46,6 +71,7 @@ export const HomeTabWrapper = styled.div`
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
+    min-width: 640px;
     flex: 1;
   }
   .rightPart {

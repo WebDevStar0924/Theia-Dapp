@@ -33,6 +33,7 @@ export interface BaseButtonProps extends LayoutProps, SpaceProps {
   disabled?: boolean
   startIcon?: ReactNode
   endIcon?: ReactNode
+  boxShadow?: string
 }
 
 export type ButtonThemeVariant = {

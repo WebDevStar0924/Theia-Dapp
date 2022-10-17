@@ -312,7 +312,7 @@ export const ReplyItemWrapper = styled.div`
     height: 40px;
     border-radius: 22px;
   }
-  .paper{
+  .paper {
     width: 40px !important;
     height: 40px !important;
   }

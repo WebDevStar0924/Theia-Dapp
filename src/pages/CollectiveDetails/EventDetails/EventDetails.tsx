@@ -1,30 +1,31 @@
-import { Flex } from 'components/Flex'
-import { Text } from 'components/Text'
-import { FiMap } from 'react-icons/all'
-import { Label } from 'theme-ui'
-import EventDetailBg from '../../../assets/image/eventDetailBg.png'
 import { atcb_action } from 'add-to-calendar-button'
 import 'add-to-calendar-button/assets/css/atcb.css'
 import API from 'api/api'
+import { Flex } from 'components/Flex'
 import { SaveButton } from 'components/SaveButton'
 import { ShareButton } from 'components/ShareButton'
+import { Text } from 'components/Text'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useToast } from 'hooks/useToast'
 import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { FiMap } from 'react-icons/all'
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
+import { Label } from 'theme-ui'
+import EventDetailBg from '../../../assets/image/eventDetailBg.png'
 import BackArrow from '../../../assets/svg/backarrow.svg'
 import useAttendEventModal from '../../../widgets/AttendEventModal/useAttendEventModal'
 // import EventGoing from './EventGoing'
-import { BackButtonWrapper, EventDetailsWrapper } from './styles'
-import { HeartButton } from 'components/HeartButton'
 import { CommentButton } from 'components/CommentButton'
-import EventCommentCard from './EventCommentCard'
 import ExternalInput from 'components/ExternalInput'
+import { HeartButton } from 'components/HeartButton'
 import { useMembership } from 'hooks/useMembership'
-import { State } from 'state/types'
-import { useSelector } from 'react-redux'
+import moment from 'moment-timezone'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { useSelector } from 'react-redux'
+import { State } from 'state/types'
+import EventCommentCard from './EventCommentCard'
+import { BackButtonWrapper, EventDetailsWrapper } from './styles'
 
 export default function EventDetails() {
   const { events, setEvents, collectiveInfo } =
@@ -107,21 +108,33 @@ export default function EventDetails() {
   // }
 
   const AddToCalendar = () => {
-    const starttime = eventData.starttime.toString().substring(0, 5)
-    const endtime = eventData.endtime.toString().substring(0, 5)
+    const eventDate = moment(eventData.event_date).format('YYYY-MM-DD')
+    const timezone = moment().tz(eventData.timezone).format('z')
+    const start_timestamp = moment.tz(
+      `${eventDate} ${eventData.starttime} ${timezone}`,
+      'YYYY-MM-DD hh:mm A z',
+      eventData.timezone,
+    )
+    const end_timestamp = moment.tz(
+      `${eventDate} ${eventData.endtime} ${timezone}`,
+      'YYYY-MM-DD hh:mm A z',
+      eventData.timezone,
+    )
+
     return (
       <div
         onClick={() => {
           atcb_action({
             name: eventData.event_title,
-            startDate: eventData.event_date,
-            startTime: starttime,
-            endTime: endtime,
-            endDate: eventData.event_date,
+            startDate: eventDate,
+            startTime: start_timestamp.format('HH:mm'),
+            endTime: end_timestamp.format('HH:mm'),
+            endDate: eventDate,
             options: ['Apple', 'Google', 'Outlook.com', 'Yahoo'],
             location: eventData.location,
-            timeZone: 'Europe/Berlin',
+            timeZone: eventData.timezone,
             iCalFileName: 'Reminder-Event',
+            trigger: 'click',
           })
         }}
       >
@@ -372,7 +385,7 @@ export default function EventDetails() {
                     </span>
                   </Flex>
                   <div className="calendar-add">
-                    <AddToCalendar></AddToCalendar>
+                    <AddToCalendar />
                   </div>
                 </Flex>
 

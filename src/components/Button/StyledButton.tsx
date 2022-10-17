@@ -1,6 +1,6 @@
 import styled, { DefaultTheme } from 'styled-components'
 import { space } from 'styled-system'
-import { BaseButtonProps, ButtonThemeVariant, variants } from './types'
+import { BaseButtonProps } from './types'
 
 interface ThemedButtonProps extends BaseButtonProps {
   theme: DefaultTheme
@@ -42,12 +42,6 @@ const removePointerEvents = ({ disabled, as }: TransientButtonProps) => {
   return ''
 }
 
-const getButtonVariantProp =
-  (prop: keyof ButtonThemeVariant) =>
-  ({ theme, variant = variants.PRIMARY }: TransientButtonProps) => {
-    return theme.button[variant][prop]
-  }
-
 const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
   return $isLoading ? '.5' : '1'
 }
@@ -55,7 +49,8 @@ const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
 const StyledButton = styled.button<BaseButtonProps>`
   align-items: center;
   border: 0;
-  box-shadow: 0px -1px 0px 0px rgba(14, 14, 44, 0.4) inset;
+  box-shadow: ${({ boxShadow }) =>
+    boxShadow || '0px -1px 0px 0px rgba(14, 14, 44, 0.4) inset'};
   cursor: pointer;
   display: inline-flex;
   font-family: inherit;

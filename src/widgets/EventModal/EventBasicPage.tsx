@@ -1,22 +1,21 @@
+import { Button } from 'components/Button'
+import { Dropdown } from 'components/Dropdown'
 import ExternalInput from 'components/ExternalInput'
 import { Flex } from 'components/Flex'
-import { useState } from 'react'
-import { Dropdown } from 'components/Dropdown'
-import { TimeOptions, TimeZones } from './data'
-import { Button } from 'components/Button'
 import { Switch } from 'components/Switch'
+import moment from 'moment-timezone'
+import { useEffect, useRef, useState } from 'react'
 import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateEvent } from 'state/event'
+import { State } from 'state/types'
 import CalendarSvg from '../../assets/svg/calendar.svg'
 import ClockSvg from '../../assets/svg/clock.svg'
 import WorldSvg from '../../assets/svg/world.svg'
-import 'react-calendar/dist/Calendar.css'
+import { TimeOptions, TimeZones } from './data'
 import { ModalBodyWrapper } from './styles'
-import { useRef, useEffect } from 'react'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
-import { useDispatch } from 'react-redux'
-import { updateEvent } from 'state/event'
-import { useSelector } from 'react-redux'
-import { State } from 'state/types'
 
 export type eventBasicPageProps = {
   isActiveSaveButton: boolean
@@ -257,13 +256,16 @@ const EventBasicPage: React.FC<eventBasicPageProps> = ({
                   label: timezone,
                   value: timezone,
                 }}
-                placeholder={'Time zone`'}
+                placeholder={'Time zone'}
                 key="timezone"
                 onChange={(item) => {
                   setTimezone(item.value)
                 }}
                 type={'inactive'}
-                dropdownlist={TimeZones}
+                dropdownlist={Object.keys(TimeZones).map((tz) => ({
+                  value: tz,
+                  label: tz,
+                }))}
                 icon={<img src={WorldSvg} alt="world" />}
               />
             </Flex>

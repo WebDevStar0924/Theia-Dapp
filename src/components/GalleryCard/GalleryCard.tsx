@@ -3,7 +3,6 @@ import { CommentButton } from 'components/CommentButton'
 import { Flex } from 'components/Flex'
 import { HeartButton } from 'components/HeartButton'
 import { ShareButton } from 'components/ShareButton'
-import { WineButton } from 'components/WineButton'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useMembership } from 'hooks/useMembership'
 import { useToast } from 'hooks/useToast'
@@ -27,8 +26,6 @@ export default function GalleryCardCard(props: iProps) {
     createdat,
     favorites,
     favorite_count,
-    crown,
-    crown_count,
     title,
     commentscount,
     media,
@@ -61,17 +58,6 @@ export default function GalleryCardCard(props: iProps) {
         }
       },
     )
-  }
-  const handleCrown = (action) => {
-    API.updateCrown(gallery_id, 'gallery', action, account).then((res: any) => {
-      if (res.data.success) {
-        onUpdateGallery({
-          ...data,
-          crown: action === 'up' ? Number(crown) + 1 : Number(crown) - 1,
-          crown_count: action === 'up' ? 1 : 0,
-        })
-      }
-    })
   }
   return (
     <Card onClick={onClick}>
@@ -111,17 +97,6 @@ export default function GalleryCardCard(props: iProps) {
                 )
               }}
               active={favorite_count > 0}
-              size={'lg'}
-            />
-            <WineButton
-              count={crown}
-              onClick={(e) => {
-                e.stopPropagation()
-                onMemberShipCheck(data.collective_id, account, () =>
-                  handleCrown(crown_count > 0 ? 'down' : 'up'),
-                )
-              }}
-              active={crown_count > 0}
               size={'lg'}
             />
             <CommentButton count={commentscount} />

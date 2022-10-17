@@ -1,13 +1,14 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+
 import Avatar from '../../components/Avatar/Avatar'
 import { MotionButton } from '../../components/MotionButton/styles'
-import Logo from '../../components/Svg/Icons/Logo'
-import LogoBlack from '../../components/Svg/Icons/LogoBlack'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import useAuth from '../../hooks/useAuth'
 import { hoverTxtBoxShadow } from '../../utils/Animations'
 import { useWalletModal } from '../../widgets/WalletModal'
 import { HeaderLeftWrapper, HeaderWrapper } from './styles'
+import { LogoHeader } from '../../uikit/LogoHeader'
+import { HeaderRight } from '../../uikit/HeaderRight'
 
 export default function Header() {
   const { account } = useActiveWeb3React()
@@ -23,16 +24,10 @@ export default function Header() {
     <HeaderWrapper bgColor={location.pathname === '/mint' ? '#101828' : '#fff'}>
       <div className={'headerContent'}>
         <HeaderLeftWrapper>
-          <Link to={'/'}>
-            {location.pathname === '/mint' ? (
-              <Logo width={135} />
-            ) : (
-              <LogoBlack width={135} />
-            )}
-          </Link>
+          <LogoHeader></LogoHeader>
         </HeaderLeftWrapper>
         <HeaderLeftWrapper>
-          {account ? (
+          {/* {account ? (
             <Avatar account={account} login={login} logout={logout} />
           ) : (
             <MotionButton
@@ -42,7 +37,9 @@ export default function Header() {
             >
               Connect Wallet
             </MotionButton>
-          )}
+
+          )} */}
+          <HeaderRight themeMode={true}></HeaderRight>
         </HeaderLeftWrapper>
       </div>
     </HeaderWrapper>

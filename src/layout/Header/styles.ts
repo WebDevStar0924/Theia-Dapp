@@ -1,24 +1,16 @@
 import styled from 'styled-components'
 
 export const HeaderWrapper = styled.div<{ bgColor: string }>`
-  background: ${({ bgColor }) => bgColor};
-  border-width: 0 2px 2px 2px;
-  border-style: solid;
-  border-color: #e4e7ec;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 0 0 30px 30px;
   z-index: 10;
-  margin-left: 20px;
-  margin-right: 20px;
   padding-left: 20px;
   padding-right: 20px;
-
+  background: white;
   .headerContent {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 64px;
   }
 
   .connectWalletBtn {

@@ -115,7 +115,7 @@ export default function EventsTab() {
     let newData = [...events]
     if (sort === 'trending' || sort === 'new') {
       newData = newData.filter((ev) => {
-        return moment(ev.event_date).unix() > moment().unix()
+        return moment(ev.event_date).unix() > moment().startOf('day').unix()
       })
     }
     if (filter.onlySaved) {
@@ -132,7 +132,7 @@ export default function EventsTab() {
     let newData = [...events]
     if (activeSwitchItem === 'upcoming') {
       newData = newData.filter((ev) => {
-        return moment(ev.event_date).unix() > moment().unix()
+        return moment(ev.event_date).unix() > moment().startOf('day').unix()
       })
     } else if (activeSwitchItem === 'past') {
       newData = newData.filter(

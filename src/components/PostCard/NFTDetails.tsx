@@ -46,7 +46,9 @@ export default function NFTDetails(props: iProps) {
           variant="text"
           fontSize="12px"
           color="#344054"
+          boxShadow="none"
           mt="5px"
+          target={'_blank'}
           href={goToScan(chainId, contractAddress, 'token')}
         >
           {contractAddress}
@@ -62,6 +64,7 @@ export default function NFTDetails(props: iProps) {
         <Button
           variant="text"
           fontSize="12px"
+          boxShadow="none"
           onClick={() =>
             goToOpenSea(chainId, contractAddress, parseInt(tokenId, 16))
           }
