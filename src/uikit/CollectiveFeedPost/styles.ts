@@ -100,6 +100,16 @@ export const CollectiveFeedPostWrapper = styled.div`
     margin-left: 56px;
     display:flex;
     flex-direction: column;
+    position: relative;
+    .EmojiPickerReact {
+      position: absolute;
+      left: 20%;
+      top: 42px;
+      z-index: 1000;
+      --epr-emoji-size: 20px;
+      
+    }
+    
     .imageListLayout{
       margin-top: 16px;
       margin-bottom: 30px;
