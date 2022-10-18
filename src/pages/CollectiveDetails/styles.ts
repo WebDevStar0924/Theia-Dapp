@@ -31,6 +31,7 @@ export const HomeTabV2Wrapper = styled.div`
     flex-direction: column;
     width: 640px;
     max-width: 640px;
+    border-right: 1px solid #e4e7ec;
     flex: 1;
     .underLine {
       height: 1px;
@@ -38,8 +39,7 @@ export const HomeTabV2Wrapper = styled.div`
       margin-top: 1px;
     }
     .postList {
-      display: flex;
-      border-right: 1px solid #e4e7ec;
+      display: flex;      
       flex-direction: column;
       grid-gap: 20px;
     }

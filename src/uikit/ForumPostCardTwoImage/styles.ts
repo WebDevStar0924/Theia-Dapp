@@ -97,7 +97,7 @@ export const ForumPostCardTwoImageWrapper = styled.div`
         width: 100%;
         height: 100%;
         position: absolute;
-        background: linear-gradient(transparent 140px, white);
+        background: linear-gradient(transparent 100px, white);
         top: 0;
         left: 0;
       }
