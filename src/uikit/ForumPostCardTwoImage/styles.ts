@@ -60,7 +60,8 @@ export const ForumPostCardTwoImageWrapper = styled.div`
     margin-top: 16px;
     .replyActionLayout {
       flex-direction: row;
-      grid-gap: 57px;
+      grid-gap: 90px;
+      margin-left: 10px;
     }
     .postHeader {
       .ownerName {
@@ -84,9 +85,9 @@ export const ForumPostCardTwoImageWrapper = styled.div`
     .postContext {
       font-family: 'Montserrat';
       font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 20px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 24px;
       position: relative;
       color: #000000;
       max-height: 180px;

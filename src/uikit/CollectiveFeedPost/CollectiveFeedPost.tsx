@@ -4,6 +4,7 @@ import { CollectiveFeedPostWrapper } from './styles'
 import ExternalInput from 'components/ExternalInput'
 import { useEffect, useRef, useState } from 'react'
 import { Flex } from 'components/Flex'
+import { convertToRaw, EditorState } from 'draft-js'
 import arrakisImg from '../../assets/image/arrakisBg.png'
 import { IconButtonV2, MotionButtonV2 } from '../../uikit/MotionButtonV2/styles'
 import { ImageFillIcon, PoolIcon, GifIcon } from '../../components/Svg'
@@ -18,6 +19,8 @@ import { CloseImageIcon } from '../../components/Svg'
 import useGifUploadModal from '../GifUploadModal/useGifUploadModal'
 import EmojiPicker from 'emoji-picker-react'
 import { EmojiStyle } from 'emoji-picker-react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 export default function CollectiveFeedPost() {
   const { collectiveInfo } = useOutletContext<CollectiveContextProps>()
   const [postText, setPostText] = useState('')
@@ -28,13 +31,14 @@ export default function CollectiveFeedPost() {
   const [visibleEmojiForm, showEmojiForm] = useState(false)
   const [alreadyGifOpend, setAlreadyGifOpend] = useState(false)
   const [currentMediaCount, setCurrentMediaCount] = useState(0)
+  const editorState = EditorState.createEmpty()
   const [photoList, setPhotoList] = useState<Array<string>>([])
   const [chosenEmoji, setChosenEmoji] = useState(null)
   const { toastWarning } = useToast()
 
   const photoRef = useRef<HTMLInputElement>(null)
-  const wrapperRef = useRef(null);
-  useEmojiPickerOutSideClick(wrapperRef);
+  const wrapperRef = useRef(null)
+  useEmojiPickerOutSideClick(wrapperRef)
 
   const options = [
     { value: '@THEIA', label: 'THEIA' },
@@ -115,6 +119,12 @@ export default function CollectiveFeedPost() {
       </components.MenuList>
     )
   }
+  const modules = {
+    toolbar: [
+      ['bold', 'italic'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+    ],
+  }
   const MultiValue = (props) => (
     <components.MultiValue {...props}>{props.data.value}</components.MultiValue>
   )
@@ -185,14 +195,13 @@ export default function CollectiveFeedPost() {
         }
       }
       // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
       return () => {
         // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }, [ref])
   }
-
 
   const photoChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -221,13 +230,21 @@ export default function CollectiveFeedPost() {
           className="userNftAvatar"
           alt="user nft image"
         />
-        <ExternalInput
+        {/* <ExternalInput
           label=""
           value={postText}
           className={'postInput'}
           type="active"
           placeholder="What's happening?"
           onUserInput={(val) => setPostText(val)}
+        /> */}
+        {/* <ReactQuill theme="snow" value={postText} onChange={setPostText} /> */}
+        <ReactQuill
+          placeholder="What's happening"
+          theme="snow"
+          value={postText}
+          onChange={setPostText}
+          modules={modules}
         />
       </Flex>
 
@@ -412,7 +429,6 @@ export default function CollectiveFeedPost() {
         {visibleEmojiForm && (
           <div ref={wrapperRef}>
             <EmojiPicker
-
               emojiStyle={EmojiStyle.TWITTER}
               onEmojiClick={onEmojiClick}
               width={'300px'}
@@ -475,21 +491,9 @@ export default function CollectiveFeedPost() {
           >
             <HiEmojiHappy fontSize="16px" />
           </IconButtonV2>
-          <IconButtonV2 className="toolBoxButton" size="sm">
-            <FiBold fontSize="16px" color="#475467" />
-          </IconButtonV2>
-          <IconButtonV2 className="toolBoxButton" size="sm">
-            <FiItalic fontSize="16px" color="#475467" />
-          </IconButtonV2>
-          <IconButtonV2 className="toolBoxButton" size="sm">
-            <FaQuoteRight fontSize="14px" color="#475467" />
-          </IconButtonV2>
-          <IconButtonV2 className="toolBoxButton" size="sm">
-            <FiList fontSize="16px" color="#475467" />
-          </IconButtonV2>
-          <IconButtonV2 className="toolBoxButton" size="sm">
-            <AiOutlineOrderedList fontSize="16px" color="#475467" />
-          </IconButtonV2>
+          {/* <div className={'textFormatTool'}>
+            <ReactQuill placeholder="What's happening" theme="snow" value={postText} onChange={setPostText} modules={modules} />
+          </div> */}
         </Flex>
         <MotionButtonV2 className="postButton">POST</MotionButtonV2>
       </Flex>
