@@ -27,9 +27,9 @@ import ExternalInput from 'components/ExternalInput'
 import { CollectiveFeedPost } from '../../../uikit/CollectiveFeedPost'
 import { TrendingTopicsBar } from '../../../uikit/TrendingTopicsBar'
 import { ForumPostCard } from '../../../uikit/ForumPostCard'
+import { GalleryPostCard } from '../../../uikit/GalleryPostCard'
 import { EventPostCard } from '../../../uikit/EventPostCard'
-import { EventPostCardRSVP } from '../../../uikit/EventPostCardRSVP'
-import { ForumPostCardTwoImage } from '../../../uikit/ForumPostCardTwoImage'
+
 export default function HomeTab() {
   const [activeSlideNum, setActiveSlideNum] = useState(0)
   const [memberUsers, setMemberUsers] = useState<any[]>()
@@ -38,9 +38,9 @@ export default function HomeTab() {
   const ref = useRef<any>(null)
   const navigate = useNavigate()
   const onMemberShipCheck = useMembership()
-
   const { account } = useActiveWeb3React()
   const { cname, post_id } = useParams()
+  const postList = ['post1', 'post2', 'post3', 'post4', 'post5', 'post6', 'post7', 'post8', 'post9', 'post10']
 
   const {
     forums,
@@ -220,23 +220,17 @@ export default function HomeTab() {
         <TrendingTopicsBar />
         <div className="underLine"></div>
         <div className="postList">
-          <ForumPostCard></ForumPostCard>
-          <div className="underLine"></div>
+          {postList.map(function (title, index) {
+            return index % 3 == 0 ? <div key={title + index}>
+              <ForumPostCard></ForumPostCard>
+              <div className="underLine"></div></div> :
+              index % 3 == 1 ? <div key={title + index}>
+                <EventPostCard></EventPostCard>
+                <div className="underLine"></div></div> : <div key={title + index}>
+                <GalleryPostCard></GalleryPostCard>
+                <div className="underLine"></div></div>;
+          })}
 
-          <EventPostCard></EventPostCard>
-          <div className="underLine"></div>
-
-          <EventPostCardRSVP></EventPostCardRSVP>
-          <div className="underLine"></div>
-
-          <ForumPostCardTwoImage></ForumPostCardTwoImage>
-          <div className="underLine"></div>
-          <ForumPostCardTwoImage></ForumPostCardTwoImage>
-          <div className="underLine"></div>
-          <ForumPostCardTwoImage></ForumPostCardTwoImage>
-          <div className="underLine"></div>
-          <ForumPostCardTwoImage></ForumPostCardTwoImage>
-          <div className="underLine"></div>
         </div>
       </div>
       <div className="rightPart"></div>

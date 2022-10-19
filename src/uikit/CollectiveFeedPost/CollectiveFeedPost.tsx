@@ -230,15 +230,6 @@ export default function CollectiveFeedPost() {
           className="userNftAvatar"
           alt="user nft image"
         />
-        {/* <ExternalInput
-          label=""
-          value={postText}
-          className={'postInput'}
-          type="active"
-          placeholder="What's happening?"
-          onUserInput={(val) => setPostText(val)}
-        /> */}
-        {/* <ReactQuill theme="snow" value={postText} onChange={setPostText} /> */}
         <ReactQuill
           placeholder="What's happening"
           theme="snow"

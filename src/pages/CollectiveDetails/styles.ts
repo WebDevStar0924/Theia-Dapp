@@ -40,8 +40,7 @@ export const HomeTabV2Wrapper = styled.div`
     }
     .postList {
       display: flex;      
-      flex-direction: column;
-      grid-gap: 20px;
+      flex-direction: column;      
     }
   }
   .rightPart {

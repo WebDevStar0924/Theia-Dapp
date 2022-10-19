@@ -5,24 +5,24 @@ export const CollectiveFeedPostWrapper = styled.div`
   padding: 8px 13px;
   flex-direction: row;
   display: flex;
+  position: relative;
   flex-direction: column;
   .inputLayout{
-    .quill{
-      position: relative;
-    }    
+       
     .ql-toolbar.ql-snow {
       border: none ;  
       width: 100%;    
       font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
       padding: 5px;
       position: absolute;
-      bottom: -95px;
-      left: 130px;
-      margin-left: 20px;
+      bottom: 10px;
+      left: 140px;
+      margin-left: 83px;
       .ql-formats{
         margin-right: 0px;
         button{
           margin-right: 5px;
+         
         }
       }
 

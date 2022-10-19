@@ -5,6 +5,10 @@ export const ForumPostCardWrapper = styled.div`
   flex-direction: row;
   padding: 15px 13px;
   width: 100%;
+  :hover{
+    background: #fbfbfb;
+    cursor: pointer;
+  }
   .userNftAvatar {
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
     clip-path: polygon(
@@ -88,7 +92,30 @@ export const ForumPostCardWrapper = styled.div`
       font-weight: 400;
       font-size: 15px;
       line-height: 24px;
+      position: relative;
       color: #000000;
+      max-height: 180px;
+      overflow: hidden;
+      :before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: linear-gradient(transparent 100px, white);
+        top: 0;
+        left: 0;
+      }
+    }
+    .imageLayout {
+      grid-gap: 10px;
+      display: grid;
+      grid-template-columns: auto auto;      
+      img {
+        width: 270px;
+        height: 288px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
     }
   }
 `
