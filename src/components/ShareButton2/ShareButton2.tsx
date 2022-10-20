@@ -12,7 +12,7 @@ export default function ShareButton2(props: iProps) {
         width="22px"
         height="22px"
         stroke="#667085"
-        stroke-width="1px"
+        strokeWidth="1px"
         fill="none"
       />
     </ShareButton2Wrapper>

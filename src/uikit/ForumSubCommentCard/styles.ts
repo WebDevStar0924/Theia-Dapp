@@ -1,14 +1,12 @@
 import styled from 'styled-components'
 
-export const ForumPostCardWrapper = styled.div`
+export const ForumSubCommentCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 15px 13px;
-  width: 100%;
-  :hover {
-    background: #fbfbfb;
-    cursor: pointer;
-  }
+  padding: 15px 0px 0px 0px;
+  margin-left: 56px;
+  margin-top: 20px;
+  flex-direction: column;
   .userNftAvatar {
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
     clip-path: polygon(
@@ -59,16 +57,22 @@ export const ForumPostCardWrapper = styled.div`
     height: 56px;
     margin-right: 8px;
   }
+  .replyBox {
+    .inputLayout {
+      padding: 10px 0px;
+    }
+  }
   .dataLayout {
     width: 100%;
     margin-top: 16px;
     .replyActionLayout {
       flex-direction: row;
-      grid-gap: 90px;
+      grid-gap: 57px;
       margin-left: 10px;
       margin-top: 20px;
     }
     .postHeader {
+      max-width: 490px;
       .ownerName {
         font-family: 'Montserrat';
         font-style: normal;
@@ -87,7 +91,19 @@ export const ForumPostCardWrapper = styled.div`
         color: #98a2b3;
       }
     }
+    .userInfo {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      align-items: center;
+      color: #3538cd;
+      margin-left: 10px;
+    }
     .postContext {
+      max-width: 490px;
+      margin-top: 10px;
       font-family: 'Montserrat';
       font-style: normal;
       font-weight: 400;
@@ -117,6 +133,18 @@ export const ForumPostCardWrapper = styled.div`
         height: 288px;
         border-radius: 8px;
         object-fit: cover;
+      }
+    }
+    .commentButton {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      color: #667085;
+      :hover {
+        cursor: pointer;
+        color: lightgrey;
       }
     }
   }

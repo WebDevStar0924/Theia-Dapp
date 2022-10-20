@@ -6,6 +6,7 @@ import CollectiveHeader from './CollectiveHeader'
 import CollectiveSidebarV2 from './CollectiveSidebarV2'
 import CollectiveSidebarMinV2 from './CollectiveSidebarMinV2'
 import { CollectiveLayoutWrapper } from './styles'
+import { useCurrentNFTProfile } from 'hooks/useCurrentNFTProfile'
 interface LocationState {
   forum_id: string
 }
@@ -23,6 +24,7 @@ export default function CollectiveLayout() {
   const [events, setEvents] = useState<any[]>([])
   const [sortOption, setSortOption] = useState('trending')
   const location = useLocation()
+  const currentUserProfile = useCurrentNFTProfile(collectiveInfo?.collective_id)
   const [filter, updateFilter] = useState({
     onlySaved: false,
     onlyMyPosts: false,
@@ -34,11 +36,13 @@ export default function CollectiveLayout() {
   }, [sortOption])
 
   useEffect(() => {
-    API.getCollectiveByName(cname, account).then((res) => {
-      if (res.data.success) {
-        setCollectiveInfo(res.data.collective)
-      }
-    })
+    if (account) {
+      API.getCollectiveByName(cname, account).then((res) => {
+        if (res.data.success) {
+          setCollectiveInfo(res.data.collective)
+        }
+      })
+    }
   }, [cname, account])
 
   const addNewForum = (newForum) => {
@@ -264,6 +268,7 @@ export default function CollectiveLayout() {
                   addNewForum={addNewForum}
                   addNewGallery={addNewGallery}
                   addNewEvent={addNewEvent}
+                  currentUserProfile={currentUserProfile}
                 />
               ) : (
                 <CollectiveSidebarV2
@@ -272,6 +277,7 @@ export default function CollectiveLayout() {
                   addNewForum={addNewForum}
                   addNewGallery={addNewGallery}
                   addNewEvent={addNewEvent}
+                  currentUserProfile={currentUserProfile}
                 />
               )}
               <Outlet

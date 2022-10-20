@@ -1,26 +1,29 @@
-import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
-import { useOutletContext } from 'react-router-dom'
-import { CollectiveFeedPostWrapper } from './styles'
-import ExternalInput from 'components/ExternalInput'
-import { useEffect, useRef, useState } from 'react'
 import { Flex } from 'components/Flex'
-import { convertToRaw, EditorState } from 'draft-js'
-import arrakisImg from '../../assets/image/arrakisBg.png'
-import { IconButtonV2, MotionButtonV2 } from '../../uikit/MotionButtonV2/styles'
-import { ImageFillIcon, PoolIcon, GifIcon } from '../../components/Svg'
-import { FiItalic, FiList, FiBold } from 'react-icons/fi'
-import { FaQuoteRight } from 'react-icons/fa'
-import { HiEmojiHappy } from 'react-icons/hi'
-import { PoolOptionForm } from 'uikit/PoolOptionForm'
-import { AiOutlineOrderedList } from 'react-icons/ai'
-import Select, { components } from 'react-select'
+import EmojiPicker, { EmojiStyle } from 'emoji-picker-react'
+import {
+  useAvailbleCollectives,
+  useCurrentNFTProfile,
+} from 'hooks/useCurrentNFTProfile'
 import { useToast } from 'hooks/useToast'
-import { CloseImageIcon } from '../../components/Svg'
-import useGifUploadModal from '../GifUploadModal/useGifUploadModal'
-import EmojiPicker from 'emoji-picker-react'
-import { EmojiStyle } from 'emoji-picker-react'
+import { CollectiveContextProps } from 'pages/CollectiveLayout/types'
+import { useEffect, useRef, useState } from 'react'
+import { HiEmojiHappy } from 'react-icons/hi'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useOutletContext } from 'react-router-dom'
+import Select, { components } from 'react-select'
+import NFTAvatar from 'uikit/NFTAvatar'
+import { PoolOptionForm } from 'uikit/PoolOptionForm'
+import arrakisImg from '../../assets/image/arrakisBg.png'
+import {
+  CloseImageIcon,
+  GifIcon,
+  ImageFillIcon,
+  PoolIcon,
+} from '../../components/Svg'
+import { IconButtonV2, MotionButtonV2 } from '../../uikit/MotionButtonV2/styles'
+import useGifUploadModal from '../GifUploadModal/useGifUploadModal'
+import { CollectiveFeedPostWrapper } from './styles'
 export default function CollectiveFeedPost() {
   const { collectiveInfo } = useOutletContext<CollectiveContextProps>()
   const [postText, setPostText] = useState('')
@@ -31,20 +34,21 @@ export default function CollectiveFeedPost() {
   const [visibleEmojiForm, showEmojiForm] = useState(false)
   const [alreadyGifOpend, setAlreadyGifOpend] = useState(false)
   const [currentMediaCount, setCurrentMediaCount] = useState(0)
-  const editorState = EditorState.createEmpty()
   const [photoList, setPhotoList] = useState<Array<string>>([])
   const [chosenEmoji, setChosenEmoji] = useState(null)
   const { toastWarning } = useToast()
-
+  const currentUserProfile = useCurrentNFTProfile(collectiveInfo?.collective_id)
+  const availableCollectives = useAvailbleCollectives()
   const photoRef = useRef<HTMLInputElement>(null)
   const wrapperRef = useRef(null)
   useEmojiPickerOutSideClick(wrapperRef)
+  const oneImageWidth = '550px'
+  const oneImageHeight = '550px'
+  const twoImageWidth = '270px'
+  const twoImageHeight = '288px'
+  const thirdImageHeight = '400px'
+  const fourImageHeight = '195px'
 
-  const options = [
-    { value: '@THEIA', label: 'THEIA' },
-    { value: '@MOONBIRDS', label: 'MOONBIRDS' },
-    { value: '@BAYC', label: 'BAYC' },
-  ]
   const removePhotoItem = (idx) => {
     const selectedImage = photoList
     selectedImage.splice(idx, 1)
@@ -66,6 +70,7 @@ export default function CollectiveFeedPost() {
     setChosenEmoji(emojiObject)
     setPostText(postText + emojiObject.emoji)
     showEmojiForm(false)
+    console.log(chosenEmoji)
   }
   useEffect(() => {
     if (
@@ -225,11 +230,7 @@ export default function CollectiveFeedPost() {
   return (
     <CollectiveFeedPostWrapper>
       <Flex className="inputLayout">
-        <img
-          src={collectiveInfo.avatar}
-          className="userNftAvatar"
-          alt="user nft image"
-        />
+        <NFTAvatar avatarUrl={currentUserProfile?.avatarUrl} width={'56px'} />
         <ReactQuill
           placeholder="What's happening"
           theme="snow"
@@ -257,7 +258,9 @@ export default function CollectiveFeedPost() {
               ClearIndicator: () => null,
               IndicatorSeparator: () => null,
             }}
-            options={options}
+            options={availableCollectives
+              .filter((c) => c.collective_id !== collectiveInfo.collective_id)
+              .map((c) => ({ value: `@${c.name}`, label: c.name }))}
             formatOptionLabel={formatOptionLabel}
           />
         </Flex>
@@ -273,13 +276,7 @@ export default function CollectiveFeedPost() {
         )}
 
         {visibleImageUploadForm && currentMediaCount != 0 && (
-          <Flex
-            className="imageListLayout"
-            style={{
-              width: '562px',
-              height: currentMediaCount > 1 ? '296px' : '512px',
-            }}
-          >
+          <Flex className="imageListLayout">
             {photoList.map((item, idx) => {
               return currentMediaCount == 3 &&
                 alreadyGifOpend == false &&
@@ -299,7 +296,7 @@ export default function CollectiveFeedPost() {
                   </IconButtonV2>
                   <img
                     src={item}
-                    style={{ width: '269px', height: '288px' }}
+                    style={{ width: twoImageWidth, height: thirdImageHeight }}
                   ></img>
                 </Flex>
               ) : (
@@ -315,25 +312,25 @@ export default function CollectiveFeedPost() {
                   {currentMediaCount == 1 && (
                     <img
                       src={item}
-                      style={{ width: '546px', height: '504px' }}
+                      style={{ width: oneImageWidth, height: oneImageHeight }}
                     ></img>
                   )}
                   {currentMediaCount == 2 && (
                     <img
                       src={item}
-                      style={{ width: '269px', height: '288px' }}
+                      style={{ width: twoImageWidth, height: twoImageHeight }}
                     ></img>
                   )}
                   {currentMediaCount == 3 && (
                     <img
                       src={item}
-                      style={{ width: '269px', height: '144px' }}
+                      style={{ width: twoImageWidth, height: fourImageHeight }}
                     ></img>
                   )}
                   {currentMediaCount == 4 && (
                     <img
                       src={item}
-                      style={{ width: '269px', height: '144px' }}
+                      style={{ width: twoImageWidth, height: fourImageHeight }}
                     ></img>
                   )}
                 </Flex>
@@ -356,7 +353,7 @@ export default function CollectiveFeedPost() {
                   </IconButtonV2>
                   <img
                     src={selectedGif['images']['downsized']['url']}
-                    style={{ height: '320px', width: '269px' }}
+                    style={{ height: '400pxpx', width: twoImageWidth }}
                   />
                 </Flex>
               )}
@@ -374,7 +371,7 @@ export default function CollectiveFeedPost() {
                   </IconButtonV2>
                   <img
                     src={selectedGif['images']['downsized']['url']}
-                    style={{ height: '320px', width: '269px' }}
+                    style={{ height: twoImageHeight, width: twoImageWidth }}
                   />
                 </Flex>
               )}
@@ -392,7 +389,7 @@ export default function CollectiveFeedPost() {
                   </IconButtonV2>
                   <img
                     src={selectedGif['images']['downsized']['url']}
-                    style={{ height: '504px', width: '546px' }}
+                    style={{ height: oneImageHeight, width: oneImageWidth }}
                   />
                 </Flex>
               )}
@@ -410,7 +407,7 @@ export default function CollectiveFeedPost() {
                   </IconButtonV2>
                   <img
                     src={selectedGif['images']['downsized']['url']}
-                    style={{ height: '140px', width: '269px' }}
+                    style={{ height: fourImageHeight, width: twoImageWidth }}
                   />
                 </Flex>
               )}

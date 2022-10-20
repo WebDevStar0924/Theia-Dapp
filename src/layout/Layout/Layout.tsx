@@ -1,6 +1,6 @@
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { SidebarV2 } from 'uikit/SidebarV2'
 import { Header } from '../Header'
-import { SidebarV2 } from '../../uikit/SidebarV2'
 import { LayoutWrapper } from './styles'
 
 export default function Layout({ children }) {
@@ -12,8 +12,6 @@ export default function Layout({ children }) {
       <Header />
       <div className={'contentView'}>
         {!location.pathname.includes('/gallery') && <SidebarV2 />}
-        {/* {location.pathname === '/home' && <Sidebar />} */}
-
         <div className={'componentsView'} id="componentsView">
           {children}
         </div>

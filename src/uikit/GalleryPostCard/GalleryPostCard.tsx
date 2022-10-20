@@ -41,6 +41,12 @@ export default function GalleryPostCard() {
         alignItems="center"
         className="replyActionLayout"
       >
+        <CommentButton
+          count={count.toString()}
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        />
         <HeartButton
           count={count.toString()}
           size={'lg'}
@@ -48,12 +54,6 @@ export default function GalleryPostCard() {
             e.stopPropagation()
           }}
           active={false}
-        />
-        <CommentButton
-          count={count.toString()}
-          onClick={(e) => {
-            e.stopPropagation()
-          }}
         />
         <SaveButton
           onClick={(e) => {

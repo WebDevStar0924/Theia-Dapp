@@ -9,8 +9,9 @@ export const GalleryPostCardWrapper = styled.div`
   .replyActionLayout {
     flex-direction: row;
     grid-gap: 57px;
+    justify-content: center;
   }
-  :hover{
+  :hover {
     background: #fbfbfb;
     cursor: pointer;
   }
@@ -108,9 +109,5 @@ export const GalleryPostCardWrapper = styled.div`
       line-height: 24px;
       color: #000000;
     }
-  }
-  .replyActionLayout {
-    grid-gap: 90px;
-    justify-content: center;
   }
 `

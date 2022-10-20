@@ -19,7 +19,6 @@ export default function GifUploadModal(props: iProps) {
   const [searchValue, setSearchValue] = useState('')
   const [searchResult, setSearchResult] = useState<GifsResult>({} as GifsResult)
   async function search() {
-    // const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
     if (searchValue !== '') {
       const gifs = await gf.search(searchValue, {
         sort: 'relevant',
@@ -38,21 +37,6 @@ export default function GifUploadModal(props: iProps) {
     console.log(searchResult)
   }, [searchValue])
 
-  // async function GridDemo({ onGifClick }) {
-  //   // const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
-  //   const gifs= await gf.search('dogs', { sort: 'relevant', lang: 'es', limit: 10, type: 'stickers' })
-  //   return (
-  //     <>
-  //       <Grid
-  //         onGifClick={onGifClick}
-  //         fetchGifs={gifs}
-  //         width={600}
-  //         columns={3}
-  //         gutter={6}
-  //       />
-  //     </>
-  //   )
-  // }
   return (
     <Modal
       title={''}
@@ -98,6 +82,7 @@ export default function GifUploadModal(props: iProps) {
                       params?.callback(data)
                   }}
                   style={{ cursor: 'pinter' }}
+                  key={'gifCard' + data.id}
                 >
                   <Gif
                     gif={data}

@@ -1,14 +1,11 @@
 import styled from 'styled-components'
 
-export const ForumPostCardWrapper = styled.div`
+export const ForumCommentCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   padding: 15px 13px;
   width: 100%;
-  :hover {
-    background: #fbfbfb;
-    cursor: pointer;
-  }
+  flex-direction: column;
   .userNftAvatar {
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.16);
     clip-path: polygon(
@@ -87,7 +84,18 @@ export const ForumPostCardWrapper = styled.div`
         color: #98a2b3;
       }
     }
+    .userInfo {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      align-items: center;
+      color: #3538cd;
+      margin-left: 10px;
+    }
     .postContext {
+      margin-top: 10px;
       font-family: 'Montserrat';
       font-style: normal;
       font-weight: 400;

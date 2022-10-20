@@ -4,7 +4,7 @@ export const EventPostCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   padding: 15px 13px;
-  :hover{
+  :hover {
     background: #fbfbfb;
     cursor: pointer;
   }
@@ -59,13 +59,14 @@ export const EventPostCardWrapper = styled.div`
     height: 56px;
     margin-right: 8px;
   }
-  .rightPart {
+  .dataLayout {
     width: 100%;
     margin-top: 16px;
     .replyActionLayout {
       flex-direction: row;
       grid-gap: 90px;
       margin-left: 10px;
+      margin-top: 20px;
     }
     .postHeader {
       .ownerName {

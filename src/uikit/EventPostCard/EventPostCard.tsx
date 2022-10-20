@@ -20,7 +20,7 @@ export default function EventPostCard() {
         className="userNftAvatar"
         alt="user nft image"
       />
-      <Flex className={'rightPart'} flexDirection="column">
+      <Flex className={'dataLayout'} flexDirection="column">
         <Flex
           className={'postHeader'}
           flexDirection="row"
@@ -107,6 +107,12 @@ export default function EventPostCard() {
           alignItems="center"
           className="replyActionLayout"
         >
+          <CommentButton
+            count={count.toString()}
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          />
           <HeartButton
             count={count.toString()}
             size={'lg'}
@@ -114,12 +120,6 @@ export default function EventPostCard() {
               e.stopPropagation()
             }}
             active={false}
-          />
-          <CommentButton
-            count={count.toString()}
-            onClick={(e) => {
-              e.stopPropagation()
-            }}
           />
           <SaveButton
             onClick={(e) => {

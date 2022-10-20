@@ -23,8 +23,7 @@ export const Backbutton = styled.button`
   background: #ffffff;
   width: 58px;
   height: 58px;
-  border: 1px solid #d0d5dd;
-  border-radius: 100px;
+  border: none;
 `
 
 export const ForumCardWrapper = styled.div`

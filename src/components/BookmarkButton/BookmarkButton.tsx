@@ -13,7 +13,7 @@ export default function BookmarkButton(props: iProps) {
         width="20px"
         height="20px"
         stroke="#667085"
-        stroke-width="1px"
+        strokeWidth="1px"
       />
     </BookmarkWrapper>
   )

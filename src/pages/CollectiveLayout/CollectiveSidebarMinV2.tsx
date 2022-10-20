@@ -1,19 +1,10 @@
-import cn from 'classnames'
 // import { TabList } from 'components/TabList'
-import { TabListV2 } from 'uikit/TabListV2'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useMembership } from 'hooks/useMembership'
 import { useEffect, useState } from 'react'
-import { FiCalendar, FiEdit3, FiHome, FiImage, HiPlus } from 'react-icons/all'
-import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { eventClear } from 'state/event'
-import useForumModal from 'widgets/CreateForumModal/useForumModal'
-import { useShareArtModal } from 'widgets/GalleryModal/useShareArtModal'
-import { useEventCreateModal } from 'widgets/EventModal/useShareEventModal'
+import { TabListV2 } from 'uikit/TabListV2'
 import {
-  HomeOutlineFillIcon,
   CalendarFillIcon,
+  HomeOutlineFillIcon,
   ImageFillIcon,
 } from '../../components/Svg'
 import { CollectiveSidebarMinWrapper } from './styles'
@@ -21,30 +12,16 @@ import { CollectiveSidebarMinWrapper } from './styles'
 interface iProps {
   collectiveInfo: any
   galleries: any[]
+  currentUserProfile: any
   addNewForum: (newForum: any) => void
   addNewGallery: (newGallery: any) => void
   addNewEvent: (newEvent: any) => void
 }
 export default function CollectiveSidebarV2(props: iProps) {
-  const dispatch = useDispatch()
   const { cname } = useParams()
   const location = useLocation()
-  const { collectiveInfo, galleries, addNewForum, addNewGallery, addNewEvent } =
-    props
+  const { collectiveInfo } = props
   const [activeTabItem, setActiveTabItem] = useState('home')
-  const [isShowEventBtns, showEventBtns] = useState(false)
-  const onMemberShipCheck = useMembership()
-  const { account } = useActiveWeb3React()
-  // const { onPresentEventCardModal } = useEventCardModal();
-
-  const { onPresentForumModal } = useForumModal()
-  const { onPresentEventCreateModal } = useEventCreateModal()
-  const { onPresentShareArtModal } = useShareArtModal(
-    galleries,
-    addNewGallery,
-    collectiveInfo,
-  )
-
   const navigate = useNavigate()
 
   useEffect(() => {

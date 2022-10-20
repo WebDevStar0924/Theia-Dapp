@@ -413,4 +413,17 @@ export default class API {
       is_saved,
     })
   }
+
+  static getNFTProfile(collective_id, address) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/profile/nft`, {
+      collective_id,
+      address,
+    })
+  }
+
+  static getAvailableCollectives(address) {
+    return axios.post(`${process.env.REACT_APP_API_URL}/auth/collectives`, {
+      address,
+    })
+  }
 }

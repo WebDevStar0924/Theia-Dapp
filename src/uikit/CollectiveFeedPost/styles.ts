@@ -6,9 +6,10 @@ export const CollectiveFeedPostWrapper = styled.div`
   flex-direction: row;
   display: flex;
   position: relative;
+
   flex-direction: column;
   .inputLayout{
-       
+   
     .ql-toolbar.ql-snow {
       border: none ;  
       width: 100%;    
@@ -22,7 +23,6 @@ export const CollectiveFeedPostWrapper = styled.div`
         margin-right: 0px;
         button{
           margin-right: 5px;
-         
         }
       }
 
@@ -157,7 +157,7 @@ export const CollectiveFeedPostWrapper = styled.div`
     .EmojiPickerReact {
       position: absolute;
       left: 20%;
-      top: 42px;
+      bottom: -500px;
       z-index: 1000;
       --epr-emoji-size: 20px;
       
