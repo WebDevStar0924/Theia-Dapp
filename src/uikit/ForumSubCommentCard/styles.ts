@@ -111,17 +111,6 @@ export const ForumSubCommentCardWrapper = styled.div`
       line-height: 24px;
       position: relative;
       color: #000000;
-      max-height: 180px;
-      overflow: hidden;
-      :before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background: linear-gradient(transparent 100px, white);
-        top: 0;
-        left: 0;
-      }
     }
     .imageLayout {
       display: grid;

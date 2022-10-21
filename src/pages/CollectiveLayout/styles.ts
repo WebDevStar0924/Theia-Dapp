@@ -9,14 +9,12 @@ export const CollectiveLayoutWrapper = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
-  
-
-    max-height: calc(100vh - 96px);
+    max-height: calc(100vh - 32px);
     overflow-y: scroll;
   }
   .collectiveLayout {
      display: flex;
-     flexDirection: row ;
+     flexDirection: row ;     
      border-left: solid 1px #e4e7ec;
 `
 
@@ -24,7 +22,7 @@ export const CollectiveHeaderWrapper = styled.div`
   background: #ffffff;
   position: relative;
   border: solid 1px #e4e7ec;
-
+  border-bottom: none;
   .bannerImg {
     width: 100%;
     height: 160px;
@@ -40,6 +38,10 @@ export const CollectiveHeaderWrapper = styled.div`
     border: 2px solid #ffffff;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.16);
     border-radius: 100px;
+  }
+  .underLine {
+    height: 1px;
+    background: #e4e7ec;
   }
 
   .detailActions {
@@ -143,7 +145,7 @@ export const CollectiveSidebarWrapper = styled.div`
   align-items: center;
   padding: 24px 6px;
   gap: 20px;
-  min-width: 200px;
+  min-width: 200px;  
   border-right: 1px solid #e4e7ec;
   background: #ffffff;
   .userNftAvatar {
@@ -269,12 +271,39 @@ export const CollectiveSidebarMinWrapper = styled.div`
   padding: 24px 8px;
   margin: 24px;
   position: sticky;
-  top: 24px;
+  top: 90px;
   width: 72px;
   height: 390px;
   background: #ffffff;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 100px;
+  .shareButton {
+    margin-bottom: 40px;
+    min-height: 40px;
+    background: black;
+    margin-left: calc(50% - 20px);
+    color: white;
+    align-self: baseline;
+    height: 20px;
+    width: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    transition: width 0.3s;
+    :hover {
+      width: 140px;
+      cursor: pointer;
+    }
+    .buttonText {
+      align-items: center;
+      font-size: 35px;
+      color: white;
+      font-family: 'Montserrat';
+      font-style: normal;
+      div {
+        width: 90px;
+        margin-left: 10px;
+        font-size: 15px;
+      }
+    }
+  }
   .tabItem {
     width: 56px !important;
     height: 56px !important;

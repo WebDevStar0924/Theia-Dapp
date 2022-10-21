@@ -7,7 +7,6 @@ export const HeaderRightWrapper = styled.div`
   align-items: center;
   padding: 4px;
   gap: 40px;
-  width: 331px;
   height: 48px;
 
   background: rgba(255, 255, 255, 0.8);

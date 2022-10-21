@@ -97,6 +97,7 @@ export const StyledShareArtContent = styled.div`
 
   .actions {
     margin: 32px auto 0 auto;
+    width: 100%;
   }
   .closeBtn {
     border: 1px solid #d0d5dd;
@@ -106,6 +107,22 @@ export const StyledShareArtContent = styled.div`
     width: 36px;
     height: 36px;
     border-radius: 18px;
+  }
+  .confirmButton {
+    padding: 8px 0px;
+    border-radius: 30px;
+    background: #0f172a;
+    width: 100%;
+    color: white;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    :disabled {
+      background: #e4e7ec;
+      color: #98a2b3;
+    }
   }
 `
 

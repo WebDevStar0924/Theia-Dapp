@@ -30,6 +30,8 @@ export default function CollectiveLayout() {
     onlyMyPosts: false,
   })
   const [topics, updateTopics] = useState([])
+  console.log('fdskfsdfsdfsdljflsadjflsajf')
+
 
   useEffect(() => {
     setIsMixed(false)
@@ -261,7 +263,7 @@ export default function CollectiveLayout() {
               updateCollectiveInfo={(data) => setCollectiveInfo(data)}
             />
             <div className={'collectiveLayout'}>
-              {location.pathname.includes('/gallery') ? (
+              {location.pathname.split('/')[3] === 'gallery' ? (
                 <CollectiveSidebarMinV2
                   collectiveInfo={collectiveInfo}
                   galleries={galleries}

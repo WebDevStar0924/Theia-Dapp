@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux'
 import { State } from 'state/types'
 import { checkVideoUrl, getImageLinkFromMetadata } from 'utils'
 import defaultProjectIcon from '../../assets/image/defaultProjectIcon.png'
-import { IconButton } from '../../components/Button'
-import { MotionButton } from '../../components/MotionButton/styles'
+import { Button, IconButton } from '../../components/Button'
 import { CloseIcon, SpinnerIcon } from '../../components/Svg'
 import Checkmark from '../../components/Svg/Icons/Checkmark'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
@@ -160,13 +159,8 @@ export default function ShareArtModal(props: iProps) {
       width={'990px'}
     >
       <StyledShareArtContent>
-        <div className={'title'}>Share Your Art</div>
-        <div className={'description'}>
-          {collectiveInfo
-            ? `Choose the NFTs you would like to share with
-                    the ${collectiveInfo?.name} community.`
-            : `Choose the NFTs you would like to share with all users.`}
-        </div>
+        <div className={'title'}>SHARE</div>
+
         <div className="artList" ref={rootRef}>
           {items
             .filter(
@@ -188,14 +182,13 @@ export default function ShareArtModal(props: iProps) {
           {hasNextPage && <div ref={sentryRef}>loading</div>}
         </div>
         <div className={'actions'}>
-          <MotionButton
-            onClick={onConfirm}
-            color={'#FFFFFF'}
-            bgColor={'#3538CD'}
+          <Button
+            className={'confirmButton'}
             disabled={selectedNftIds.length === 0}
+            onClick={onConfirm}
           >
             {loading ? <SpinnerIcon className={'loading-icon'} /> : 'CONFIRM'}
-          </MotionButton>
+          </Button>
         </div>
         <IconButton
           variant="text"

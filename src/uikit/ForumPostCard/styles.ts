@@ -87,6 +87,15 @@ export const ForumPostCardWrapper = styled.div`
         color: #98a2b3;
       }
     }
+    .postContextForumDetails {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      position: relative;
+      color: #000000;
+    }
     .postContext {
       font-family: 'Montserrat';
       font-style: normal;

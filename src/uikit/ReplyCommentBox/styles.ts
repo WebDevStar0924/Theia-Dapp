@@ -4,16 +4,23 @@ export const ReplyCommentBoxWrapper = styled.div`
   .replyBox {
     .inputLayout {
       padding: 10px;
+      position: relative;
       .ql-container {
         border-radius: 5px;
+        margin-top: 13px;
+        border: none;
       }
       .ql-editor {
+        word-break: break-all;
         padding: 5px;
         font-family: 'Montserrat';
         font-style: normal;
         font-weight: 500;
         font-size: 15px;
-        line-height: 20px;
+        line-height: 24px;
+        p:first-child {
+          text-indent: 150px;
+        }
       }
       .replyText {
         font-family: 'Montserrat';
@@ -33,8 +40,10 @@ export const ReplyCommentBoxWrapper = styled.div`
         font-size: 18px;
         line-height: 28px;
         display: flex;
-        align-items: center;
         color: #3538cd;
+        margin-top: 15px;
+        position: absolute;
+        left: 80px;
       }
       .replyInput {
         .inputWrapper {

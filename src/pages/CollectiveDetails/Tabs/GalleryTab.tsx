@@ -5,13 +5,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { checkVideoUrl, getImageLinkFromMetadata } from 'utils'
 import defaultProjectIcon from '../../../assets/image/defaultProjectIcon.png'
-import { FavouriteIcon } from '../../../components/Svg'
 import useActiveWeb3React from '../../../hooks/useActiveWeb3React'
-import {
-  useArtDetailModal,
-  useRemoveArtModal,
-  useShareArtModal,
-} from '../../../widgets/GalleryModal/useShareArtModal'
+import { useArtDetailModal } from '../../../widgets/GalleryModal/useShareArtModal'
 import { GalleryWrapper } from '../styles'
 
 interface ArtItemProps {
@@ -21,7 +16,7 @@ interface ArtItemProps {
 }
 
 function ArtItem(props: ArtItemProps) {
-  const { art, onClick, onFavourite } = props
+  const { art, onClick } = props
 
   const { animationUrl, metadataImage, mediaImage } =
     getImageLinkFromMetadata(art)
@@ -72,13 +67,10 @@ function ArtItem(props: ArtItemProps) {
           </>
         )}
       </div>
+      <div className="imageOverlay" onClick={onClick}></div>
       <div className="artInfo">
         <div className="artLabels">
           <div className="artName">{art.metadata?.name ?? ''}</div>
-        </div>
-        <div className="artFavourite" onClick={onFavourite}>
-          <FavouriteIcon className="favoriteIcon" />
-          {art.crown}
         </div>
       </div>
     </div>
@@ -86,7 +78,7 @@ function ArtItem(props: ArtItemProps) {
 }
 
 export default function GalleryTab() {
-  const { galleries, setGalleries, collectiveInfo } =
+  const { galleries, collectiveInfo } =
     useOutletContext<CollectiveContextProps>()
   const { account, chainId } = useActiveWeb3React()
   const onMemberShipCheck = useMembership()
@@ -95,37 +87,6 @@ export default function GalleryTab() {
 
   const [sharedNfts, setSharedNfts] = useState<any[]>(galleries)
   const navigate = useNavigate()
-
-  const onShare = (shared: any[]) => {
-    setSharedNfts([...sharedNfts, ...shared])
-    setGalleries([...sharedNfts, ...shared])
-  }
-  const onRemove = (removed: any[]) => {
-    const shared = sharedNfts.filter(
-      (nft) => !removed.find((item) => item.id.tokenId === nft.id.tokenId),
-    )
-    setSharedNfts(shared)
-    setGalleries(shared)
-  }
-
-  const { onPresentShareArtModal } = useShareArtModal(
-    sharedNfts,
-    onShare,
-    collectiveInfo,
-  )
-  const { onPresentRemoveArtModal } = useRemoveArtModal(
-    sharedNfts.filter((item) => item.owneraddress === account),
-    onRemove,
-    collectiveInfo,
-  )
-
-  const onShareArt = () => {
-    onPresentShareArtModal()
-  }
-
-  const onRemoveArt = () => {
-    onPresentRemoveArtModal()
-  }
 
   const onClickArt = (art: any) => {
     if (account && chainId) {
@@ -169,28 +130,6 @@ export default function GalleryTab() {
 
   return (
     <GalleryWrapper>
-      <div
-        className="shareBtn"
-        onClick={() => {
-          onMemberShipCheck(collectiveInfo.collective_id, account, () =>
-            onShareArt(),
-          )
-        }}
-      >
-        SHARE YOUR ART
-      </div>
-      {sharedNfts.length > 0 && (
-        <div
-          className="removeBtn"
-          onClick={() => {
-            onMemberShipCheck(collectiveInfo.collective_id, account, () =>
-              onRemoveArt(),
-            )
-          }}
-        >
-          REMOVE
-        </div>
-      )}
       <div className="artList">
         {sharedNfts.map((art, index) => (
           <ArtItem

@@ -8,7 +8,7 @@ export default function Header() {
   const location = useLocation()
 
   return (
-    <HeaderWrapper bgColor={location.pathname === '/mint' ? '#101828' : '#fff'}>
+    <HeaderWrapper bgColor={location.pathname === '/mint' ? '#101828' : location.pathname.split('/')[3] === 'gallery' ? 'transparent' : 'rgba(255, 255, 255, 0.6)'}>
       <div className={'headerContent'}>
         <HeaderLeftWrapper>
           <LogoHeader></LogoHeader>

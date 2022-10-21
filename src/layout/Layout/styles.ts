@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const LayoutWrapper = styled.div<{ bgColor: string }>`
+export const LayoutWrapper = styled.div<{ bgColor: string, marginTop: string }>`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -9,6 +9,7 @@ export const LayoutWrapper = styled.div<{ bgColor: string }>`
   .contentView {
     display: flex;
     height: 100%;
+    margin-top: ${({ marginTop }) => marginTop};
     overflow: hidden;
     max-width: 1440px;
     width: 100%;

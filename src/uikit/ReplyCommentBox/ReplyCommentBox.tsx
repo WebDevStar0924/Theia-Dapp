@@ -122,17 +122,14 @@ export default function ReplyCommentBox(props: iProps) {
           flexDirection={'column'}
           justifyContent={'space-between'}
         >
-          <Flex flexDirection={'row'} alignItems={'center'}>
+          <Flex flexDirection={'row'}>
             <img
               src={collectiveInfo.avatar}
               className="userNftAvatar"
               alt="user nft image"
             />
             <span className="userInfo">@larrykong.eth</span>
-          </Flex>
-          <Flex marginLeft={'56px'}>
             <ReactQuill
-              style={{ width: '100%' }}
               placeholder=""
               theme="snow"
               value={replyText}

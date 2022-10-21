@@ -72,10 +72,7 @@ export default function ForumDetails() {
                       </Flex>
                       <Flex className={'postedTime'}>11 MINS AGO</Flex>
                     </Flex>
-                    <Flex
-                      className={'postContext'}
-                      style={{ fontWeight: '600', marginTop: '5px' }}
-                    >
+                    <Flex className={'postContextForumDetails'}>
                       {postTextList[0]}
                     </Flex>
                     <Flex className={'imageLayout'} flexDirection="row">
@@ -110,6 +107,10 @@ export default function ForumDetails() {
                         )
                       })}
                     </Flex>
+                    <div
+                      className="underLine"
+                      style={{ marginTop: '20px' }}
+                    ></div>
                     <Flex
                       flexDirection="row"
                       alignItems="center"

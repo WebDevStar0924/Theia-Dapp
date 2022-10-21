@@ -13,11 +13,9 @@ import { useState } from 'react'
 
 export default function Sidebar() {
   const navigate = useNavigate()
-  const location = useLocation()
-  console.log(location.pathname)
   const [activeTab, setActiveTab] = useState('home')
   return (
-    <SidebarV2Wrapper>
+    <SidebarV2Wrapper marginTop={'64px'}>
       <div className={'menuList'}>
         <div
           className={'menuItem'}

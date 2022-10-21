@@ -62,7 +62,7 @@ export const ForumCommentCardWrapper = styled.div`
     .replyActionLayout {
       flex-direction: row;
       grid-gap: 90px;
-      margin-left: 10px;
+      margin-left: 0px !important;
       margin-top: 20px;
     }
     .postHeader {
@@ -103,16 +103,14 @@ export const ForumCommentCardWrapper = styled.div`
       line-height: 24px;
       position: relative;
       color: #000000;
-      max-height: 180px;
-      overflow: hidden;
-      :before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background: linear-gradient(transparent 100px, white);
-        top: 0;
-        left: 0;
+      .userInfo {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        align-items: center;
+        color: #3538cd;
       }
     }
     .imageLayout {

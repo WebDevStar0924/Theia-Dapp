@@ -7,7 +7,6 @@ import { useWalletModal } from '../../widgets/WalletModal'
 import AvatarV2 from '../../uikit/AvatarV2/AvatarV2'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import useAuth from '../../hooks/useAuth'
-import { useLocation } from 'react-router-dom'
 interface iProps {
   themeMode: boolean
 }
@@ -23,18 +22,17 @@ export default function HeaderRight(props: iProps) {
 
   const { themeMode } = props
   const [themeModeOption, setThemeMode] = useState(themeMode)
-  const location = useLocation()
 
   return (
     <HeaderRightWrapper>
-      {location.pathname.includes('/gallery') && (
-        <ThemeSwitch
-          activeValue={themeModeOption}
-          onUpdateItem={(val) => {
-            setThemeMode(!val)
-          }}
-        ></ThemeSwitch>
-      )}
+
+      <ThemeSwitch
+        activeValue={themeModeOption}
+        onUpdateItem={(val) => {
+          setThemeMode(!val)
+        }}
+      ></ThemeSwitch>
+
       {account ? (
         <AvatarV2 account={account} login={login} logout={logout} />
       ) : (

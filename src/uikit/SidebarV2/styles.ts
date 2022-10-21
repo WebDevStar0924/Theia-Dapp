@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const SidebarV2Wrapper = styled.div`
+export const SidebarV2Wrapper = styled.div<{ marginTop: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -9,7 +9,7 @@ export const SidebarV2Wrapper = styled.div`
   background: #ffffff;
   padding: 28px 12px 52px;
   gap: 10px;
-
+  margin-top: ${({ marginTop }) => marginTop};
   .menuList {
     display: flex;
     flex-direction: column;

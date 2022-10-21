@@ -8,10 +8,12 @@ export default function Layout({ children }) {
   return (
     <LayoutWrapper
       bgColor={location.pathname === '/mint' ? '#101828' : '#f9fafb'}
+      marginTop={'-64px'}
     >
       <Header />
       <div className={'contentView'}>
-        {!location.pathname.includes('/gallery') && <SidebarV2 />}
+        {location.pathname.split('/')[3] !== 'gallery' && <SidebarV2 />}
+
         <div className={'componentsView'} id="componentsView">
           {children}
         </div>

@@ -4,7 +4,7 @@ export const HeaderWrapper = styled.div<{ bgColor: string }>`
   z-index: 10;
   padding-left: 20px;
   padding-right: 20px;
-  background: white;
+  background: ${({ bgColor }) => bgColor};
   .headerContent {
     display: flex;
     flex-direction: row;

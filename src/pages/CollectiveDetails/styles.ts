@@ -476,6 +476,7 @@ export const EventsTabWrapper = styled.div`
 `
 
 export const GalleryWrapper = styled.div`
+  margin-top: 80px;
   &.blurBg {
     filter: blur(5px);
   }
@@ -522,10 +523,10 @@ export const GalleryWrapper = styled.div`
   }
 
   .artList {
-    margin-top: 36px;
+    margin: 36px 100px 0px 0px;
     display: flex;
     flex-wrap: wrap;
-    grid-gap: 56px;
+    grid-gap: 60px 80px;
     justify-content: space-around;
 
     .artItem {
@@ -534,20 +535,36 @@ export const GalleryWrapper = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
       .artImage {
         width: 320px;
-        border-radius: 8px;
+        height: 320px;
+        object-fit: cover;
+      }
+      .imageOverlay {
+        visibility: hidden;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        background: rgb(2, 0, 36);
+        background: linear-gradient(
+          0deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(2, 2, 5, 0.2497373949579832) 50%,
+          rgba(0, 212, 255, 0) 100%
+        );
       }
       .artInfo {
         position: absolute;
         bottom: 16px;
         left: 16px;
         right: 16px;
-        display: flex;
+        visibility: hidden;
         align-items: center;
+        opacity: 0;
         justify-content: space-between;
-
         .artLabels {
           color: #fff;
           font-family: 'Montserrat';
@@ -581,6 +598,19 @@ export const GalleryWrapper = styled.div`
           }
         }
       }
+      :hover {
+        cursor: pointer;
+      }
+    }
+    .artItem:hover .artInfo {
+      visibility: visible;
+      opacity: 1;
+      transition: 0.7s;
+    }
+    .artItem:hover .imageOverlay {
+      visibility: visible;
+      opacity: 1;
+      transition: 0.7s;
     }
   }
 `
